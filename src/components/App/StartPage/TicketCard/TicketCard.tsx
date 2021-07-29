@@ -15,7 +15,7 @@ const TicketCard = ({ ticket }: TTicketCardProps) => {
       <div className="wmnds-grid wmnds-p-md wmnds-p-b-none">
         <div className="wmnds-col-1-1 wmnds-col-md-2-3">
           <h2 className="wmnds-content-card__title wmnds-m-b-md">
-            <NIconText text={ticket.name} />
+            <NIconText className="wmnds-m-r-sm" text={ticket.name} />
             <div className={s.modeIconWrapper}>
               {ticket.modes.map((mode) => (
                 <Icon
