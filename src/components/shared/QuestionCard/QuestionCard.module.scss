@@ -1,0 +1,14 @@
+@import '~assets/wmnds/vars';
+@import '~assets/wmnds/mixins';
+
+.card {
+  margin-right: -$size-sm;
+  margin-left: -$size-sm;
+  padding: $size-md;
+
+  @media screen and (min-width: $breakpoint-md) {
+    margin-right: 0;
+    margin-left: 0;
+    padding: $size-lg;
+  }
+}
