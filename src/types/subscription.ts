@@ -8,6 +8,6 @@ export type TSubscription<T = any> = {
 };
 
 export type TSubscriptionReturn = {
-  value: string | number | boolean;
-  set: (newValue: string | number | boolean) => void;
+  value: string | number | boolean | Date;
+  set: (newValue: string | number | boolean | Date) => void;
 };

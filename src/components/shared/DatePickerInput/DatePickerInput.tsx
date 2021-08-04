@@ -9,9 +9,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 // Import Custom CSS for the date picker.
 import './datePicker.scss';
 
-const DatePickerInput = ({ availableDates, inline = true }: TDatePickerProps) => {
+const DatePickerInput = ({
+  startDate,
+  setStartDate,
+  availableDates,
+  inline = true,
+}: TDatePickerProps) => {
   const minDate: Date = availableDates[0];
-  const [startDate, setStartDate] = useState(minDate);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
@@ -75,6 +79,8 @@ const DatePickerInput = ({ availableDates, inline = true }: TDatePickerProps) =>
 };
 
 DatePickerInput.propTypes = {
+  startDate: PropTypes.instanceOf(Date).isRequired,
+  setStartDate: PropTypes.func,
   availableDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
   inline: PropTypes.bool,
 };

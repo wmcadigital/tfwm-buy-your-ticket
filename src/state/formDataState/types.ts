@@ -11,7 +11,7 @@ export type TFormDataState = {
   onlineSalesTransactionId: Nullable<number>;
   createdDateTime: Nullable<string>;
   applicationForMe: Nullable<boolean>;
-  startDate: TSubscription<string>;
+  startDate: TSubscription<Date>;
   ticketId: Nullable<number>;
   ticketCode: Nullable<number>;
   addOn: Nullable<string>;
@@ -93,19 +93,19 @@ export type TFormDataStateAction =
       type: 'UPDATE_FORM_DATA';
       payload: {
         name: TFormDataStateItem;
-        value: string | boolean | number;
+        value: string | boolean | number | Date;
       };
     }
   | {
       type: 'UPDATE_SUBSCRIBED_FORM_DATA';
-      payload: Pick<TSubscription<string | boolean | number>, 'value'> & {
+      payload: Pick<TSubscription<string | boolean | number | Date>, 'value'> & {
         name: TFormDataStateItem;
       };
     }
   | {
       type: 'SUBSCRIBE_TO_FORM_DATA';
       payload: Array<
-        Pick<TSubscription<string | boolean | number>, 'section' | 'step'> & {
+        Pick<TSubscription<string | boolean | number | Date>, 'section' | 'step'> & {
           name: TFormDataStateItem;
         }
       >;

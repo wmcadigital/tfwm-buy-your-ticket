@@ -17,7 +17,7 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataNames) => {
     subscriptions = dataNames.map((dataName) => {
       const currentFormData = formDataState[dataName] as TSubscription;
 
-      const currentValue = currentFormData.value as string | number | boolean;
+      const currentValue = currentFormData.value as string | number | boolean | Date;
       const set = (newValue: typeof currentValue) => {
         formDataDispatch({
           type: 'UPDATE_SUBSCRIBED_FORM_DATA',

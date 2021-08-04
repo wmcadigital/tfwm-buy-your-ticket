@@ -1,9 +1,41 @@
+import { useState } from 'react';
 import Button from 'components/shared/Button';
+import DatePickerInput from 'components/shared/DatePickerInput/DatePickerInput';
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 import { TStepProps } from 'types/step';
 
+const unformatedDates: string[] = [
+  '2021-08-13T00:00:00+00:00',
+  '2021-08-14T00:00:00+00:00',
+  '2021-08-15T00:00:00+00:00',
+  '2021-08-16T00:00:00+00:00',
+  '2021-08-17T00:00:00+00:00',
+  '2021-08-18T00:00:00+00:00',
+  '2021-08-19T00:00:00+00:00',
+  '2021-08-20T00:00:00+00:00',
+  '2021-08-21T00:00:00+00:00',
+  '2021-08-22T00:00:00+00:00',
+  '2021-08-23T00:00:00+00:00',
+  '2021-08-24T00:00:00+00:00',
+  '2021-08-25T00:00:00+00:00',
+  '2021-08-26T00:00:00+00:00',
+  '2021-08-27T00:00:00+00:00',
+  '2021-08-28T00:00:00+00:00',
+  '2021-08-29T00:00:00+00:00',
+  '2021-08-30T00:00:00+00:00',
+  '2021-08-31T00:00:00+00:00',
+];
+
 const TicketStartDate = ({ goToNextStep }: TStepProps) => {
-  const [startDate] = useFormDataSubscription(['startDate']);
+  const [startDateData] = useFormDataSubscription(['startDate']);
+
+  const availableDates: Date[] = unformatedDates.map((date) => new Date(date));
+  const [startDate, setStartDate] = useState((startDateData.value as Date) || availableDates[0]);
+
+  const handleContinue = () => {
+    startDateData.set(startDate);
+    goToNextStep();
+  };
 
   return (
     <>
@@ -17,16 +49,13 @@ const TicketStartDate = ({ goToNextStep }: TStepProps) => {
         <label className="wmnds-fe-label" htmlFor="input">
           Start date
         </label>
-        <input
-          className="wmnds-fe-input"
-          id="input"
-          name="input"
-          type="text"
-          value={(startDate.value as string | number) || ''}
-          onChange={(e) => startDate.set(e.target.value)}
+        <DatePickerInput
+          startDate={startDate}
+          setStartDate={setStartDate}
+          availableDates={availableDates}
         />
       </div>
-      <Button type="button" text="Continue" onClick={goToNextStep} />
+      <Button type="button" text="Continue" onClick={handleContinue} />
     </>
   );
 };
