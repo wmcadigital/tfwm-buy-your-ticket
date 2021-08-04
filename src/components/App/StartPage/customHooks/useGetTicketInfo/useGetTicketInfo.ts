@@ -1,8 +1,12 @@
 import { useEffect } from 'react';
-import useAxiosRequest from 'customHooks/useAxiosRequest/useAxiosRequest';
+import useAxiosRequest from 'customHooks/useAxiosRequest';
 import { TApiTicket, TTicket } from 'types/ticket';
+import { useGlobalContext } from 'state/globalState/context';
 
 const useGetTicketInfo = (ticketId: number) => {
+  const [globalState] = useGlobalContext();
+  const { ticket } = globalState;
+
   const { REACT_APP_API_HOST, REACT_APP_API_KEY } = process.env;
   const config = {
     url: `${REACT_APP_API_HOST}/ticketing/v2/tickets/${ticketId}`,
@@ -42,9 +46,14 @@ const useGetTicketInfo = (ticketId: number) => {
   }
 
   useEffect(() => {
-    sendRequest();
+    if (!ticket.name) sendRequest();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Only fetch ticket data if it's not already in globalState
+  if (ticket.name) {
+    return { isLoading: false, hasError: false, ticketInfo: ticket };
+  }
 
   return { isLoading, hasError, ticketInfo };
 };

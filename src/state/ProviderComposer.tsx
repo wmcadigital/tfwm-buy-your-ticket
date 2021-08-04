@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { GlobalContextProvider } from './globalState/context';
+import { FormDataContextProvider } from './formDataState/context';
 
 type TProviderComposerProps = {
   contexts: JSX.Element[];
@@ -30,7 +31,7 @@ ProviderComposer.propTypes = {
 // Main context provider component so that the app can be wrapped in all state contexts
 const ContextProvider = ({ children = {} }) => {
   // Add all providers with a self-closing tag to the contexts array below
-  const contexts = [<GlobalContextProvider />];
+  const contexts = [<GlobalContextProvider />, <FormDataContextProvider />];
 
   return <ProviderComposer contexts={contexts}>{children}</ProviderComposer>;
 };

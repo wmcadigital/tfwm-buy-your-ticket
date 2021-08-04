@@ -6,9 +6,10 @@ export type TGlobalState = {
     isStarted: boolean;
     isFinished: boolean;
     isSubmitted: boolean;
-    editMode: boolean;
+    isEditing: boolean;
     currentSection: number;
     currentStep: number;
+    history: Array<{ section: number; step: number }>;
   };
   ticket: TTicket;
 };
@@ -19,11 +20,7 @@ type TGlobalStateAction =
       payload?: null;
     }
   | {
-      type: 'FINISH_FORM';
-      payload?: null;
-    }
-  | {
-      type: 'SHOW_START_PAGE';
+      type: 'SHOW_SUMMARY_PAGE';
       payload?: null;
     }
   | {
@@ -37,6 +34,17 @@ type TGlobalStateAction =
   | {
       type: 'GO_TO_STEP';
       payload: number;
+    }
+  | {
+      type: 'GO_TO_SECTION_AND_STEP';
+      payload: {
+        section: number;
+        step: number;
+      };
+    }
+  | {
+      type: 'GO_BACK';
+      payload?: null;
     };
 
 export type TGlobalStateReducer = (state: TGlobalState, action: TGlobalStateAction) => TGlobalState;
