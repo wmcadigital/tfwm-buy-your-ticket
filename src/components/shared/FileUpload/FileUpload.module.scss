@@ -1,14 +1,22 @@
+// Refer to https://create-react-app.dev/docs/adding-a-css-modules-stylesheet
+// On how to use scss modules with React
+
+// Import WMN Design System scss for use in this scss file
+// Tilde (~) represents the root folder(src)
+@import '~assets/wmnds/vars';
+@import '~assets/wmnds/mixins';
+
 .fileUpload {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
   position: absolute;
   z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  overflow: hidden;
+  opacity: 0;
 }
 
 .fileUploadLabelFocused {
   outline: 0;
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #9d5baf;
-  background-color: #2a0b3a;
+  background-color: get-color(primary);
+  box-shadow: 0 0 0 2px $white, 0 0 0 4px get-color(secondary);
 }
