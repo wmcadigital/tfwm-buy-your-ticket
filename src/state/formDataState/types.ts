@@ -1,7 +1,7 @@
 import { TSubscription } from 'types/subscription';
 import { Nullable } from 'types/helpers';
 
-// fields that are directly editeed by user need to be Subscription<DATA_TYPE>
+// fields that are directly edited by user need to be Subscription<DATA_TYPE>
 // fields that are set via code need to be Nullable<DATA_TYPE>
 export type TFormDataState = {
   sessionNo: Nullable<number>;
@@ -86,29 +86,30 @@ export type TFormDataState = {
   receiveByftFree: Nullable<boolean>;
 };
 
-export type TFormDataStateItem = keyof TFormDataState;
+export type TFormDataStateKey = keyof TFormDataState;
+export type TFormDataStateValue = TFormDataState[TFormDataStateKey] extends TSubscription
+  ? TFormDataState[TFormDataStateKey]['value']
+  : string | boolean | number;
 
 export type TFormDataStateAction =
   | {
       type: 'UPDATE_FORM_DATA';
       payload: {
-        name: TFormDataStateItem;
-        value: string | boolean | number | Date;
+        name: TFormDataStateKey;
+        value: TFormDataStateValue;
       };
     }
   | {
       type: 'UPDATE_SUBSCRIBED_FORM_DATA';
-      payload: Pick<TSubscription<string | boolean | number | Date>, 'value'> & {
-        name: TFormDataStateItem;
+      payload: Pick<TSubscription<TFormDataStateValue>, 'value'> & {
+        name: TFormDataStateKey;
       };
     }
   | {
       type: 'SUBSCRIBE_TO_FORM_DATA';
-      payload: Array<
-        Pick<TSubscription<string | boolean | number | Date>, 'section' | 'step'> & {
-          name: TFormDataStateItem;
-        }
-      >;
+      payload: Pick<TSubscription<TFormDataStateValue>, 'section' | 'step'> & {
+        name: TFormDataStateKey;
+      };
     };
 
 export type TFormDataStateReducer = (

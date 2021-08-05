@@ -27,18 +27,16 @@ const reducer: TFormDataStateReducer = (state, action) => {
     case 'SUBSCRIBE_TO_FORM_DATA':
       data = action.payload;
 
-      return data.reduce((accumulator, current) => {
-        return {
-          ...accumulator,
-          [current.name]: {
-            ...(accumulator[current.name] as TSubscription),
-            name: current.name,
-            section: current.section,
-            step: current.step,
-            isSubscribed: true,
-          },
-        };
-      }, state);
+      return {
+        ...state,
+        [data.name]: {
+          ...(state[data.name] as TSubscription),
+          name: data.name,
+          section: data.section,
+          step: data.step,
+          isSubscribed: true,
+        },
+      };
 
     default:
       return state;

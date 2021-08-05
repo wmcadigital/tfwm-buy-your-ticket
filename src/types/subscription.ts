@@ -7,7 +7,8 @@ export type TSubscription<T = any> = {
   isSubscribed: boolean;
 };
 
-export type TSubscriptionReturn = {
-  value: string | number | boolean | Date;
-  set: (newValue: string | number | boolean | Date) => void;
+export type TSubscriptionReturn<T> = {
+  value: T | null;
+  set: (newValue: T) => void;
+  save: () => void;
 };

@@ -1,4 +1,9 @@
-import { TFormDataStateItem } from 'state/formDataState/types';
-import { TSubscriptionReturn } from 'types/subscription';
+import { TFormDataState, TFormDataStateKey } from 'state/formDataState/types';
+import { TSubscription, TSubscriptionReturn } from 'types/subscription';
 
-export type TUseFormDataSubscription = (dataNames: TFormDataStateItem[]) => TSubscriptionReturn[];
+export type TUseFormDataSubscription = <T extends TFormDataStateKey>(
+  dataName: T,
+  initialState?: TFormDataState[T],
+) => TSubscriptionReturn<
+  TFormDataState[T] extends TSubscription ? TFormDataState[T]['value'] : TFormDataState[T]
+>;
