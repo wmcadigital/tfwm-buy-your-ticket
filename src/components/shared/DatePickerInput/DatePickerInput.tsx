@@ -21,11 +21,11 @@ const DatePickerInput = ({
 
   const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
-    setIsOpen(!isOpen);
+    setIsOpen(true);
   };
 
   const handleChange = (date: Date) => {
-    setIsOpen(!isOpen);
+    setIsOpen(false);
     setStartDate(date);
   };
 
@@ -62,7 +62,7 @@ const DatePickerInput = ({
           name="date"
           type="text"
           value={`${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`}
-          onChange={(e) => setStartDate(new Date(e.target.value))}
+          readOnly
           onClick={handleClick}
         />
         {isOpen && (
