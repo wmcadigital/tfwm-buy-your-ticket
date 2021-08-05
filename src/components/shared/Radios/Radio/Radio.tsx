@@ -11,7 +11,7 @@ const { sanitize } = dompurify;
 export type RadioProps = {
   text: string;
   value: string;
-  info: string;
+  info: string | null;
   name: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };

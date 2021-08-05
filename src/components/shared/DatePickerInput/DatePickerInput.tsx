@@ -36,45 +36,43 @@ const DatePickerInput = ({
   const dateTimeFormat = new Intl.DateTimeFormat('en-GB', options);
 
   return (
-    <>
-      <div className="wmnds-fe-group">
-        <p>
-          The soonest your new ticket can start is {dateTimeFormat.format(minDate)}. This is to give
-          your bank enough time to set up the Direct Debit.
-        </p>
-        <label className="wmnds-fe-label" htmlFor="date">
-          For example, {`${minDate.getDate()}/${minDate.getMonth() + 1}/${minDate.getFullYear()}`}
-        </label>
-        <input
-          onFocus={(e) => {
-            e.preventDefault();
-            setIsOpen(true);
-          }}
-          className="wmnds-fe-input wmnds-fe-input-datepicker"
-          id="date"
-          inputMode="text"
-          name="date"
-          type="text"
-          value={`${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`}
-          onClick={handleClick}
+    <div className="wmnds-fe-group">
+      <p>
+        The soonest your new ticket can start is {dateTimeFormat.format(minDate)}. This is to give
+        your bank enough time to set up the Direct Debit.
+      </p>
+      <label className="wmnds-fe-label" htmlFor="date">
+        For example, {`${minDate.getDate()}/${minDate.getMonth() + 1}/${minDate.getFullYear()}`}
+      </label>
+      <input
+        onFocus={(e) => {
+          e.preventDefault();
+          setIsOpen(true);
+        }}
+        className="wmnds-fe-input wmnds-fe-input-datepicker"
+        id="date"
+        inputMode="text"
+        name="date"
+        type="text"
+        value={`${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`}
+        onClick={handleClick}
+      />
+      {isOpen && (
+        <DatePicker
+          dateFormat="dd/MM/yyyy"
+          onChange={handleChange}
+          selected={startDate}
+          calendarClassName="disruptions-date-picker"
+          inline={inline}
+          includeDates={[...availableDates]}
+          locale="en-GB"
         />
-        {isOpen && (
-          <DatePicker
-            dateFormat="dd/MM/yyyy"
-            onChange={handleChange}
-            selected={startDate}
-            calendarClassName="disruptions-date-picker"
-            inline={inline}
-            includeDates={[...availableDates]}
-            locale="en-GB"
-          />
-        )}
-        <InsetText
-          classes="wmnds-m-t-md wmnds-m-b-md wmnds-col-1"
-          content="The Direct Debit will be paid the day after your ticket starts"
-        />
-      </div>
-    </>
+      )}
+      <InsetText
+        classes="wmnds-m-t-md wmnds-col-1"
+        content="The Direct Debit will be paid the day after your ticket starts"
+      />
+    </div>
   );
 };
 
