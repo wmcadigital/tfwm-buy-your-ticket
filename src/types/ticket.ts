@@ -16,4 +16,5 @@ export type TTicket = {
   name: string;
   priceString: string;
   modes: Array<'bus' | 'rail' | 'metro'>;
+  availableDates: Date[];
 };
