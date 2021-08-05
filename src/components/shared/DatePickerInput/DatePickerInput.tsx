@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import enGB from 'date-fns/locale/en-GB';
 import InsetText from '../InsetText/InsetText';
 import { TDatePickerProps } from './DatePicker.types';
 
@@ -35,6 +36,11 @@ const DatePickerInput = ({
   } = { weekday: 'long', month: 'long', day: 'numeric' };
   const dateTimeFormat = new Intl.DateTimeFormat('en-GB', options);
 
+  // Fix 'en-GB' locale console warnings
+  useEffect(() => {
+    registerLocale('en-GB', enGB);
+  }, []);
+
   return (
     <>
       <div className="wmnds-fe-group">
@@ -56,6 +62,7 @@ const DatePickerInput = ({
           name="date"
           type="text"
           value={`${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`}
+          onChange={(e) => setStartDate(new Date(e.target.value))}
           onClick={handleClick}
         />
         {isOpen && (
