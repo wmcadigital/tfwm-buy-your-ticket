@@ -1,25 +1,17 @@
 import dompurify from 'dompurify';
-// import { TForm } from 'globalState';
-// Import components
+import PropTypes from 'prop-types';
+import { TRadiosProps } from './Radios.types';
 import Radio from './Radio/Radio';
 
 const { sanitize } = dompurify;
 
-type RadiosProps = {
-  name: string;
-  hint?: string | JSX.Element;
-  error: { message: string } | null;
-  radios: { text: string; html: string | null; value: string; info: string | null }[];
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-const Radios = ({ name, hint, error, radios, onChange }: RadiosProps) => {
+const Radios = ({ name, hint, error, radios, onChange, currentValue }: TRadiosProps) => {
   return (
     <div className="wmnds-fe-group">
       <fieldset className="wmnds-fe-fieldset">
         <legend className="wmnds-fe-fieldset__legend">
           {hint && typeof hint === 'string' && <p>{hint}</p>}
-          {hint && typeof hint !== 'string' && hint}s
+          {hint && typeof hint !== 'string' && hint}
         </legend>
         <div className={`wmnds-fe-radios${error ? ' wmnds-fe-group--error' : ''}`}>
           {/* If there is an error, show here */}
@@ -39,6 +31,7 @@ const Radios = ({ name, hint, error, radios, onChange }: RadiosProps) => {
               text={html || text}
               value={value}
               onChange={onChange}
+              checked={value === currentValue}
               info={info}
             />
           ))}
@@ -46,6 +39,21 @@ const Radios = ({ name, hint, error, radios, onChange }: RadiosProps) => {
       </fieldset>
     </div>
   );
+};
+
+Radios.propTypes = {
+  name: PropTypes.string.isRequired,
+  hint: PropTypes.node.isRequired,
+  error: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+  }),
+  onChange: PropTypes.func.isRequired,
+  currentValue: PropTypes.string,
+};
+
+Radios.defaultProps = {
+  error: null,
+  currentValue: null,
 };
 
 export default Radios;
