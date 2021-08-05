@@ -2,9 +2,14 @@ import Button from 'components/shared/Button';
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 import { TStepProps } from 'types/step';
 
-const AddToExistingSwiftCard = ({ goToNextStep }: TStepProps) => {
-  const subscriptions = useFormDataSubscription(['ticketHolderCurrentTown']);
-  const [ticketHolderCurrentTown] = subscriptions;
+const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
+  const { goToNextStep } = stepNavigation;
+  const ticketHolderCurrentTown = useFormDataSubscription('ticketHolderCurrentTown');
+
+  const handleContinue = () => {
+    ticketHolderCurrentTown.save();
+    goToNextStep();
+  };
 
   return (
     <>
@@ -29,7 +34,7 @@ const AddToExistingSwiftCard = ({ goToNextStep }: TStepProps) => {
           onChange={(e) => ticketHolderCurrentTown.set(e.target.value)}
         />
       </div>
-      <Button type="button" text="Continue" onClick={goToNextStep} />
+      <Button type="button" text="Continue" onClick={handleContinue} />
     </>
   );
 };

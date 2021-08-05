@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { TStepProps } from 'types/step';
 import Button from 'components/shared/Button';
 import DatePickerInput from 'components/shared/DatePickerInput/DatePickerInput';
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
-import { TStepProps } from 'types/step';
 
 const unformatedDates: string[] = [
   '2021-08-13T00:00:00+00:00',
@@ -26,16 +26,22 @@ const unformatedDates: string[] = [
   '2021-08-31T00:00:00+00:00',
 ];
 
-const TicketStartDate = ({ goToNextStep }: TStepProps) => {
-  const [startDateData] = useFormDataSubscription(['startDate']);
+const TicketStartDate = ({ stepNavigation }: TStepProps) => {
+  const { goToNextStep } = stepNavigation;
+  const startDate = useFormDataSubscription('startDate');
 
   const availableDates: Date[] = unformatedDates.map((date) => new Date(date));
-  const [startDate, setStartDate] = useState((startDateData.value as Date) || availableDates[0]);
 
   const handleContinue = () => {
-    startDateData.set(startDate);
+    // Validation goes here
+    startDate.save();
     goToNextStep();
   };
+
+  useEffect(() => {
+    if (!startDate.value) startDate.set(availableDates[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -49,11 +55,13 @@ const TicketStartDate = ({ goToNextStep }: TStepProps) => {
         <label className="wmnds-fe-label" htmlFor="input">
           Start date
         </label>
-        <DatePickerInput
-          startDate={startDate}
-          setStartDate={setStartDate}
-          availableDates={availableDates}
-        />
+        {startDate.value && (
+          <DatePickerInput
+            startDate={startDate.value}
+            setStartDate={startDate.set}
+            availableDates={availableDates}
+          />
+        )}
       </div>
       <Button type="button" text="Continue" onClick={handleContinue} />
     </>
