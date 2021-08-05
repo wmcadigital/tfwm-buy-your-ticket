@@ -3,26 +3,23 @@ import dompurify from 'dompurify';
 // Import components
 import Radio from './Radio/Radio';
 
-import s from './Radios.module.scss';
-
 const { sanitize } = dompurify;
 
 type RadiosProps = {
   name: string;
-  hint?: string;
-  question: string;
+  hint?: string | JSX.Element;
   error: { message: string } | null;
-  radios: { text: string; html: string; value: string; info: string }[];
+  radios: { text: string; html: string | null; value: string; info: string | null }[];
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Radios = ({ name, hint, question, error, radios, onChange }: RadiosProps) => {
+const Radios = ({ name, hint, error, radios, onChange }: RadiosProps) => {
   return (
-    <div className="wmnds-fe-group wmnds-m-b-md">
+    <div className="wmnds-fe-group">
       <fieldset className="wmnds-fe-fieldset">
         <legend className="wmnds-fe-fieldset__legend">
-          <h2 className="wmnds-fe-question">{question}</h2>
-          {hint && <p className={s.hint}>{hint}</p>}
+          {hint && typeof hint === 'string' && <p>{hint}</p>}
+          {hint && typeof hint !== 'string' && hint}s
         </legend>
         <div className={`wmnds-fe-radios${error ? ' wmnds-fe-group--error' : ''}`}>
           {/* If there is an error, show here */}

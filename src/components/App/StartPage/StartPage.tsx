@@ -1,4 +1,5 @@
 import Button from 'components/shared/Button';
+import Loader from 'components/shared/Loader/Loader';
 import { useGlobalContext } from 'state/globalState/context';
 import { TTicket } from 'types/ticket';
 import useGetTicketInfo from './customHooks/useGetTicketInfo/useGetTicketInfo';
@@ -20,7 +21,7 @@ const StartPage = () => {
         <h1>Buy on Direct Debit</h1>
         <h2>Your ticket</h2>
         <div className="wmnds-m-b-md">
-          {!ticketInfo || isLoading ? <p>Loading</p> : <TicketCard ticket={ticketInfo} />}
+          {!ticketInfo || isLoading ? <Loader /> : <TicketCard ticket={ticketInfo} />}
         </div>
         <h2 className="wmnds-m-b-lg">Before you start</h2>
         <ul>
