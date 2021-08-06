@@ -1,11 +1,15 @@
 import { useGlobalContext } from 'state/globalState/context';
 import BackButton from './BackButton/BackButton';
+import Summary from './Summary/Summary';
 import s from './Form.module.scss';
+
 // Sections
 import SectionOne from './Sections/SectionOne/SectionOne';
-import Summary from './Summary/Summary';
+import SectionTwo from './Sections/SectionTwo/SectionTwo';
+import SectionThree from './Sections/SectionThree/SectionThree';
+import SectionFour from './Sections/SectionFour/SectionFour';
 
-const sections = [SectionOne];
+const sections = [SectionOne, SectionTwo, SectionThree, SectionFour];
 
 const Form = () => {
   const [globalState, globalDispatch] = useGlobalContext();
