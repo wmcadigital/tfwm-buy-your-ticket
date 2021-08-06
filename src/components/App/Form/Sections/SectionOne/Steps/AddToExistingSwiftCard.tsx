@@ -2,19 +2,34 @@ import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
 import Radios from 'components/shared/Radios/Radios';
 // import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 import { TStepProps } from 'types/step';
+// import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 
 const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
   const { goToNextStep } = stepNavigation;
-  // const subscriptions = useFormDataSubscription(['ticketHolderCurrentTown']);
-  // const [ticketHolderCurrentTown] = subscriptions;
+  // const addToExistingSwiftCard = useFormDataSubscription('addProductToExistingCard');
+
+  const handleContinue = () => {
+    goToNextStep();
+    /* addToExistingSwiftCard.save();
+    // if answer is 'yes'
+    if (addToExistingSwiftCard.value) {
+      goToNextStep();
+    }
+    // if answer is 'no'
+    else if (addToExistingSwiftCard.value === false) {
+      skipToStep(3);
+    } */
+  };
 
   return (
     <QuestionCard
       question="Would you like to add the ticket to an existing Swift card?"
-      handleContinue={goToNextStep}
+      handleContinue={handleContinue}
     >
       <Radios
-        name="swiftCard"
+        name="existingSwiftCard"
+        // defaultValue={addToExistingSwiftCard.value}
+        // onChange={addToExistingSwiftCard.set}
         hint={
           <>
             <p>Your Swift card needs to:</p>
@@ -28,8 +43,8 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
         }
         error={null}
         radios={[
-          { text: 'Yes', html: null, value: 'yes', info: null },
-          { text: 'No, I need a new card', html: null, value: 'no', info: null },
+          { text: 'Yes', html: null, value: 'true', info: null },
+          { text: 'No, I need a new card', html: null, value: 'false', info: null },
         ]}
       />
     </QuestionCard>
