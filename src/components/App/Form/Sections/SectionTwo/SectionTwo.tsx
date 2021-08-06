@@ -4,15 +4,15 @@ import useStepLogic from '../customHooks/useStepLogic/useStepLogic';
 // Steps
 import TicketHolderOrPayerName from '../SectionThree/Steps/TicketHolderOrPayerName';
 import TicketHolderOrPayerBirthDate from '../SectionThree/Steps/TicketHolderOrPayerBirthDate';
-import TicketHolderOrPayerContactDetails from '../SectionThree/Steps/TicketHolderOrPayerContactDetails';
 import TicketHolderOrPayerAddress from '../SectionThree/Steps/TicketHolderOrPayerAddress';
 import TicketHolderPhoto from '../SectionThree/Steps/TicketHolderPhoto';
+import TicketHolderOrPayerManualAddress from '../SectionThree/Steps/TicketHolderOrPayerManualAddress';
 
 const steps = [
   TicketHolderOrPayerName,
   TicketHolderOrPayerBirthDate,
-  TicketHolderOrPayerContactDetails,
   TicketHolderOrPayerAddress,
+  TicketHolderOrPayerManualAddress,
   TicketHolderPhoto,
 ];
 

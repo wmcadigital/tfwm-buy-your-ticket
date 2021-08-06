@@ -3,37 +3,45 @@ import Input from 'components/shared/Input';
 import WarningText from 'components/shared/WarningText/WarningText';
 
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
+import { useFormDataContext } from 'state/formDataState/context';
 import { TStepProps } from 'types/step';
 
 const TicketHolderOrPayerName = ({ stepNavigation, currentSection }: TStepProps) => {
   const { goToNextStep } = stepNavigation;
-  const applicationForMe = useFormDataSubscription('applicationForMe');
-  const ticketHolderFirstName = useFormDataSubscription('ticketHolderFirstName');
-  const ticketHolderLastName = useFormDataSubscription('ticketHolderLastName');
-  const payerFirstName = useFormDataSubscription('payerFirstName');
-  const payerLastName = useFormDataSubscription('payerLastName');
+  const [formDataState] = useFormDataContext();
+  const { applicationForMe } = formDataState;
+
+  // We only want to save this step's answers into payer variables
+  // when we are inside section 3 AND when aplication is for someone else,
+  // otherwise we will be saving them as ticket holder information
+  const ticketHolderOrPayerFirstNameVar =
+    currentSection === 3 && !applicationForMe.value ? 'payerFirstName' : 'ticketHolderFirstName';
+  const ticketHolderOrPayerLastNameVar =
+    currentSection === 3 && !applicationForMe.value ? 'payerLastName' : 'ticketHolderLastName';
+
+  const firstName = useFormDataSubscription(ticketHolderOrPayerFirstNameVar);
+  const lastName = useFormDataSubscription(ticketHolderOrPayerLastNameVar);
 
   let question = '';
-  let defaultFirstName: string | null = ticketHolderFirstName.value;
-  let defaultLastName: string | null = ticketHolderLastName.value;
-  let onChangeFirstName = ticketHolderFirstName.set;
-  let onChangeLastName = ticketHolderLastName.set;
-
   if (currentSection === 2) {
+    // ticket for someone else and we are collecting ticket holder information (section 2)
     question = 'Who will be using this ticket?';
   } else if (!applicationForMe.value) {
+    // ticket for someone else and we are collecting payer information (section 3)
     question = "What is the payer's name?";
-    defaultFirstName = payerFirstName.value;
-    onChangeFirstName = payerFirstName.set;
-    defaultLastName = payerLastName.value;
-    onChangeLastName = payerLastName.set;
   } else {
+    // ticket is for the user and we are collecting his information (ticket holder) (section 3 only)
     question = 'What it is your name?';
   }
 
+  const handleContinue = () => {
+    firstName.save();
+    lastName.save();
+    return goToNextStep();
+  };
   return (
     <>
-      <QuestionCard question={question} handleContinue={goToNextStep}>
+      <QuestionCard question={question} handleContinue={handleContinue}>
         {currentSection === 2 && (
           <WarningText
             type="info"
@@ -45,19 +53,19 @@ const TicketHolderOrPayerName = ({ stepNavigation, currentSection }: TStepProps)
           name="firstName"
           inputmode="text"
           label="First Name"
-          defaultValue={defaultFirstName}
+          defaultValue={firstName.value}
           type="text"
           className="wmnds-col-1 wmnds-col-md-2-3"
-          onChange={() => onChangeFirstName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => firstName.set(e.target.value)}
         />
         <Input
           name="lastName"
           inputmode="text"
           label="Last Name"
-          defaultValue={defaultLastName}
+          defaultValue={lastName.value}
           type="text"
           className="wmnds-col-1 wmnds-col-md-2-3"
-          onChange={() => onChangeLastName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => lastName.set(e.target.value)}
         />
       </QuestionCard>
     </>

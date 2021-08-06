@@ -10,7 +10,7 @@ const TicketHolderPhoto = ({ stepNavigation }: TStepProps) => {
   // const [ticketHolderCurrentTown] = subscriptions;
 
   return (
-    <QuestionCard question="Are you buying the ticket for yourself?" handleContinue={goToNextStep}>
+    <QuestionCard question=".. Photo .." handleContinue={goToNextStep}>
       <Radios
         name=""
         error={null}
