@@ -6,7 +6,7 @@ const InsetText = ({
 }: {
   content: JSX.Element | string;
   classes: string;
-}): JSX.Element => <div className={`wmnds-inset-text ${classes}`}>{content}</div>;
+}): JSX.Element => <div className={`wmnds-col-1 wmnds-inset-text ${classes}`}>{content}</div>;
 
 InsetText.propTypes = {
   content: PropTypes.string.isRequired,

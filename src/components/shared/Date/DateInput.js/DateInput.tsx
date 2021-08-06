@@ -11,7 +11,7 @@ const DateInput = ({
 }: {
   autoComplete: string;
   dateType: 'Day' | 'Month' | 'Year';
-  defaultValue: number;
+  defaultValue: number | null;
   fieldValidation: () => void | null;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;

@@ -19,7 +19,7 @@ const Radios = ({ name, hint, error, radios, onChange }: RadiosProps) => {
       <fieldset className="wmnds-fe-fieldset">
         <legend className="wmnds-fe-fieldset__legend">
           {hint && typeof hint === 'string' && <p>{hint}</p>}
-          {hint && typeof hint !== 'string' && hint}s
+          {hint && typeof hint !== 'string' && hint}
         </legend>
         <div className={`wmnds-fe-radios${error ? ' wmnds-fe-group--error' : ''}`}>
           {/* If there is an error, show here */}

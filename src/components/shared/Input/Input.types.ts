@@ -5,8 +5,10 @@ export type TInputProps = {
   inputmode?: 'text' | 'none' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal';
   label: string;
   name: string;
-  defaultValue?: string;
+  defaultValue?: string | null;
   spellcheck?: boolean;
   type?: 'text' | 'number';
   errors?: { name: { message: string } };
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  pattern?: string;
 };

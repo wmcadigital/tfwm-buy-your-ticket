@@ -15,6 +15,8 @@ const Input = ({
   spellcheck,
   type,
   errors,
+  onChange,
+  pattern,
 }: TInputProps) => {
   // Set input to render below
   const input = (
@@ -29,6 +31,8 @@ const Input = ({
         ref={fieldValidation}
         spellCheck={spellcheck}
         type={type}
+        onChange={onChange}
+        pattern={pattern}
       />
     </>
   );
@@ -66,6 +70,7 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   spellcheck: PropTypes.bool,
   type: PropTypes.string,
+  onChange: PropTypes.func,
   errors: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
 };
 
@@ -77,6 +82,7 @@ Input.defaultProps = {
   spellcheck: false,
   type: 'text',
   errors: null,
+  onChange: null,
 };
 
 export default Input;
