@@ -6,21 +6,27 @@ import { useGlobalContext } from 'state/globalState/context';
 const useGetTicketInfo = (ticketId: number) => {
   const [globalState] = useGlobalContext();
   const { ticket } = globalState;
+  const { REACT_APP_API_HOST, REACT_APP_API_KEY, REACT_APP_DBAPI_HOST } = process.env;
 
-  const { REACT_APP_API_HOST, REACT_APP_API_KEY } = process.env;
-  const config = {
+  // REQUESTS
+  const ticketInfoRequest = useAxiosRequest<TApiTicket>({
     url: `${REACT_APP_API_HOST}/ticketing/v2/tickets/${ticketId}`,
     headers: {
       'Ocp-Apim-Subscription-Key': REACT_APP_API_KEY,
     },
-  };
+  });
 
-  const { isLoading, hasError, response, sendRequest } = useAxiosRequest<TApiTicket>(config);
+  const availableDatesRequest = useAxiosRequest<string[]>({
+    url: `${REACT_APP_DBAPI_HOST}/DirectDebit/AvailableDates?ticketId=${ticketId}`,
+  });
 
-  const ticketData = response?.data;
+  // RESPONSES
+  const ticketInfoData = ticketInfoRequest.response?.data;
+  const unformattedDates = availableDatesRequest.response?.data;
+
   let ticketInfo: TTicket | null = null;
 
-  if (ticketData) {
+  if (ticketInfoData && unformattedDates) {
     const getTicketModes = (apiTicketData: TApiTicket) => {
       const ticketModes = [] as TTicket['modes'];
       if (apiTicketData?.allowBus) ticketModes.push('bus');
@@ -37,16 +43,24 @@ const useGetTicketInfo = (ticketId: number) => {
       return `${priceString} per ${duration.toLowerCase()}`;
     };
 
+    const formatAvalalbleDates = (unformatedDates: string[]): Date[] => {
+      return unformatedDates.map((date: string) => new Date(date));
+    };
+
     ticketInfo = {
-      id: ticketData.id,
-      name: ticketData.name,
-      modes: getTicketModes(ticketData),
-      priceString: getTicketPriceString(ticketData),
+      id: ticketInfoData.id,
+      name: ticketInfoData.name,
+      modes: getTicketModes(ticketInfoData),
+      priceString: getTicketPriceString(ticketInfoData),
+      availableDates: formatAvalalbleDates(unformattedDates),
     };
   }
 
   useEffect(() => {
-    if (!ticket.name) sendRequest();
+    if (!ticket.name) {
+      ticketInfoRequest.sendRequest();
+      availableDatesRequest.sendRequest();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -54,6 +68,9 @@ const useGetTicketInfo = (ticketId: number) => {
   if (ticket.name) {
     return { isLoading: false, hasError: false, ticketInfo: ticket };
   }
+
+  const isLoading = ticketInfoRequest.isLoading || availableDatesRequest.isLoading;
+  const hasError = ticketInfoRequest.hasError || availableDatesRequest.hasError;
 
   return { isLoading, hasError, ticketInfo };
 };

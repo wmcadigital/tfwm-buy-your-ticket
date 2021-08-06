@@ -16,7 +16,8 @@ const DatePickerInput = ({
   availableDates,
   inline = true,
 }: TDatePickerProps) => {
-  const minDate: Date = availableDates[0];
+  const minDate = availableDates[0];
+  const selectedDate = startDate || minDate;
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
@@ -60,7 +61,9 @@ const DatePickerInput = ({
         inputMode="text"
         name="date"
         type="text"
-        value={`${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`}
+        value={`${selectedDate.getDate()}/${
+          selectedDate.getMonth() + 1
+        }/${selectedDate.getFullYear()}`}
         readOnly
         onClick={handleClick}
       />
@@ -68,7 +71,7 @@ const DatePickerInput = ({
         <DatePicker
           dateFormat="dd/MM/yyyy"
           onChange={handleChange}
-          selected={startDate}
+          selected={selectedDate}
           calendarClassName="disruptions-date-picker"
           inline={inline}
           includeDates={[...availableDates]}
@@ -84,13 +87,14 @@ const DatePickerInput = ({
 };
 
 DatePickerInput.propTypes = {
-  startDate: PropTypes.instanceOf(Date).isRequired,
+  startDate: PropTypes.instanceOf(Date),
   setStartDate: PropTypes.func,
   availableDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
   inline: PropTypes.bool,
 };
 
 DatePickerInput.defaultProps = {
+  startDate: new Date(),
   inline: true,
 };
 

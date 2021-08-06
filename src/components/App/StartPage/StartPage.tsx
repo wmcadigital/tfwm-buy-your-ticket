@@ -9,7 +9,8 @@ const StartPage = () => {
   const [globalState, globalStateDispatch] = useGlobalContext();
   const { ticket } = globalState;
 
-  const { ticketInfo, isLoading, hasError } = useGetTicketInfo(ticket.id);
+  const { isLoading, hasError, ticketInfo } = useGetTicketInfo(ticket.id);
+
   const startForm = () => {
     globalStateDispatch({ type: 'ADD_TICKET_INFO', payload: ticketInfo as TTicket });
     globalStateDispatch({ type: 'START_FORM' });

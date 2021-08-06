@@ -1,24 +1,24 @@
 import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
 import Radios from 'components/shared/Radios/Radios';
-// import useFormDataSubscription from 'customHooks/useFormDataSubscription';
+import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 import { TStepProps } from 'types/step';
-// import useFormDataSubscription from 'customHooks/useFormDataSubscription';
+import { convertYesNoToBoolean, convertBooleanToYesNo } from 'helpers/yesNoBoolean';
 
 const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
-  const { goToNextStep } = stepNavigation;
-  // const addToExistingSwiftCard = useFormDataSubscription('addProductToExistingCard');
+  const { goToNextStep, skipToStep } = stepNavigation;
+
+  const addProductToExistingCard = useFormDataSubscription('addProductToExistingCard');
+  const { value } = addProductToExistingCard;
+
+  const currentValue = value === null ? null : convertBooleanToYesNo(value);
+  const setCurrentValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    addProductToExistingCard.set(convertYesNoToBoolean(e.target.value as 'yes' | 'no'));
+  };
 
   const handleContinue = () => {
-    goToNextStep();
-    /* addToExistingSwiftCard.save();
-    // if answer is 'yes'
-    if (addToExistingSwiftCard.value) {
-      goToNextStep();
-    }
-    // if answer is 'no'
-    else if (addToExistingSwiftCard.value === false) {
-      skipToStep(3);
-    } */
+    addProductToExistingCard.save();
+    if (value === true) return goToNextStep();
+    return skipToStep(4);
   };
 
   return (
@@ -28,8 +28,6 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
     >
       <Radios
         name="existingSwiftCard"
-        // defaultValue={addToExistingSwiftCard.value}
-        // onChange={addToExistingSwiftCard.set}
         hint={
           <>
             <p>Your Swift card needs to:</p>
@@ -42,9 +40,11 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
           </>
         }
         error={null}
+        currentValue={currentValue}
+        onChange={setCurrentValue}
         radios={[
-          { text: 'Yes', html: null, value: 'true', info: null },
-          { text: 'No, I need a new card', html: null, value: 'false', info: null },
+          { text: 'Yes', html: null, value: 'yes', info: null },
+          { text: 'No, I need a new card', html: null, value: 'no', info: null },
         ]}
       />
     </QuestionCard>

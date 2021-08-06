@@ -1,5 +1,5 @@
 export type TDatePickerProps = {
-  startDate: Date;
+  startDate: Date | null;
   setStartDate: (date: Date) => void;
   availableDates: Date[];
   inline: boolean;

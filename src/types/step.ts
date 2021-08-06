@@ -1,7 +1,7 @@
 export type TStepNavigation = {
   goToNextStep: () => void;
   skipToStep: (newStep: number) => void;
-  goToNextSection: () => void;
+  skipToSection: (newStep: number) => void;
   goToSummary: () => void;
 };
 

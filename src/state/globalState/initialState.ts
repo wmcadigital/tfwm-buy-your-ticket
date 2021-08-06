@@ -16,6 +16,7 @@ const initialState: TGlobalState = {
     name: '',
     modes: [],
     priceString: '',
+    availableDates: [],
   },
 };
 

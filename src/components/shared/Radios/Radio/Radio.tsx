@@ -1,25 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import dompurify from 'dompurify';
-
-// Import contexts
-// import { useFormContext, TForm } from 'globalState';
-
+import { TRadioProps } from './Radio.types';
 import s from './Radio.module.scss';
 
 const { sanitize } = dompurify;
 
-export type RadioProps = {
-  text: string;
-  value: string;
-  info: string | null;
-  name: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-const Radio = ({ name, onChange, text, value, info }: RadioProps) => {
-  // const [formState] = useFormContext(); // Get the state/dispatch of form data from FormContext
-  // const defaultChecked = formState.ticketInfo[name];
-
+const Radio = ({ name, onChange, text, value, info, checked }: TRadioProps) => {
   return (
     <>
       <label className={`${s.radioContainer} wmnds-fe-radios__container`}>
@@ -30,7 +16,7 @@ const Radio = ({ name, onChange, text, value, info }: RadioProps) => {
           name={name}
           type="radio"
           onChange={onChange}
-          // defaultChecked={defaultChecked === value}
+          checked={checked}
         />
         {info && (
           <div
