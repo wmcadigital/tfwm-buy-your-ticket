@@ -7,6 +7,7 @@ const { sanitize } = dompurify;
 const Input = ({
   autocomplete,
   className,
+  groupClassName,
   fieldValidation,
   inputmode,
   label,
@@ -37,8 +38,10 @@ const Input = ({
     </>
   );
   return (
-    <div className={`wmnds-fe-group ${errors?.name ? 'wmnds-fe-group--error' : ''}`}>
-      {label && (
+    <div
+      className={`wmnds-fe-group ${groupClassName} ${errors?.name ? 'wmnds-fe-group--error' : ''}`}
+    >
+      {label && typeof label === 'string' && (
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
         <label
           className="wmnds-fe-label"
@@ -46,7 +49,12 @@ const Input = ({
           dangerouslySetInnerHTML={{ __html: sanitize(label) }}
         />
       )}
-
+      {label && typeof label !== 'string' && (
+        // eslint-disable-next-line jsx-a11y/label-has-associated-control
+        <label className="wmnds-fe-label" htmlFor={name}>
+          {label}
+        </label>
+      )}
       {/* to be tested */}
       {errors?.name?.message && typeof errors.name.message === 'string' && (
         <span
@@ -64,6 +72,7 @@ const Input = ({
 Input.propTypes = {
   autocomplete: PropTypes.string,
   className: PropTypes.string,
+  groupClassName: PropTypes.string,
   fieldValidation: PropTypes.func,
   inputmode: PropTypes.string,
   label: PropTypes.string.isRequired,
@@ -77,6 +86,7 @@ Input.propTypes = {
 Input.defaultProps = {
   autocomplete: null,
   className: '',
+  groupClassName: '',
   fieldValidation: null,
   inputmode: 'text',
   spellcheck: false,

@@ -11,6 +11,7 @@ const DateInputs = ({
   defaultDate,
   errors,
   triggerValidation,
+  hint,
 }: {
   autoCompletPrefix: string;
   fieldValidation: () => void;
@@ -18,6 +19,7 @@ const DateInputs = ({
   defaultDate: Date | null;
   errors: { name: { message: string } };
   triggerValidation: () => void; // check if this is still needed
+  hint?: string | JSX.Element;
 }) => {
   const [stateYear, stateMonth, stateDay] = defaultDate
     ? [defaultDate.getDate(), defaultDate.getMonth() + 1, defaultDate.getFullYear()]
@@ -70,10 +72,14 @@ const DateInputs = ({
 
   return (
     <>
-      {/* If there is an error, show here */}
-      {errors?.name && <span className="wmnds-fe-error-message">{errors.name.message}</span>}
+      {hint && <div>{hint}</div>}
 
-      <div className={`wmnds-fe-group ${errors.name ? 'wmnds-fe-group--error' : ''}`}>
+      {/* If there is an error, show here */}
+      {errors && errors?.name && (
+        <span className="wmnds-fe-error-message">{errors.name.message}</span>
+      )}
+
+      <div className={`wmnds-fe-group ${errors && errors?.name ? 'wmnds-fe-group--error' : ''}`}>
         <div className="wmnds-col-1-2 wmnds-col-sm-1-12 wmnds-m-r-md">
           <DateInput
             autoComplete={autoCompletPrefix ? `${autoCompletPrefix}day` : 'day'}
