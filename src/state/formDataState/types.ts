@@ -30,7 +30,7 @@ export type TFormDataState = {
   payerTitle: TSubscription<string>;
   payerFirstName: TSubscription<string>;
   payerLastName: TSubscription<string>;
-  payerDateOfBirth: TSubscription<string>;
+  payerDateOfBirth: TSubscription<Date>;
   payerHomePhoneNumber: TSubscription<string>;
   payerWorkPhoneNumber: TSubscription<string>;
   payerMobilePhoneNumber: TSubscription<string>;
