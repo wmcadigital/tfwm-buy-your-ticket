@@ -7,4 +7,5 @@ export type TStepNavigation = {
 
 export type TStepProps = {
   stepNavigation: TStepNavigation;
+  currentSection?: number | null;
 };
