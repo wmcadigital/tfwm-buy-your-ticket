@@ -1,16 +1,16 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
 import PropTypes, { arrayOf } from 'prop-types';
+import { TTableProps } from './Table.types';
 
-function Table({ title, caption, headers, values, classes, cellClasses }) {
-  const noHeadersClass = headers && headers.lenght > 0 ? '' : 'wmnds-table--without-header';
+const Table = ({ title, caption, headers, values, classes, cellClasses }: TTableProps) => {
+  const noHeadersClass = headers && headers.length > 0 ? '' : 'wmnds-table--without-header';
 
   return (
     <>
       {title && <h3>{title}</h3>}
       <table className={`wmnds-table ${classes} ${noHeadersClass}`}>
         {caption && <caption className="wmnds-table__caption">{caption}</caption>}
-        {headers && headers.lenght > 0 && (
+        {headers && headers.length > 0 && (
           <thead>
             <tr>
               {headers.map((value, index) => {
@@ -35,14 +35,18 @@ function Table({ title, caption, headers, values, classes, cellClasses }) {
                         <th
                           key={index}
                           scope="row"
-                          className={cellClasses[index]}
+                          className={cellClasses?.[index] || ''}
                           data-header={headers[index]}
                         >
                           {col}
                         </th>
                       );
                     return (
-                      <td key={index} className={cellClasses[index]} data-header={headers[index]}>
+                      <td
+                        key={index}
+                        className={cellClasses?.[index] || ''}
+                        data-header={headers[index]}
+                      >
                         {col}
                       </td>
                     );
@@ -55,7 +59,7 @@ function Table({ title, caption, headers, values, classes, cellClasses }) {
       </table>
     </>
   );
-}
+};
 
 Table.propTypes = {
   title: PropTypes.string,
@@ -67,7 +71,7 @@ Table.propTypes = {
 };
 Table.defaultProps = {
   headers: [],
-  values: [[]],
+  values: [],
   title: null,
   caption: null,
   classes: null,
