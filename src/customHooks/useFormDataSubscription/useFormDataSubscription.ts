@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useFormDataContext } from 'state/formDataState/context';
 import { useGlobalContext } from 'state/globalState/context';
-import { TSubscription, TSubscriptionReturn } from 'types/subscription';
+import { TSectionAndStep, TSubscription, TSubscriptionReturn } from 'types/subscription';
 import { TUseFormDataSubscription } from './useFormDataSubscription.types';
 
 const useFormDataSubscription: TUseFormDataSubscription = (dataName, initialState) => {
@@ -33,18 +33,29 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, initialStat
 
   // Variables for setting the section and step
   const [globalState] = useGlobalContext();
-  const { currentSection, currentStep } = globalState.form;
+  const { currentSection, currentStep, history } = globalState.form;
   const [isNowSubscribed, setIsNowSubscribed] = useState(false); // Boolean to run the subscription only once
 
-  // Set the step, section and isSubscribed properties in the form data
+  // Helper to compare a given section and step to the current section and current step
+  const compareSectionAndStep = (a: TSectionAndStep, b: TSectionAndStep) => {
+    return a.section === b.section && a.step === b.step;
+  };
+
+  // Set the step, section properties in the form data
   // this way we can go back to the correct section and step from the Summary page
   const subscribeToFormData = useCallback(() => {
-    const isAlreadySubscribed = savedData.isSubscribed;
-    const isOnSubscribedSection = savedData.section === currentSection;
-    const isOnSubscribedStep = savedData.step === currentStep;
+    // If a previous subscription to this form data is in history (i.e. the user has already completed it) we'll be overwriting data and that's a no-no
+    const isAlreadySubscribed = history.some((historyItem) => {
+      return compareSectionAndStep(historyItem, savedData);
+    });
+    // If we're on the sectoin/step that this form data is subscribed to then we are allowed to overwrite it
+    const isOnSubscribedSectionAndStep = compareSectionAndStep(savedData, {
+      section: currentSection,
+      step: currentStep,
+    });
 
-    // Make sure this data isn't being used on another section or step
-    if (isAlreadySubscribed && (!isOnSubscribedSection || !isOnSubscribedStep)) {
+    // Make sure this data isn't being used on another section or step that's already been completed
+    if (isAlreadySubscribed && !isOnSubscribedSectionAndStep) {
       throw new Error(
         `"${dataName}" is already subscribed to section ${savedData.section}, step ${savedData.step}.`,
       );
@@ -62,15 +73,7 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, initialStat
 
     // Stop the useEffect from running again
     setIsNowSubscribed(true);
-  }, [
-    currentSection,
-    currentStep,
-    dataName,
-    formDataDispatch,
-    savedData.isSubscribed,
-    savedData.section,
-    savedData.step,
-  ]);
+  }, [currentSection, currentStep, dataName, formDataDispatch, history, savedData]);
 
   useEffect(() => {
     if (!isNowSubscribed) {

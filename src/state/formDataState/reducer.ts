@@ -34,7 +34,6 @@ const reducer: TFormDataStateReducer = (state, action) => {
           name: data.name,
           section: data.section,
           step: data.step,
-          isSubscribed: true,
         },
       };
 

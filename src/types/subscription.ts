@@ -1,11 +1,13 @@
 import { Nullable } from './helpers';
 
-export type TSubscription<T = any> = {
-  value: Nullable<T>;
+export type TSectionAndStep = {
   section: number;
   step: number;
-  isSubscribed: boolean;
 };
+
+export type TSubscription<T = any> = {
+  value: Nullable<T>;
+} & TSectionAndStep;
 
 export type TSubscriptionReturn<T> = {
   value: T | null;

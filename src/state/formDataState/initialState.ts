@@ -6,7 +6,6 @@ const createSubscription = <T>(initialValue?: T): TSubscription<T> => {
     value: initialValue || null,
     section: 0,
     step: 0,
-    isSubscribed: false,
   };
 };
 

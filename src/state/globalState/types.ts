@@ -9,7 +9,7 @@ export type TGlobalState = {
     isEditing: boolean;
     currentSection: number;
     currentStep: number;
-    history: Array<{ section: number; step: number }>;
+    history: { section: number; step: number }[];
   };
   ticket: TTicket;
 };
