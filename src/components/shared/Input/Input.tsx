@@ -7,6 +7,7 @@ const { sanitize } = dompurify;
 const Input = ({
   autocomplete,
   className,
+  groupClassName,
   fieldValidation,
   inputmode,
   label,
@@ -15,6 +16,8 @@ const Input = ({
   spellcheck,
   type,
   errors,
+  onChange,
+  pattern,
 }: TInputProps) => {
   // Set input to render below
   const input = (
@@ -29,12 +32,16 @@ const Input = ({
         ref={fieldValidation}
         spellCheck={spellcheck}
         type={type}
+        onChange={onChange}
+        pattern={pattern}
       />
     </>
   );
   return (
-    <div className={`wmnds-fe-group ${errors?.name ? 'wmnds-fe-group--error' : ''}`}>
-      {label && (
+    <div
+      className={`wmnds-fe-group ${groupClassName} ${errors?.name ? 'wmnds-fe-group--error' : ''}`}
+    >
+      {label && typeof label === 'string' && (
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
         <label
           className="wmnds-fe-label"
@@ -42,7 +49,12 @@ const Input = ({
           dangerouslySetInnerHTML={{ __html: sanitize(label) }}
         />
       )}
-
+      {label && typeof label !== 'string' && (
+        // eslint-disable-next-line jsx-a11y/label-has-associated-control
+        <label className="wmnds-fe-label" htmlFor={name}>
+          {label}
+        </label>
+      )}
       {/* to be tested */}
       {errors?.name?.message && typeof errors.name.message === 'string' && (
         <span
@@ -60,23 +72,27 @@ const Input = ({
 Input.propTypes = {
   autocomplete: PropTypes.string,
   className: PropTypes.string,
+  groupClassName: PropTypes.string,
   fieldValidation: PropTypes.func,
   inputmode: PropTypes.string,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   spellcheck: PropTypes.bool,
   type: PropTypes.string,
+  onChange: PropTypes.func,
   errors: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
 };
 
 Input.defaultProps = {
   autocomplete: null,
   className: '',
+  groupClassName: '',
   fieldValidation: null,
   inputmode: 'text',
   spellcheck: false,
   type: 'text',
   errors: null,
+  onChange: null,
 };
 
 export default Input;

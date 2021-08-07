@@ -27,7 +27,7 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
       handleContinue={handleContinue}
     >
       <Radios
-        name="swiftCard"
+        name="existingSwiftCard"
         hint={
           <>
             <p>Your Swift card needs to:</p>

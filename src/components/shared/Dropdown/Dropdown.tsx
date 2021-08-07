@@ -8,8 +8,9 @@ const { sanitize } = dompurify;
 
 type DropdownProps = {
   name: string;
-  hint: string;
-  error: { message: string } | null;
+  hint?: string;
+  error?: { message: string } | null;
+  className?: string;
   label: string;
   defaultValue?: string | null;
   options: { text: string; value: string }[];
@@ -22,6 +23,7 @@ const Dropdown = ({
   hint,
   label,
   error,
+  className,
   options,
   defaultValue,
   onChange,
@@ -31,7 +33,7 @@ const Dropdown = ({
   // const defaultSelectValue = defaultValue || (formState.ticketInfo[name] as string | number); // cast to acceptable types for a select element
   const defaultSelectValue = defaultValue;
   return (
-    <div className="wmnds-fe-group wmnds-m-b-md">
+    <div className={`wmnds-fe-group wmnds-m-b-md ${className}`}>
       <fieldset className="wmnds-fe-fieldset">
         <p>{hint}</p>
         <div className={`wmnds-fe-dropdown${error ? ' wmnds-fe-group--error' : ''}`}>

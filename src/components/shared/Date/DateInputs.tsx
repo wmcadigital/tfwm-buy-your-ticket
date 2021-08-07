@@ -4,32 +4,32 @@ import PropTypes from 'prop-types';
 // Import components
 import DateInput from './DateInput.js/DateInput';
 
-const Date = ({
+const DateInputs = ({
   autoCompletPrefix,
   fieldValidation,
   name,
-  formDataState,
+  defaultDate,
   errors,
   triggerValidation,
+  hint,
 }: {
   autoCompletPrefix: string;
   fieldValidation: () => void;
   name: string;
-  formDataState: { formData: { name: string } } | null;
+  defaultDate: Date | null;
   errors: { name: { message: string } };
   triggerValidation: () => void; // check if this is still needed
+  hint?: string | JSX.Element;
 }) => {
-  const [stateYear, stateMonth, stateDay] = formDataState?.formData?.name
-    ? formDataState?.formData?.name.split('-')
-    : ['', '', ''];
+  const [stateYear, stateMonth, stateDay] = defaultDate
+    ? [defaultDate.getDate(), defaultDate.getMonth() + 1, defaultDate.getFullYear()]
+    : [null, null, null];
 
   // State used for capturing date fields onChange below (we use these to validate against below)
-  const [day, setDay] = useState<number>(parseInt(stateDay, 10));
-  const [month, setMonth] = useState<number>(parseInt(stateMonth, 10));
-  const [year, setYear] = useState<number>(parseInt(stateYear, 10));
-  const [date, setDate] = useState<string | null>(
-    formDataState ? formDataState?.formData?.name : null,
-  );
+  const [day, setDay] = useState<number | null>(stateDay);
+  const [month, setMonth] = useState<number | null>(stateMonth);
+  const [year, setYear] = useState<number | null>(stateYear);
+  const [date, setDate] = useState<Date | null>(defaultDate);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const el: HTMLInputElement = e.target;
@@ -60,7 +60,8 @@ const Date = ({
 
   useEffect(() => {
     if (year && month && day) {
-      setDate(`${year}-${month}-${day}`);
+      const d: Date = new Date(`${year}-${month}-${day}`);
+      setDate(d);
     } // Set date state to current yyyy-mm-dd set by user (would do it in handleChange event but it falls out of sync)
   }, [day, month, year, setDate]);
 
@@ -71,10 +72,14 @@ const Date = ({
 
   return (
     <>
-      {/* If there is an error, show here */}
-      {errors?.name && <span className="wmnds-fe-error-message">{errors.name.message}</span>}
+      {hint && <div>{hint}</div>}
 
-      <div className={`wmnds-fe-group ${errors.name ? 'wmnds-fe-group--error' : ''}`}>
+      {/* If there is an error, show here */}
+      {errors && errors?.name && (
+        <span className="wmnds-fe-error-message">{errors.name.message}</span>
+      )}
+
+      <div className={`wmnds-fe-group ${errors && errors?.name ? 'wmnds-fe-group--error' : ''}`}>
         <div className="wmnds-col-1-2 wmnds-col-sm-1-12 wmnds-m-r-md">
           <DateInput
             autoComplete={autoCompletPrefix ? `${autoCompletPrefix}day` : 'day'}
@@ -103,26 +108,26 @@ const Date = ({
           />
         </div>
       </div>
-      <input name={name} type="hidden" ref={fieldValidation} value={date || ''} />
+      <input name={name} type="hidden" ref={fieldValidation} value={`${year}-${month}-${day}`} />
     </>
   );
 };
 
-Date.propTypes = {
+DateInputs.propTypes = {
   autoCompletPrefix: PropTypes.string,
   fieldValidation: PropTypes.func,
   name: PropTypes.string.isRequired,
   triggerValidation: PropTypes.func,
   errors: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
-  formDataState: PropTypes.objectOf(PropTypes.objectOf(PropTypes.objectOf(PropTypes.string))),
+  defaultDate: PropTypes.instanceOf(Date),
 };
 
-Date.defaultProps = {
+DateInputs.defaultProps = {
   autoCompletPrefix: '',
   fieldValidation: null,
-  formDataState: null,
+  defaultDate: null,
   triggerValidation: null,
   errors: null,
 };
 
-export default Date;
+export default DateInputs;

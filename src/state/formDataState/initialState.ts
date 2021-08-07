@@ -16,7 +16,7 @@ const initialState: TFormDataState = {
   submissionDate: null,
   onlineSalesTransactionId: null,
   createdDateTime: null,
-  applicationForMe: null,
+  applicationForMe: createSubscription(),
   startDate: createSubscription(),
   ticketId: null,
   ticketCode: null,

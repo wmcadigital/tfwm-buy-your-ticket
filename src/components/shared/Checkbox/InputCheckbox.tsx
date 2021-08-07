@@ -17,7 +17,7 @@ const InputCheckbox = ({
 }: {
   fieldValidation: () => void | null;
   name: string;
-  defaultValue: string | number | readonly string[] | undefined;
+  defaultValue: string | number | readonly string[] | null | undefined;
   labelValue: string | null;
   labelElement: JSX.Element | null;
   errors: { name: { message: string } };

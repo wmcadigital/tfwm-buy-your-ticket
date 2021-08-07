@@ -10,7 +10,7 @@ export type TFormDataState = {
   submissionDate: Nullable<string>;
   onlineSalesTransactionId: Nullable<number>;
   createdDateTime: Nullable<string>;
-  applicationForMe: Nullable<boolean>;
+  applicationForMe: TSubscription<boolean>;
   startDate: TSubscription<Date>;
   ticketId: Nullable<number>;
   ticketCode: Nullable<number>;
@@ -30,7 +30,7 @@ export type TFormDataState = {
   payerTitle: TSubscription<string>;
   payerFirstName: TSubscription<string>;
   payerLastName: TSubscription<string>;
-  payerDateOfBirth: TSubscription<string>;
+  payerDateOfBirth: TSubscription<Date>;
   payerHomePhoneNumber: TSubscription<string>;
   payerWorkPhoneNumber: TSubscription<string>;
   payerMobilePhoneNumber: TSubscription<string>;
@@ -54,7 +54,7 @@ export type TFormDataState = {
   ticketHolderTitle: TSubscription<string>;
   ticketHolderFirstName: TSubscription<string>;
   ticketHolderLastName: TSubscription<string>;
-  ticketHolderDateOfBirth: TSubscription<string>;
+  ticketHolderDateOfBirth: TSubscription<Date>;
   ticketHolderHomePhoneNumber: TSubscription<string>;
   ticketHolderWorkPhoneNumber: TSubscription<string>;
   ticketHolderMobilePhoneNumber: TSubscription<string>;

@@ -1,16 +1,18 @@
 import { TSectionProps } from 'types/section';
 import useStepLogic from '../customHooks/useStepLogic/useStepLogic';
 // Steps
-import AddToExistingSwiftCard from './Steps/AddToExistingSwiftCard';
 import TicketStartDate from './Steps/TicketStartDate';
+import AddToExistingSwiftCard from './Steps/AddToExistingSwiftCard';
+import AddSwiftCard from './Steps/AddSwiftCardNumber';
+import CheckIfUserIsTheTicketHolder from './Steps/CheckIfUserIsTheTicketHolder';
 
-const steps = [TicketStartDate, AddToExistingSwiftCard];
+const steps = [TicketStartDate, AddToExistingSwiftCard, AddSwiftCard, CheckIfUserIsTheTicketHolder];
 
 const SectionOne = ({ totalSections }: TSectionProps) => {
   const { currentStep, navigation } = useStepLogic(totalSections, steps.length);
   const StepToShow = steps[currentStep - 1];
 
-  const sectionTitle = 'About the ticket';
+  const sectionTitle = 'About you';
 
   return (
     <div>
