@@ -27,7 +27,7 @@ const DateInput = ({
       <input
         autoComplete={autoComplete}
         className={`wmnds-fe-input ${errors?.name ? 'wmnds-fe-input--error' : ''}`}
-        defaultValue={defaultValue}
+        defaultValue={defaultValue || 0}
         id={inputName}
         inputMode="numeric"
         onChange={onChange}

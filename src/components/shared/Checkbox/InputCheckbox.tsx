@@ -46,7 +46,7 @@ const InputCheckbox = ({
         )}
         <input
           ref={fieldValidation}
-          defaultValue={defaultValue}
+          defaultValue={defaultValue || ''}
           className="wmnds-fe-checkboxes__input"
           name={name}
           type="checkbox"

@@ -25,7 +25,7 @@ const Input = ({
       <input
         autoComplete={autocomplete}
         className={`wmnds-fe-input ${errors ? 'wmnds-fe-input--error' : ''}`}
-        defaultValue={defaultValue}
+        defaultValue={defaultValue || ''}
         id={name}
         inputMode={inputmode}
         name={name}
