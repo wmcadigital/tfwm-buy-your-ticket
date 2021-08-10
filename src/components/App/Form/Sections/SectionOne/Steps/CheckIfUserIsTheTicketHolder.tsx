@@ -1,6 +1,5 @@
 import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
 import Radios from 'components/shared/Radios/Radios';
-import { convertYesNoToBoolean, convertBooleanToYesNo } from 'helpers/yesNoBoolean';
 
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 import { TStepProps } from 'types/step';
@@ -11,9 +10,8 @@ const CheckIfUserIsTheTicketHolder = ({ stepNavigation }: TStepProps) => {
   const applicationForMe = useFormDataSubscription('applicationForMe');
   const { value } = applicationForMe;
 
-  const currentValue = value === null ? null : convertBooleanToYesNo(value);
   const setCurrentValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    applicationForMe.set(convertYesNoToBoolean(e.target.value as 'yes' | 'no'));
+    applicationForMe.set(e.target.value.toLowerCase() === 'true');
   };
 
   const handleContinue = () => {
@@ -30,11 +28,11 @@ const CheckIfUserIsTheTicketHolder = ({ stepNavigation }: TStepProps) => {
       <Radios
         name="isApplicationForMe"
         onChange={setCurrentValue}
-        currentValue={currentValue}
+        currentValue={value}
         error={null}
         radios={[
-          { text: 'Yes', html: null, value: 'yes', info: null },
-          { text: 'No', html: null, value: 'no', info: null },
+          { text: 'Yes', html: null, value: true, info: null },
+          { text: 'No', html: null, value: false, info: null },
         ]}
       />
     </QuestionCard>

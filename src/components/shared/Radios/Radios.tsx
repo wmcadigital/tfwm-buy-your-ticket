@@ -48,7 +48,7 @@ Radios.propTypes = {
     message: PropTypes.string.isRequired,
   }),
   onChange: PropTypes.func.isRequired,
-  currentValue: PropTypes.string,
+  currentValue: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };
 
 Radios.defaultProps = {

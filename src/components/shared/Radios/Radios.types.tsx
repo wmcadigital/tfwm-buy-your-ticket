@@ -5,7 +5,7 @@ export type TRadiosProps = {
   hint?: string | JSX.Element;
   error: { message: string } | null;
   radios: Array<Pick<TRadioProps, 'text' | 'value' | 'info'> & { html: string | null }>;
-  currentValue?: string | null;
+  currentValue?: string | boolean | null;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
