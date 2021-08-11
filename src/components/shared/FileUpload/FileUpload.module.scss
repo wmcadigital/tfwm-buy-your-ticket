@@ -15,6 +15,10 @@
   opacity: 0;
 }
 
+.fileUploadPreview {
+  max-height: 333px;
+}
+
 .fileUploadLabelFocused {
   outline: 0;
   background-color: get-color(primary);

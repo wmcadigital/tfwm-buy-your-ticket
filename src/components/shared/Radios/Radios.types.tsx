@@ -2,11 +2,12 @@ import { TRadioProps } from './Radio/Radio.types';
 
 export type TRadiosProps = {
   name: string;
-  hint?: string | JSX.Element;
-  error: { message: string } | null;
+  hint?: string | JSX.Element | null;
+  error?: { name: { message: string } } | null;
   radios: Array<Pick<TRadioProps, 'text' | 'value' | 'info'> & { html: string | null }>;
   currentValue?: string | null;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
 };
 
 // export type TRadiosProps<T> = {

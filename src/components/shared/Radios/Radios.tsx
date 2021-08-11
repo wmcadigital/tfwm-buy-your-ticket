@@ -5,7 +5,7 @@ import Radio from './Radio/Radio';
 
 const { sanitize } = dompurify;
 
-const Radios = ({ name, hint, error, radios, onChange, currentValue }: TRadiosProps) => {
+const Radios = ({ name, hint, error, radios, onChange, currentValue, required }: TRadiosProps) => {
   return (
     <div className="wmnds-fe-group">
       <fieldset className="wmnds-fe-fieldset">
@@ -19,7 +19,7 @@ const Radios = ({ name, hint, error, radios, onChange, currentValue }: TRadiosPr
             <span
               className="wmnds-fe-error-message"
               dangerouslySetInnerHTML={{
-                __html: sanitize(error.message),
+                __html: sanitize(error.name.message),
               }}
             />
           )}
@@ -33,6 +33,7 @@ const Radios = ({ name, hint, error, radios, onChange, currentValue }: TRadiosPr
               onChange={onChange}
               checked={value === currentValue}
               info={info}
+              required={required}
             />
           ))}
         </div>
@@ -43,17 +44,18 @@ const Radios = ({ name, hint, error, radios, onChange, currentValue }: TRadiosPr
 
 Radios.propTypes = {
   name: PropTypes.string.isRequired,
-  hint: PropTypes.node.isRequired,
-  error: PropTypes.shape({
-    message: PropTypes.string.isRequired,
-  }),
+  hint: PropTypes.node,
+  error: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
   onChange: PropTypes.func.isRequired,
   currentValue: PropTypes.string,
+  required: PropTypes.bool,
 };
 
 Radios.defaultProps = {
   error: null,
+  hint: null,
   currentValue: null,
+  required: false,
 };
 
 export default Radios;

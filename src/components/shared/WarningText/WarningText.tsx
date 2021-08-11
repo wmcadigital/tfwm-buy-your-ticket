@@ -7,7 +7,7 @@ const WarningText = ({
   className,
 }: {
   type: 'error' | 'warning' | 'info' | 'success';
-  message: string;
+  message: string | JSX.Element;
   className: string | null;
 }) => {
   let iconName;
@@ -40,7 +40,7 @@ const WarningText = ({
 WarningText.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string,
-  message: PropTypes.element,
+  message: PropTypes.string || PropTypes.element,
 };
 
 WarningText.defaultProps = {

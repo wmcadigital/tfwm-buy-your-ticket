@@ -5,7 +5,7 @@ import s from './Radio.module.scss';
 
 const { sanitize } = dompurify;
 
-const Radio = ({ name, onChange, text, value, info, checked }: TRadioProps) => {
+const Radio = ({ name, onChange, text, value, info, checked, required }: TRadioProps) => {
   return (
     <>
       <label className={`${s.radioContainer} wmnds-fe-radios__container`}>
@@ -17,6 +17,7 @@ const Radio = ({ name, onChange, text, value, info, checked }: TRadioProps) => {
           type="radio"
           onChange={onChange}
           checked={checked}
+          required={required}
         />
         {info && (
           <div
