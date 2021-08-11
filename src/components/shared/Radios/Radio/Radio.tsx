@@ -12,7 +12,7 @@ const Radio = ({ name, onChange, text, value, info, checked, required }: TRadioP
         <div className={s.text} dangerouslySetInnerHTML={{ __html: sanitize(text) }} />
         <input
           className={`${s.radio} wmnds-fe-radios__input`}
-          value={value}
+          value={`${value}`}
           name={name}
           type="radio"
           onChange={onChange}
