@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
 import Radios from 'components/shared/Radios/Radios';
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
@@ -6,7 +7,7 @@ import { convertYesNoToBoolean, convertBooleanToYesNo } from 'helpers/yesNoBoole
 
 const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
   const { goToNextStep, skipToStep } = stepNavigation;
-
+  const [errors, setErrors] = useState<{ name: { message: string } }[] | null[]>([]);
   const addProductToExistingCard = useFormDataSubscription('addProductToExistingCard');
   const { value } = addProductToExistingCard;
 
@@ -16,15 +17,21 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
   };
 
   const handleContinue = () => {
-    addProductToExistingCard.save();
-    if (value === true) return goToNextStep();
-    return skipToStep(4);
+    if (addProductToExistingCard.value) {
+      addProductToExistingCard.save();
+      if (value === true) return goToNextStep();
+      return skipToStep(4);
+    }
+    const errorObj = { name: { message: 'This field is mandatory' } };
+    setErrors([errorObj]);
+    return false;
   };
 
   return (
     <QuestionCard
       question="Would you like to add the ticket to an existing Swift card?"
       handleContinue={handleContinue}
+      showError={errors.length > 0}
     >
       <Radios
         name="existingSwiftCard"
@@ -39,13 +46,14 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
             </ul>
           </>
         }
-        error={null}
+        error={errors ? errors[0] : null}
         currentValue={currentValue}
         onChange={setCurrentValue}
         radios={[
           { text: 'Yes', html: null, value: 'yes', info: null },
           { text: 'No, I need a new card', html: null, value: 'no', info: null },
         ]}
+        required
       />
     </QuestionCard>
   );
