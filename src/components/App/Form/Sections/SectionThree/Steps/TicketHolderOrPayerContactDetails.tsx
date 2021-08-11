@@ -46,6 +46,7 @@ const TicketHolderOrPayerContactDetails = ({ stepNavigation, currentSection }: T
         We&apos;ll use this to get in touch about the Direct Debit and ticket.
       </p>
       <Input
+        groupClassName="wmnds-m-b-lg"
         name="email"
         inputmode="email"
         label={
@@ -61,6 +62,7 @@ const TicketHolderOrPayerContactDetails = ({ stepNavigation, currentSection }: T
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => email.set(e.target.value)}
       />
       <Input
+        groupClassName="wmnds-m-b-lg"
         name="mobilePhone"
         inputmode="tel"
         label={

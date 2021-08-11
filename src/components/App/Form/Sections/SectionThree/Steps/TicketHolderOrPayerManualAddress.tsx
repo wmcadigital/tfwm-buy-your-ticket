@@ -80,6 +80,7 @@ const TicketHolderOrPayerManualAddress = ({ stepNavigation, currentSection }: TS
         type="text"
       />
       <Input
+        groupClassName="wmnds-m-b-lg"
         className="wmnds-col-1 wmnds-col-md-2-3"
         name="AddressLine2"
         inputmode="text"
@@ -90,6 +91,7 @@ const TicketHolderOrPayerManualAddress = ({ stepNavigation, currentSection }: TS
         type="text"
       />
       <Input
+        groupClassName="wmnds-m-b-lg"
         className="wmnds-col-1 wmnds-col-md-2-3"
         name="TownOrCity"
         inputmode="text"
@@ -99,6 +101,7 @@ const TicketHolderOrPayerManualAddress = ({ stepNavigation, currentSection }: TS
         type="text"
       />
       <Input
+        groupClassName="wmnds-m-b-lg"
         className="wmnds-col-1 wmnds-col-md-2-3"
         name="County"
         inputmode="text"
@@ -108,6 +111,7 @@ const TicketHolderOrPayerManualAddress = ({ stepNavigation, currentSection }: TS
         type="text"
       />
       <Input
+        groupClassName="wmnds-m-b-lg"
         className="wmnds-col-1 wmnds-col-md-2-3"
         name="postcode"
         inputmode="text"

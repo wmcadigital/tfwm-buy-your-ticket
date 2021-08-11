@@ -50,6 +50,7 @@ const TicketHolderOrPayerName = ({ stepNavigation, currentSection }: TStepProps)
           />
         )}
         <Input
+          groupClassName="wmnds-m-b-lg"
           name="firstName"
           inputmode="text"
           label="First Name"
@@ -59,6 +60,7 @@ const TicketHolderOrPayerName = ({ stepNavigation, currentSection }: TStepProps)
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => firstName.set(e.target.value)}
         />
         <Input
+          groupClassName="wmnds-m-b-lg"
           name="lastName"
           inputmode="text"
           label="Last Name"
