@@ -48,8 +48,8 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
         currentValue={value}
         onChange={setCurrentValue}
         radios={[
-          { text: 'Yes', html: null, value: 'true', info: null },
-          { text: 'No, I need a new card', html: null, value: 'false', info: null },
+          { text: 'Yes', html: null, value: true, info: null },
+          { text: 'No, I need a new card', html: null, value: false, info: null },
         ]}
         required
       />
