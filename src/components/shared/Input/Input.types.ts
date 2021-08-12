@@ -10,6 +10,8 @@ export type TInputProps = {
   spellcheck?: boolean;
   type?: 'text' | 'number';
   errors?: { name: { message: string } };
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onChange: (e: React.SyntheticEvent<Element, Event>) => void;
   pattern?: string;
+  mask?: string;
+  maskChar?: string;
 };

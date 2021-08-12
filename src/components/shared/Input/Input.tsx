@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import dompurify from 'dompurify';
+import InputMask from 'react-maskinput';
 import { TInputProps } from './Input.types';
 
 const { sanitize } = dompurify;
@@ -18,24 +19,42 @@ const Input = ({
   errors,
   onChange,
   pattern,
+  mask,
+  maskChar,
 }: TInputProps) => {
   // Set input to render below
-  const input = (
+  const input = mask ? (
     <>
-      <input
-        autoComplete={autocomplete}
-        className={`wmnds-fe-input ${errors ? 'wmnds-fe-input--error' : ''}`}
+      <InputMask
+        mask={mask}
+        maskChar={maskChar}
+        // autoComplete={autocomplete}
+        // className={`wmnds-fe-input ${errors ? 'wmnds-fe-input--error' : ''}`}
         defaultValue={defaultValue || ''}
-        id={name}
-        inputMode={inputmode}
-        name={name}
-        ref={fieldValidation}
-        spellCheck={spellcheck}
-        type={type}
+        // id={name}
+        // inputMode={inputmode}
+        // name={name}
+        // ref={fieldValidation}
+        // spellCheck={spellcheck}
+        // type={type}
         onChange={onChange}
-        pattern={pattern}
+        // onBlur={() => onBlur(true)}
       />
     </>
+  ) : (
+    <input
+      autoComplete={autocomplete}
+      className={`wmnds-fe-input ${errors ? 'wmnds-fe-input--error' : ''}`}
+      defaultValue={defaultValue || ''}
+      id={name}
+      inputMode={inputmode}
+      name={name}
+      ref={fieldValidation}
+      spellCheck={spellcheck}
+      type={type}
+      onChange={onChange}
+      pattern={pattern}
+    />
   );
   return (
     <div
@@ -63,6 +82,16 @@ const Input = ({
         />
       )}
 
+      {mask && (
+        <input
+          id={name}
+          name={name}
+          ref={fieldValidation}
+          value={defaultValue || ''}
+          type="hidden"
+        />
+      )}
+
       {/* If className then wrap just input with the className else, just show input as usual */}
       {className ? <div className={className}>{input}</div> : input}
     </div>
@@ -81,6 +110,8 @@ Input.propTypes = {
   type: PropTypes.string,
   onChange: PropTypes.func,
   errors: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
+  mask: PropTypes.string,
+  maskChar: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -93,6 +124,8 @@ Input.defaultProps = {
   type: 'text',
   errors: null,
   onChange: null,
+  mask: null,
+  maskChar: null,
 };
 
 export default Input;

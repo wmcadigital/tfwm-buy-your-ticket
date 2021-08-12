@@ -19,6 +19,12 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
     return goToNextStep();
   };
 
+  const updateAccountName = (e: React.ChangeEvent<HTMLInputElement>) =>
+    accountName.set(e.target.value);
+  const updateAccountNumber = (e: React.ChangeEvent<HTMLInputElement>) =>
+    accountNumber.set(e.target.value);
+  const updateSortCode = (e: React.ChangeEvent<HTMLInputElement>) => sortCode.set(e.target.value);
+
   return (
     <QuestionCard
       question="Instruction to your bank or building society to pay by Direct Debit"
@@ -67,7 +73,7 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
         defaultValue={accountName.value}
         type="text"
         className="wmnds-col-1 wmnds-col-md-2-3"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => accountName.set(e.target.value)}
+        onChange={(e) => updateAccountName(e)}
       />
       <Input
         groupClassName="wmnds-m-b-lg"
@@ -83,7 +89,7 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
         defaultValue={sortCode.value}
         type="text"
         className="wmnds-col-1 wmnds-col-md-1-3"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => sortCode.set(e.target.value)}
+        onChange={(e) => updateSortCode(e)}
       />
       <Input
         groupClassName="wmnds-m-b-lg"
@@ -99,7 +105,7 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
         defaultValue={accountNumber.value}
         type="text"
         className="wmnds-col-1 wmnds-col-md-1-3"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => accountNumber.set(e.target.value)}
+        onChange={(e) => updateAccountNumber(e)}
       />
       <p>
         Please pay West Midlands Combined Authority Direct Debits from the account detailed in this

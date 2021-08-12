@@ -28,6 +28,8 @@ const AddSwiftCard = ({ stepNavigation }: TStepProps) => {
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={setCurrentValue}
         defaultValue={value}
+        mask="000000 0000 0000 0000"
+        maskChar=" "
       />
       <InsetText
         classes="wmnds-m-b-lg"
