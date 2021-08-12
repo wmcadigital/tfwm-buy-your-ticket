@@ -2,11 +2,11 @@ import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
 import Button from 'components/shared/Button';
 import Dropdown from 'components/shared/Dropdown/Dropdown';
 import Input from 'components/shared/Input';
-// import useAxiosRequest from 'customHooks/useAxiosRequest';
 
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 import { useFormDataContext } from 'state/formDataState/context';
 import { TStepProps } from 'types/step';
+import useGetAddresses from '../../customHooks/useGetAddresses/useGetAddresses';
 
 const TicketHolderOrPayerAddress = ({ stepNavigation, currentSection }: TStepProps) => {
   const { goToNextStep, skipToStep, skipToSection } = stepNavigation;
@@ -40,9 +40,13 @@ const TicketHolderOrPayerAddress = ({ stepNavigation, currentSection }: TStepPro
     question = 'What is your address?';
   }
 
-  const addresses: { text: string; value: string }[] = [
-    { text: '16 summer lane', value: '16 summer lane' },
-  ];
+  const { isLoading, hasError, addresses } = useGetAddresses(postcode.value);
+  console.log(isLoading);
+  console.log(hasError);
+  console.log(addresses);
+  // const addressesOptions: { text: string; value: string }[] = [];
+
+  // const options: { text: string; value: string }[] = addresses?.map( address => { text: address.line_1, value: address.guid });
 
   const handleFindAddress = () => {
     postcode.save();
@@ -88,7 +92,7 @@ const TicketHolderOrPayerAddress = ({ stepNavigation, currentSection }: TStepPro
         className="wmnds-col-1 wmnds-col-md-2-3"
         name="addressLine1"
         label="Select an address"
-        options={addresses}
+        options={[{ text: 'test', value: 'test' }]}
         // defaultValue={addressLine1.value}
         // onChange={(e) => addressLine1.set(e.target.value)}
       />
