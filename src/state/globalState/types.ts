@@ -1,5 +1,12 @@
 import React from 'react';
+import { TFormDataStateKey } from 'state/formDataState/types';
 import { TTicket } from 'types/ticket';
+
+export type TGlobalStateHistory = {
+  subscriptions: TFormDataStateKey[];
+  section: number;
+  step: number;
+};
 
 export type TGlobalState = {
   form: {
@@ -9,7 +16,11 @@ export type TGlobalState = {
     isEditing: boolean;
     currentSection: number;
     currentStep: number;
-    history: { section: number; step: number }[];
+    currentSubscriptions: TFormDataStateKey[];
+    history: {
+      current: TGlobalStateHistory[]; // Keep track of sections/steps the users can go back to
+      previous: TGlobalStateHistory[]; // Keep track of data to be deleted if users goes back and branches from
+    };
   };
   ticket: TTicket;
 };
@@ -37,14 +48,15 @@ type TGlobalStateAction =
     }
   | {
       type: 'GO_TO_SECTION_AND_STEP';
-      payload: {
-        section: number;
-        step: number;
-      };
+      payload: TGlobalStateHistory;
     }
   | {
       type: 'GO_BACK';
       payload?: null;
+    }
+  | {
+      type: 'SUBSCRIBE_TO_FORM_DATA';
+      payload: TFormDataStateKey;
     };
 
 export type TGlobalStateReducer = (state: TGlobalState, action: TGlobalStateAction) => TGlobalState;

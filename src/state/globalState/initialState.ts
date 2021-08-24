@@ -9,7 +9,11 @@ const initialState: TGlobalState = {
     isEditing: false,
     currentSection: 0,
     currentStep: 0,
-    history: [],
+    currentSubscriptions: [],
+    history: {
+      current: [],
+      previous: [],
+    },
   },
   ticket: {
     id: parseInt(getSearchParam('ticketId') as string, 10) || -1,

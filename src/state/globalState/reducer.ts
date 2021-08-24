@@ -1,15 +1,18 @@
+import { TFormDataStateKey } from 'state/formDataState/types';
 import { TTicket } from 'types/ticket';
-import { TGlobalStateReducer } from './types';
+import { TGlobalStateReducer, TGlobalStateHistory } from './types';
 
 const reducer: TGlobalStateReducer = (state, action) => {
   const { type, payload } = action;
-  let data; // Helper for destructuring or casting types
 
-  const prevHistory = state.form.history.slice(0, state.form.history.length - 1);
-  const nextHistory = [
-    ...state.form.history,
-    { section: state.form.currentSection, step: state.form.currentStep },
-  ];
+  const getNewHistory = (): TGlobalStateHistory[] => {
+    const currentHistory = state.form.history.current;
+    const { currentSection, currentStep, currentSubscriptions } = state.form;
+    return [
+      ...currentHistory,
+      { section: currentSection, step: currentStep, subscriptions: currentSubscriptions },
+    ];
+  };
 
   switch (type) {
     case 'START_FORM':
@@ -29,8 +32,6 @@ const reducer: TGlobalStateReducer = (state, action) => {
         form: {
           ...state.form,
           isFinished: true,
-          // Only add to the history once
-          history: state.form.isFinished ? state.form.history : nextHistory,
         },
       };
 
@@ -40,68 +41,100 @@ const reducer: TGlobalStateReducer = (state, action) => {
         ticket: payload as TTicket,
       };
 
-    case 'GO_TO_SECTION':
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          currentSection: payload as number,
-          currentStep: 1,
-          history: nextHistory,
-        },
-      };
-
-    case 'GO_TO_STEP':
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          currentStep: payload as number,
-          history: nextHistory,
-        },
-      };
-
-    case 'GO_TO_SECTION_AND_STEP':
-      data = payload as { section: number; step: number };
+    case 'GO_TO_STEP': {
+      const newStep = payload as number;
 
       return {
         ...state,
         form: {
           ...state.form,
-          isFinished: false,
-          currentSection: data?.section,
-          currentStep: data?.step,
-          history: nextHistory,
-        },
-      };
-
-    case 'GO_BACK':
-      data = state.form.history;
-
-      if (!data.length) {
-        // Show start page
-        return {
-          ...state,
-          form: {
-            ...state.form,
-            history: [],
-            isStarted: false,
-            isFinished: false,
+          currentStep: newStep,
+          history: {
+            ...state.form.history,
+            current: getNewHistory(),
           },
-        };
-      }
+        },
+      };
+    }
+
+    case 'GO_TO_SECTION': {
+      const newSection = payload as number;
+
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          currentSection: newSection,
+          currentStep: 1,
+          history: {
+            ...state.form.history,
+            current: getNewHistory(),
+          },
+        },
+      };
+    }
+
+    case 'GO_TO_SECTION_AND_STEP': {
+      const { section, step } = payload as TGlobalStateHistory;
 
       return {
         ...state,
         form: {
           ...state.form,
           isFinished: false,
-          history: prevHistory,
-          // Go to the last section / step in history
-          currentSection: data[data.length - 1].section,
-          currentStep: data[data.length - 1].step,
+          currentSection: section,
+          currentStep: step,
+          history: {
+            ...state.form.history,
+            current: getNewHistory(),
+          },
         },
       };
+    }
+
+    case 'GO_BACK': {
+      const currentHistory = state.form.history.current;
+      const previousHistory = state.form.history.previous;
+
+      const lastSectionAndStep = currentHistory[currentHistory.length - 1];
+      const hasCurrentHistory = currentHistory.length > 0;
+
+      const isBeyondPreviousHistory = currentHistory.length > previousHistory.length;
+      const hasChangedHistory = currentHistory.every(({ section, step }, index) => {
+        return section === previousHistory[index].section && step === previousHistory[index].step;
+      });
+      const shouldUpdatePreviousHistory = hasChangedHistory || isBeyondPreviousHistory;
+
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          isFinished: false,
+          history: {
+            // Set the previous history as longest path in current history
+            previous: shouldUpdatePreviousHistory ? currentHistory : previousHistory,
+            current: hasCurrentHistory ? currentHistory.slice(0, currentHistory.length - 1) : [],
+          },
+          // Go to the last section / step in history
+          currentSection: lastSectionAndStep.section,
+          currentStep: lastSectionAndStep.step,
+        },
+      };
+    }
+
+    case 'SUBSCRIBE_TO_FORM_DATA': {
+      const dataName = payload as TFormDataStateKey;
+      const { currentSubscriptions } = state.form;
+      const newCurrentSubscriptions = [...currentSubscriptions, dataName];
+
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          currentSubscriptions: newCurrentSubscriptions,
+        },
+      };
+    }
 
     default:
       return state;

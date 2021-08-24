@@ -26,7 +26,7 @@ const Form = () => {
       </div>
       <div className="wmnds-col-1 wmnds-col-md-3-4">
         <div className={`${s.card} bg-white wmnds-m-b-lg`}>
-          {form.isFinished ? (
+          {form.isFinished && !form.isEditing ? (
             <Summary />
           ) : (
             <>
