@@ -47,7 +47,7 @@ Radios.propTypes = {
   hint: PropTypes.node,
   error: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
   onChange: PropTypes.func.isRequired,
-  currentValue: PropTypes.string,
+  currentValue: PropTypes.oneOf([PropTypes.string, PropTypes.bool]),
   required: PropTypes.bool,
 };
 
