@@ -2,21 +2,13 @@ import { TSectionProps } from 'types/section';
 import useStepLogic from '../customHooks/useStepLogic/useStepLogic';
 
 // Steps
-import TicketHolderOrPayerName from './Steps/TicketHolderOrPayerName';
-import TicketHolderOrPayerBirthDate from './Steps/TicketHolderOrPayerBirthDate';
-import TicketHolderOrPayerContactDetails from './Steps/TicketHolderOrPayerContactDetails';
-import TicketHolderOrPayerAddress from './Steps/TicketHolderOrPayerAddress';
-import TicketHolderPhoto from './Steps/TicketHolderPhoto';
-import TicketHolderOrPayerManualAddress from './Steps/TicketHolderOrPayerManualAddress';
+import PayerBirthDate from './Steps/PayerBirthDate';
+import PayerName from './Steps/PayerName';
+import PayerContactDetails from './Steps/PayerContactDetails';
+import PayerAddress from './Steps/PayerAddress';
+import PayerPhoto from './Steps/PayerPhoto';
 
-const steps = [
-  TicketHolderOrPayerName,
-  TicketHolderOrPayerBirthDate,
-  TicketHolderOrPayerContactDetails,
-  TicketHolderOrPayerAddress,
-  TicketHolderOrPayerManualAddress,
-  TicketHolderPhoto,
-];
+const steps = [PayerName, PayerBirthDate, PayerContactDetails, PayerAddress, PayerPhoto];
 
 const SectionThree = ({ totalSections }: TSectionProps) => {
   const { currentSection, currentStep, navigation } = useStepLogic(totalSections, steps.length);

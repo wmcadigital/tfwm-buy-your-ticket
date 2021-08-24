@@ -1,23 +1,15 @@
 import { TSectionProps } from 'types/section';
 import useStepLogic from '../customHooks/useStepLogic/useStepLogic';
-
 // Steps
-import TicketHolderOrPayerName from '../SectionThree/Steps/TicketHolderOrPayerName';
-import TicketHolderOrPayerBirthDate from '../SectionThree/Steps/TicketHolderOrPayerBirthDate';
-import TicketHolderOrPayerAddress from '../SectionThree/Steps/TicketHolderOrPayerAddress';
-import TicketHolderPhoto from '../SectionThree/Steps/TicketHolderPhoto';
-import TicketHolderOrPayerManualAddress from '../SectionThree/Steps/TicketHolderOrPayerManualAddress';
+import TicketHolderAddress from './Steps/TicketHolderAddress';
+import TicketHolderBirthDate from './Steps/TicketHolderBirthDate';
+import TicketHolderName from './Steps/TicketHolderName';
+import TicketHolderPhoto from './Steps/TicketHolderPhoto';
 
-const steps = [
-  TicketHolderOrPayerName,
-  TicketHolderOrPayerBirthDate,
-  TicketHolderOrPayerAddress,
-  TicketHolderOrPayerManualAddress,
-  TicketHolderPhoto,
-];
+const steps = [TicketHolderName, TicketHolderBirthDate, TicketHolderAddress, TicketHolderPhoto];
 
 const SectionTwo = ({ totalSections }: TSectionProps) => {
-  const { currentSection, currentStep, navigation } = useStepLogic(totalSections, steps.length);
+  const { currentStep, navigation } = useStepLogic(totalSections, steps.length);
   const StepToShow = steps[currentStep - 1];
 
   const sectionTitle = 'About the ticket user';
@@ -25,7 +17,7 @@ const SectionTwo = ({ totalSections }: TSectionProps) => {
   return (
     <div>
       <strong>{sectionTitle}</strong>
-      <StepToShow stepNavigation={navigation} currentSection={currentSection} />
+      <StepToShow stepNavigation={navigation} />
     </div>
   );
 };
