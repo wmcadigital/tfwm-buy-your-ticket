@@ -16,7 +16,7 @@ const CheckIfUserIsTheTicketHolder = ({ stepNavigation }: TStepProps) => {
 
   const handleContinue = () => {
     applicationForMe.save();
-    if (!value) return goToNextStep();
+    if (value === false) return goToNextStep();
     return skipToSection(3);
   };
 

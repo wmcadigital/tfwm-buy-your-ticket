@@ -29,7 +29,7 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
     <QuestionCard
       question="Would you like to add the ticket to an existing Swift card?"
       handleContinue={handleContinue}
-      showError={errors.length > 0}
+      // showError={errors.length > 0}
     >
       <Radios
         name="existingSwiftCard"
