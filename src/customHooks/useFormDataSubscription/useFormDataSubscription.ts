@@ -26,7 +26,7 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, initialStat
         type: 'UPDATE_FORM_DATA',
         payload: {
           name: dataName,
-          value: !currentValue,
+          value: currentValue!,
         },
       });
     },
