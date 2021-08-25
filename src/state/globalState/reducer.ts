@@ -49,6 +49,7 @@ const reducer: TGlobalStateReducer = (state, action) => {
         form: {
           ...state.form,
           currentStep: newStep,
+          currentSubscriptions: [],
           history: {
             ...state.form.history,
             current: getNewHistory(),
@@ -66,6 +67,7 @@ const reducer: TGlobalStateReducer = (state, action) => {
           ...state.form,
           currentSection: newSection,
           currentStep: 1,
+          currentSubscriptions: [],
           history: {
             ...state.form.history,
             current: getNewHistory(),
@@ -84,6 +86,7 @@ const reducer: TGlobalStateReducer = (state, action) => {
           isFinished: false,
           currentSection: section,
           currentStep: step,
+          currentSubscriptions: [],
           history: {
             ...state.form.history,
             current: getNewHistory(),
