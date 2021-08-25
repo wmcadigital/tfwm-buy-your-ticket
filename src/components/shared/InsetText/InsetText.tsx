@@ -9,7 +9,7 @@ const InsetText = ({
 }): JSX.Element => <div className={`wmnds-col-1 wmnds-inset-text ${classes}`}>{content}</div>;
 
 InsetText.propTypes = {
-  content: PropTypes.string.isRequired,
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   classes: PropTypes.string,
 };
 InsetText.defaultProps = {
