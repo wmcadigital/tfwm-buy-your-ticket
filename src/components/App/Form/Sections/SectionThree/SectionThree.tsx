@@ -1,20 +1,30 @@
 import { TSectionProps } from 'types/section';
+import { useFormDataContext } from 'state/formDataState/context';
 import useStepLogic from '../customHooks/useStepLogic/useStepLogic';
 
 // Steps
-import PayerBirthDate from './Steps/PayerBirthDate';
-import PayerName from './Steps/PayerName';
-import PayerContactDetails from './Steps/PayerContactDetails';
-import PayerAddress from './Steps/PayerAddress';
-import PayerPhoto from './Steps/PayerPhoto';
+import PayerOrTicketHolderBirthDate from './Steps/PayerOrTicketHolderBirthDate';
+import PayerOrTicketHolderName from './Steps/PayerOrTicketHolderName';
+import PayerOrTicketHolderContactDetails from './Steps/PayerOrTicketHolderContactDetails';
+import PayerOrTicketHolderAddress from './Steps/PayerOrTicketHolderAddress';
+import PayerOrTicketHolderPhoto from './Steps/PayerOrTicketHolderPhoto';
 
-const steps = [PayerName, PayerBirthDate, PayerContactDetails, PayerAddress, PayerPhoto];
+const steps = [
+  PayerOrTicketHolderName,
+  PayerOrTicketHolderBirthDate,
+  PayerOrTicketHolderContactDetails,
+  PayerOrTicketHolderAddress,
+  PayerOrTicketHolderPhoto,
+];
 
 const SectionThree = ({ totalSections }: TSectionProps) => {
   const { currentSection, currentStep, navigation } = useStepLogic(totalSections, steps.length);
   const StepToShow = steps[currentStep - 1];
 
-  const sectionTitle = 'About the ticket'; // or 'About the payer'
+  const [formDataState] = useFormDataContext();
+  const { applicationForMe } = formDataState;
+
+  const sectionTitle = applicationForMe ? 'About you' : 'About the payer'; // or 'About the payer'
 
   return (
     <div>
