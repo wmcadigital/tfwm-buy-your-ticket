@@ -86,7 +86,7 @@ export type TFormDataState = {
 };
 
 export type TFormDataStateKey = keyof TFormDataState;
-export type TFormDataStateValue = string | boolean | number;
+export type TFormDataStateValue = NonNullable<TFormDataState[TFormDataStateKey]>;
 
 export type TFormDataStateAction =
   | {
