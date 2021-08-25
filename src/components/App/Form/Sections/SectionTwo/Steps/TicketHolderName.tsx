@@ -9,7 +9,7 @@ const TicketHolderName = ({ stepNavigation }: TStepProps) => {
       handleNavigation={goToNextStep}
       dataNamePrefix="ticketHolder"
       question="Who will be using this ticket?"
-      warningText="If yo're getting this ticket for someone else, use their details for this section"
+      warningText="If you're getting this ticket for someone else, use their details for this section"
     />
   );
 };
