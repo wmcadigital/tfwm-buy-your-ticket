@@ -4,7 +4,7 @@ import { useGlobalContext } from 'state/globalState/context';
 import { TSubscription, TSubscriptionReturn } from 'types/subscription';
 import { TUseFormDataSubscription } from './useFormDataSubscription.types';
 
-const useFormDataSubscription: TUseFormDataSubscription = (dataName, initialState) => {
+const useFormDataSubscription: TUseFormDataSubscription = (dataName) => {
   // Check whether this data exists in the formData
   const [formDataState, formDataDispatch] = useFormDataContext();
   if (!Object.prototype.hasOwnProperty.call(formDataState, dataName))
@@ -21,10 +21,12 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, initialStat
     !savedSubscription.subscriptions.some(
       (item) => item.section === currentSection && item.step === currentStep,
     );
+
   const savedData = shoudlClearSavedValue ? null : savedSubscription.value;
   type TSavedData = typeof savedData;
 
-  const [currentValue, setCurrentValue] = useState<TSavedData>(savedData || initialState || null);
+  const initialState = typeof savedData !== null ? savedData : null;
+  const [currentValue, setCurrentValue] = useState<TSavedData>(initialState);
 
   // return object to the component
   const subscription: TSubscriptionReturn<TSavedData> = {
@@ -35,7 +37,7 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, initialStat
         type: 'UPDATE_FORM_DATA',
         payload: {
           name: dataName,
-          value: currentValue!,
+          value: currentValue,
         },
       });
     },
