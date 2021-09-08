@@ -7,9 +7,11 @@ const PayerAddress = ({ stepNavigation }: TStepProps) => {
   const [formDataState] = useFormDataContext();
   const { applicationForMe } = formDataState;
 
-  const question = applicationForMe ? 'What is your address?' : "What is the payer's address?";
-  const dataNamePrefix = applicationForMe ? 'ticketHolder' : 'payer';
-  const handleNavigation = applicationForMe ? goToNextStep : () => skipToSection(4); // Skip the photo step
+  const question = applicationForMe.value
+    ? 'What is your address?'
+    : "What is the payer's address?";
+  const dataNamePrefix = applicationForMe.value ? 'ticketHolder' : 'payer';
+  const handleNavigation = applicationForMe.value ? goToNextStep : () => skipToSection(4); // Skip the photo step
 
   return (
     <AddressStep

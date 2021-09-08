@@ -1,4 +1,5 @@
 import { Nullable } from 'types/helpers';
+import { TSectionAndStep, TSubscription } from 'types/subscription';
 
 // fields that are directly edited by user need to be Subscription<DATA_TYPE>
 // fields that are set via code need to be Nullable<DATA_TYPE>
@@ -9,99 +10,104 @@ export type TFormDataState = {
   submissionDate: Nullable<string>;
   onlineSalesTransactionId: Nullable<number>;
   createdDateTime: Nullable<string>;
-  applicationForMe: Nullable<boolean>;
-  startDate: Nullable<Date>;
+  applicationForMe: TSubscription<boolean>;
+  startDate: TSubscription<Date>;
   ticketId: Nullable<number>;
   ticketCode: Nullable<number>;
   addOn: Nullable<string>;
   promotionalCode: Nullable<string>;
   previousCustomer: Nullable<number>;
-  previousCustomerReferenceNumber: Nullable<number>;
-  currentSwiftcard: Nullable<boolean>;
-  currentSwiftcardNumber: Nullable<string>;
-  addProductToExistingCard: Nullable<boolean>;
-  isApprentice: Nullable<boolean>;
-  schoolName: Nullable<string>;
-  schoolPostcode: Nullable<string>;
-  employerName: Nullable<string>;
-  employerPostcode: Nullable<string>;
-  filename: Nullable<string>;
-  payerTitle: Nullable<string>;
-  payerFirstName: Nullable<string>;
-  payerLastName: Nullable<string>;
-  payerDateOfBirth: Nullable<Date>;
-  payerHomePhoneNumber: Nullable<string>;
-  payerWorkPhoneNumber: Nullable<string>;
-  payerMobilePhoneNumber: Nullable<string>;
-  payerEmailAddress: Nullable<string>;
-  currentTimeAtAddressYears: Nullable<number>;
-  currentTimeAtAddressMonths: Nullable<number>;
-  previousTimeAtAddressYears: Nullable<number>;
-  previousTimeAtAddressMonths: Nullable<number>;
-  payerCurrentPostcode: Nullable<string>;
-  payerCurrentAddressLine1: Nullable<string>;
-  payerCurrentAddressLine2: Nullable<string>;
-  payerCurrentAddressLine3: Nullable<string>;
-  payerCurrentAddressLine4: Nullable<string>;
-  payerCurrentTown: Nullable<string>;
-  payerPreviousPostcode: Nullable<string>;
-  payerPreviousAddressLine1: Nullable<string>;
-  payerPreviousAddressLine2: Nullable<string>;
-  payerPreviousAddressLine3: Nullable<string>;
-  payerPreviousAddressLine4: Nullable<string>;
-  payerPreviousTown: Nullable<string>;
-  ticketHolderTitle: Nullable<string>;
-  ticketHolderFirstName: Nullable<string>;
-  ticketHolderLastName: Nullable<string>;
-  ticketHolderDateOfBirth: Nullable<Date>;
-  ticketHolderHomePhoneNumber: Nullable<string>;
-  ticketHolderWorkPhoneNumber: Nullable<string>;
-  ticketHolderMobilePhoneNumber: Nullable<string>;
-  ticketHolderEmailAddress: Nullable<string>;
-  wouldLikeNetworkClubNews: Nullable<boolean>;
-  howDidYouHearAboutCentroDirectDebit: Nullable<string>;
-  ticketHolderCurrentPostcode: Nullable<string>;
-  ticketHolderCurrentAddressLine1: Nullable<string>;
-  ticketHolderCurrentAddressLine2: Nullable<string>;
-  ticketHolderCurrentAddressLine3: Nullable<string>;
-  ticketHolderCurrentAddressLine4: Nullable<string>;
-  ticketHolderCurrentTown: Nullable<string>;
-  ticketHolderPreviousPostcode: Nullable<string>;
-  ticketHolderPreviousAddressLine1: Nullable<string>;
-  ticketHolderPreviousAddressLine2: Nullable<string>;
-  ticketHolderPreviousAddressLine3: Nullable<string>;
-  ticketHolderPreviousAddressLine4: Nullable<string>;
-  ticketHolderPreviousTown: Nullable<string>;
-  accountName: Nullable<string>;
-  accountNumber: Nullable<string>;
-  sortCode: Nullable<string>;
-  relationshipToTicketHolder: Nullable<string>;
-  has16to18Card: Nullable<boolean>;
-  cardNumber16to18: Nullable<string>;
-  imported: Nullable<boolean>;
-  discarded: Nullable<boolean>;
-  isChild: Nullable<boolean>;
-  ticketPrice: Nullable<number>;
-  receiveByftFree: Nullable<boolean>;
+  previousCustomerReferenceNumber: TSubscription<number>;
+  currentSwiftcard: TSubscription<boolean>;
+  currentSwiftcardNumber: TSubscription<string>;
+  addProductToExistingCard: TSubscription<boolean>;
+  isApprentice: TSubscription<boolean>;
+  schoolName: TSubscription<string>;
+  schoolPostcode: TSubscription<string>;
+  employerName: TSubscription<string>;
+  employerPostcode: TSubscription<string>;
+  filename: TSubscription<string>;
+  payerTitle: TSubscription<string>;
+  payerFirstName: TSubscription<string>;
+  payerLastName: TSubscription<string>;
+  payerDateOfBirth: TSubscription<Date>;
+  payerHomePhoneNumber: TSubscription<string>;
+  payerWorkPhoneNumber: TSubscription<string>;
+  payerMobilePhoneNumber: TSubscription<string>;
+  payerEmailAddress: TSubscription<string>;
+  currentTimeAtAddressYears: TSubscription<number>;
+  currentTimeAtAddressMonths: TSubscription<number>;
+  previousTimeAtAddressYears: TSubscription<number>;
+  previousTimeAtAddressMonths: TSubscription<number>;
+  payerCurrentPostcode: TSubscription<string>;
+  payerCurrentAddressLine1: TSubscription<string>;
+  payerCurrentAddressLine2: TSubscription<string>;
+  payerCurrentAddressLine3: TSubscription<string>;
+  payerCurrentAddressLine4: TSubscription<string>;
+  payerCurrentTown: TSubscription<string>;
+  payerPreviousPostcode: TSubscription<string>;
+  payerPreviousAddressLine1: TSubscription<string>;
+  payerPreviousAddressLine2: TSubscription<string>;
+  payerPreviousAddressLine3: TSubscription<string>;
+  payerPreviousAddressLine4: TSubscription<string>;
+  payerPreviousTown: TSubscription<string>;
+  ticketHolderTitle: TSubscription<string>;
+  ticketHolderFirstName: TSubscription<string>;
+  ticketHolderLastName: TSubscription<string>;
+  ticketHolderDateOfBirth: TSubscription<Date>;
+  ticketHolderHomePhoneNumber: TSubscription<string>;
+  ticketHolderWorkPhoneNumber: TSubscription<string>;
+  ticketHolderMobilePhoneNumber: TSubscription<string>;
+  ticketHolderEmailAddress: TSubscription<string>;
+  wouldLikeNetworkClubNews: TSubscription<boolean>;
+  howDidYouHearAboutCentroDirectDebit: TSubscription<string>;
+  ticketHolderCurrentPostcode: TSubscription<string>;
+  ticketHolderCurrentAddressLine1: TSubscription<string>;
+  ticketHolderCurrentAddressLine2: TSubscription<string>;
+  ticketHolderCurrentAddressLine3: TSubscription<string>;
+  ticketHolderCurrentAddressLine4: TSubscription<string>;
+  ticketHolderCurrentTown: TSubscription<string>;
+  ticketHolderPreviousPostcode: TSubscription<string>;
+  ticketHolderPreviousAddressLine1: TSubscription<string>;
+  ticketHolderPreviousAddressLine2: TSubscription<string>;
+  ticketHolderPreviousAddressLine3: TSubscription<string>;
+  ticketHolderPreviousAddressLine4: TSubscription<string>;
+  ticketHolderPreviousTown: TSubscription<string>;
+  accountName: TSubscription<string>;
+  accountNumber: TSubscription<string>;
+  sortCode: TSubscription<string>;
+  relationshipToTicketHolder: TSubscription<string>;
+  has16to18Card: TSubscription<boolean>;
+  cardNumber16to18: TSubscription<string>;
+  imported: TSubscription<boolean>;
+  discarded: TSubscription<boolean>;
+  isChild: TSubscription<boolean>;
+  ticketPrice: TSubscription<number>;
+  receiveByftFree: TSubscription<boolean>;
 };
 
 export type TFormDataStateKey = keyof TFormDataState;
 export type TFormDataStateValue = NonNullable<TFormDataState[TFormDataStateKey]>;
+export type TSingleFormDataStateValue<T extends TFormDataStateKey> = TFormDataState[T];
+export type TFormDataStateItem = {
+  name: TFormDataStateKey;
+  value: NonNullable<TFormDataState[TFormDataStateKey]>;
+};
 
 export type TFormDataStateAction =
   | {
       type: 'UPDATE_FORM_DATA';
-      payload: {
-        name: TFormDataStateKey;
-        value: TFormDataStateValue;
+      payload: TFormDataStateItem;
+    }
+  | {
+      type: 'SUBSCRIBE_TO_FORM_DATA';
+      payload: TSectionAndStep & {
+        dataName: TFormDataStateKey;
       };
     }
   | {
-      type: 'UPDATE_SUBSCRIBED_FORM_DATA';
-      payload: {
-        name: TFormDataStateKey;
-        value: TFormDataStateValue;
-      };
+      type: 'CLEAR_SUBSCRIPTION_VALUES';
+      payload: TSectionAndStep[];
     };
 
 export type TFormDataStateReducer = (

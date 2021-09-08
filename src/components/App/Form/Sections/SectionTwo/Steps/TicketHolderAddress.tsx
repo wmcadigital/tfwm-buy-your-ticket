@@ -11,7 +11,7 @@ const TicketHolderAddress = ({ stepNavigation }: TStepProps) => {
     <AddressStep
       handleNavigation={goToNextStep}
       dataNamePrefix="ticketHolder"
-      question={`What is ${ticketHolderFirstName}'s address?`}
+      question={`What is ${ticketHolderFirstName.value}'s address?`}
     />
   );
 };

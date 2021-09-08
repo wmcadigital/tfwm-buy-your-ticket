@@ -7,11 +7,11 @@ const PayerContactDetails = ({ stepNavigation }: TStepProps) => {
   const [formDataState] = useFormDataContext();
   const { applicationForMe } = formDataState;
 
-  const question = applicationForMe
+  const question = applicationForMe.value
     ? 'What are your contact details?'
     : "What are the payer's contact details?";
 
-  const dataNamePrefix = applicationForMe ? 'ticketHolder' : 'payer';
+  const dataNamePrefix = applicationForMe.value ? 'ticketHolder' : 'payer';
 
   return (
     <ContactDetailsStep

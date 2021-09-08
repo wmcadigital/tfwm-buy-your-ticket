@@ -1,8 +1,7 @@
-import { useCallback, useState, useEffect, useMemo } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useFormDataContext } from 'state/formDataState/context';
 import { useGlobalContext } from 'state/globalState/context';
-import { Nullable } from 'types/helpers';
-import { TSectionAndStep, TSubscriptionReturn } from 'types/subscription';
+import { TSubscription, TSubscriptionReturn } from 'types/subscription';
 import { TUseFormDataSubscription } from './useFormDataSubscription.types';
 
 const useFormDataSubscription: TUseFormDataSubscription = (dataName, initialState) => {
@@ -11,8 +10,18 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, initialStat
   if (!Object.prototype.hasOwnProperty.call(formDataState, dataName))
     throw new Error(`The property "${dataName}" is not in formData`);
 
+  // Variables for setting the section and step
+  const [globalState] = useGlobalContext();
+  const { currentSection, currentStep } = globalState.form;
+
   // Set the current value of for the component to the saved valued
-  const savedData = formDataState[dataName];
+  const savedSubscription = formDataState[dataName] as TSubscription;
+  const shoudlClearSavedValue =
+    savedSubscription.subscriptions.length > 0 &&
+    !savedSubscription.subscriptions.some(
+      (item) => item.section === currentSection && item.step === currentStep,
+    );
+  const savedData = shoudlClearSavedValue ? null : savedSubscription.value;
   type TSavedData = typeof savedData;
 
   const [currentValue, setCurrentValue] = useState<TSavedData>(savedData || initialState || null);
@@ -32,46 +41,33 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, initialStat
     },
   };
 
-  // Variables for setting the section and step
-  const [globalState, globalStateDispatch] = useGlobalContext();
-  const { currentSection, currentStep, history } = globalState.form;
   const [isNowSubscribed, setIsNowSubscribed] = useState(false); // Boolean to run the subscription only once
-
-  const dataHistory: Nullable<TSectionAndStep> = useMemo(() => {
-    if (!history.current.length) return null;
-    const historyItem = history.current.filter((item) => item.subscriptions.indexOf(dataName) >= 0);
-    return historyItem.length ? historyItem[0] : null;
-  }, [dataName, history]);
 
   // Set the step, section properties in the form data
   // this way we can go back to the correct section and step from the Summary page
   const subscribeToFormData = useCallback(() => {
-    const { section, step } = (dataHistory as TSectionAndStep) || {};
-    // If a previous subscription to this form data is in history (i.e. the user has already completed it) we'll be overwriting data and that's a no-no
-    const isAlreadySubscribed = dataHistory !== null;
-    // If we're on the section/step that this form data is subscribed to then we are allowed to overwrite it
-    const isOnSubscribedSectionAndStep = section === currentSection && step === currentStep;
-
-    // Make sure this data isn't being used on another section or step that's already been completed
-    if (isAlreadySubscribed && !isOnSubscribedSectionAndStep) {
-      throw new Error(`"${dataName}" is already subscribed to section ${section}, step ${step}.`);
-    }
-
     // Update the data with the current section and step
-    globalStateDispatch({
+    formDataDispatch({
       type: 'SUBSCRIBE_TO_FORM_DATA',
-      payload: dataName,
+      payload: {
+        dataName,
+        section: currentSection,
+        step: currentStep,
+      },
     });
 
     // Stop the useEffect from running again
     setIsNowSubscribed(true);
-  }, [currentSection, currentStep, dataHistory, dataName, globalStateDispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSection, currentStep, dataName, formDataDispatch]);
 
   useEffect(() => {
+    // console.log('useFormDataSubscription call');
     if (!isNowSubscribed) {
       subscribeToFormData();
     }
-  }, [isNowSubscribed, subscribeToFormData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNowSubscribed]);
 
   return subscription;
 };

@@ -8,6 +8,7 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
   const { goToNextStep, skipToStep } = stepNavigation;
   const [errors, setErrors] = useState<{ name: { message: string } }[] | null[]>([]);
   const addProductToExistingCard = useFormDataSubscription('addProductToExistingCard');
+  // console.log(addProductToExistingCard);
   const { value } = addProductToExistingCard;
 
   const setCurrentValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,7 +16,7 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
   };
 
   const handleContinue = () => {
-    if (addProductToExistingCard.value) {
+    if (addProductToExistingCard.value !== null) {
       addProductToExistingCard.save();
       if (value === true) return goToNextStep();
       return skipToStep(4);
@@ -29,7 +30,7 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
     <QuestionCard
       question="Would you like to add the ticket to an existing Swift card?"
       handleContinue={handleContinue}
-      // showError={errors.length > 0}
+      showError={errors.length > 0}
     >
       <Radios
         name="existingSwiftCard"

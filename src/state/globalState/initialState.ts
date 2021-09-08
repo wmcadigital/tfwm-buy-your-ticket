@@ -9,10 +9,9 @@ const initialState: TGlobalState = {
     isEditing: false,
     currentSection: 0,
     currentStep: 0,
-    currentSubscriptions: [],
     history: {
-      current: [],
-      previous: [],
+      index: -1,
+      path: [],
     },
   },
   ticket: {

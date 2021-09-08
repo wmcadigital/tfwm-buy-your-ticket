@@ -1,11 +1,9 @@
-import React from 'react';
-import { TFormDataStateKey } from 'state/formDataState/types';
+import { TSectionAndStep } from 'types/subscription';
 import { TTicket } from 'types/ticket';
 
 export type TGlobalStateHistory = {
-  subscriptions: TFormDataStateKey[];
-  section: number;
-  step: number;
+  index: number;
+  path: TSectionAndStep[];
 };
 
 export type TGlobalState = {
@@ -16,16 +14,12 @@ export type TGlobalState = {
     isEditing: boolean;
     currentSection: number;
     currentStep: number;
-    currentSubscriptions: TFormDataStateKey[];
-    history: {
-      current: TGlobalStateHistory[]; // Keep track of sections/steps the users can go back to
-      previous: TGlobalStateHistory[]; // Keep track of data to be deleted if users goes back and branches from
-    };
+    history: TGlobalStateHistory;
   };
   ticket: TTicket;
 };
 
-type TGlobalStateAction =
+export type TGlobalStateAction =
   | {
       type: 'START_FORM';
       payload?: null;
@@ -39,6 +33,10 @@ type TGlobalStateAction =
       payload: TTicket;
     }
   | {
+      type: 'UPDATE_HISTORY';
+      payload: Partial<TGlobalStateHistory>;
+    }
+  | {
       type: 'GO_TO_SECTION';
       payload: number;
     }
@@ -48,15 +46,11 @@ type TGlobalStateAction =
     }
   | {
       type: 'GO_TO_SECTION_AND_STEP';
-      payload: TGlobalStateHistory;
+      payload: TSectionAndStep;
     }
   | {
       type: 'GO_BACK';
       payload?: null;
-    }
-  | {
-      type: 'SUBSCRIBE_TO_FORM_DATA';
-      payload: TFormDataStateKey;
     };
 
 export type TGlobalStateReducer = (state: TGlobalState, action: TGlobalStateAction) => TGlobalState;

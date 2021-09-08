@@ -22,7 +22,16 @@ const useGetTicketInfo = (ticketId: number) => {
 
   // RESPONSES
   const ticketInfoData = ticketInfoRequest.response?.data;
-  const unformattedDates = availableDatesRequest.response?.data;
+  const unformattedDates = availableDatesRequest.response?.data || [
+    '2021-09-02T09:42:53.006Z',
+    '2021-09-03T09:42:53.006Z',
+    '2021-09-04T09:42:53.006Z',
+    '2021-09-05T09:42:53.006Z',
+    '2021-09-06T09:42:53.006Z',
+    '2021-09-07T09:42:53.006Z',
+    '2021-09-08T09:42:53.006Z',
+    '2021-09-09T09:42:53.006Z',
+  ];
 
   let ticketInfo: TTicket | null = null;
 
@@ -70,7 +79,8 @@ const useGetTicketInfo = (ticketId: number) => {
   }
 
   const isLoading = ticketInfoRequest.isLoading || availableDatesRequest.isLoading;
-  const hasError = ticketInfoRequest.hasError || availableDatesRequest.hasError;
+  // const hasError = ticketInfoRequest.hasError || availableDatesRequest.hasError;
+  const hasError = false;
 
   return { isLoading, hasError, ticketInfo };
 };
