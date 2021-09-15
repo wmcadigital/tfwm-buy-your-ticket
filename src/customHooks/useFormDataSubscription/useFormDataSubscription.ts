@@ -37,10 +37,9 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationR
   const [error, setError] = useState<Nullable<TError>>(null);
 
   const checkNotEmpty = useCallback(() => {
-    if (!validate(currentValue, ['NOT_EMPTY', ...validationRules])) {
-      setError({
-        message: 'This field is mandatory',
-      });
+    const validation = validate(currentValue, ['NOT_EMPTY', ...validationRules]);
+    if (!validation.isValid) {
+      setError(validation.error);
       return false;
     }
 

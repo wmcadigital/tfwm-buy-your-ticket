@@ -5,17 +5,24 @@ import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 import { TSharedStepProps } from '../types';
 
 const ContactDetailsStep = ({ handleNavigation, question, dataNamePrefix }: TSharedStepProps) => {
-  const emailAddress = useFormDataSubscription(`${dataNamePrefix}EmailAddress`);
-  const phoneNumber = useFormDataSubscription(`${dataNamePrefix}MobilePhoneNumber`);
+  const emailAddress = useFormDataSubscription(`${dataNamePrefix}EmailAddress`, ['EMAIL']);
+  const phoneNumber = useFormDataSubscription(`${dataNamePrefix}MobilePhoneNumber`, [
+    'PHONE_NUMBER',
+  ]);
 
   const handleContinue = () => {
-    emailAddress.save();
-    phoneNumber.save();
-    return handleNavigation();
+    const isEmailValid = emailAddress.save();
+    const isPhoneNumberValid = phoneNumber.save();
+    if (!isEmailValid || !isPhoneNumberValid) return;
+    handleNavigation();
   };
 
   return (
-    <Question question={question} handleContinue={handleContinue}>
+    <Question
+      question={question}
+      handleContinue={handleContinue}
+      showError={emailAddress.hasError || phoneNumber.hasError}
+    >
       <p className="wmnds-m-b-lg">
         We&apos;ll use this to get in touch about the Direct Debit and ticket.
       </p>
@@ -34,6 +41,7 @@ const ContactDetailsStep = ({ handleNavigation, question, dataNamePrefix }: TSha
         type="text"
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => emailAddress.set(e.target.value)}
+        error={emailAddress.error}
       />
       <Input
         groupClassName="wmnds-m-b-lg"
@@ -50,6 +58,7 @@ const ContactDetailsStep = ({ handleNavigation, question, dataNamePrefix }: TSha
         type="text"
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => phoneNumber.set(e.target.value)}
+        error={phoneNumber.error}
       />
     </Question>
   );

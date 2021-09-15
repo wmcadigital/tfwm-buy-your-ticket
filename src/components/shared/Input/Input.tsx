@@ -78,7 +78,7 @@ Input.propTypes = {
   groupClassName: PropTypes.string,
   fieldValidation: PropTypes.func,
   inputmode: PropTypes.string,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   name: PropTypes.string.isRequired,
   spellcheck: PropTypes.bool,
   type: PropTypes.string,
