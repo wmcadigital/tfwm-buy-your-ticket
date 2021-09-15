@@ -1,7 +1,7 @@
 import Button from 'components/shared/Button';
 import GenericError from 'components/shared/Errors/GenericError';
 
-const QuestionCard = ({
+const Question = ({
   question,
   handleContinue,
   children,
@@ -24,4 +24,4 @@ const QuestionCard = ({
   );
 };
 
-export default QuestionCard;
+export default Question;

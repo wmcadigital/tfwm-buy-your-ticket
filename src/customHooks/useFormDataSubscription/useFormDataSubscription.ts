@@ -10,7 +10,7 @@ import { TError } from 'types/validation';
 
 import { TUseFormDataSubscription } from './useFormDataSubscription.types';
 
-const useFormDataSubscription: TUseFormDataSubscription = (dataName) => {
+const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationRules = []) => {
   // Check whether this data exists in the formData
   const [formDataState, formDataDispatch] = useFormDataContext();
   if (!Object.prototype.hasOwnProperty.call(formDataState, dataName))
@@ -37,7 +37,7 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName) => {
   const [error, setError] = useState<Nullable<TError>>(null);
 
   const checkNotEmpty = useCallback(() => {
-    if (!validate(currentValue, ['NOT_EMPTY'])) {
+    if (!validate(currentValue, ['NOT_EMPTY', ...validationRules])) {
       setError({
         message: 'This field is mandatory',
       });
@@ -46,7 +46,7 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName) => {
 
     setError(null);
     return true;
-  }, [currentValue]);
+  }, [currentValue, validationRules]);
 
   const save = useCallback(() => {
     const isValid = checkNotEmpty();

@@ -1,4 +1,4 @@
-import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
+import Question from 'components/shared/Question/Question';
 import Input from 'components/shared/Input';
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 
@@ -15,7 +15,7 @@ const ContactDetailsStep = ({ handleNavigation, question, dataNamePrefix }: TSha
   };
 
   return (
-    <QuestionCard question={question} handleContinue={handleContinue}>
+    <Question question={question} handleContinue={handleContinue}>
       <p className="wmnds-m-b-lg">
         We&apos;ll use this to get in touch about the Direct Debit and ticket.
       </p>
@@ -51,7 +51,7 @@ const ContactDetailsStep = ({ handleNavigation, question, dataNamePrefix }: TSha
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => phoneNumber.set(e.target.value)}
       />
-    </QuestionCard>
+    </Question>
   );
 };
 

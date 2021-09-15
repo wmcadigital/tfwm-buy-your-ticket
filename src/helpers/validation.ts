@@ -1,10 +1,10 @@
 import { TFormDataStateValue } from 'state/formDataState/types';
 
-type ValidationRules = 'NOT_EMPTY';
+export type TValidationRules = 'NOT_EMPTY';
 
 export const validate = (
   value: TFormDataStateValue,
-  validationRules: ValidationRules[],
+  validationRules: TValidationRules[],
 ): boolean => {
   if (!validationRules.length) return true;
 

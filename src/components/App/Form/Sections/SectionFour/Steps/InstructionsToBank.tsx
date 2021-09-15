@@ -1,4 +1,4 @@
-import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
+import Question from 'components/shared/Question/Question';
 import Input from 'components/shared/Input';
 
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
@@ -20,7 +20,7 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
   };
 
   return (
-    <QuestionCard
+    <Question
       question="Instruction to your bank or building society to pay by Direct Debit"
       handleContinue={handleContinue}
     >
@@ -109,7 +109,7 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
         I understand that this Instruction may remain with West Midlands Combined Authority and, if
         so, details will be passed electronically to my bank/building society.
       </p>
-    </QuestionCard>
+    </Question>
   );
 };
 

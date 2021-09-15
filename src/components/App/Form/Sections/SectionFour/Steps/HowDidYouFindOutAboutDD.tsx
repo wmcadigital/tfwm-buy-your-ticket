@@ -1,4 +1,4 @@
-import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
+import Question from 'components/shared/Question/Question';
 import Radios from 'components/shared/Radios/Radios';
 
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
@@ -17,7 +17,7 @@ const HowDidYouFindOutAboutDD = ({ stepNavigation }: TStepProps) => {
   };
 
   return (
-    <QuestionCard
+    <Question
       question="How did you find out about the Direct Debit scheme?"
       handleContinue={handleContinue}
     >
@@ -35,7 +35,7 @@ const HowDidYouFindOutAboutDD = ({ stepNavigation }: TStepProps) => {
           { text: 'Ticket guide leaflet', html: null, value: 'ticket-guide-leaflet', info: null },
         ]}
       />
-    </QuestionCard>
+    </Question>
   );
 };
 

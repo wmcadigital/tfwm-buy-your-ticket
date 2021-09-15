@@ -1,4 +1,4 @@
-import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
+import Question from 'components/shared/Question/Question';
 import Radios from 'components/shared/Radios/Radios';
 
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
@@ -19,7 +19,7 @@ const CheckIfUserIsTheTicketHolder = ({ stepNavigation }: TStepProps) => {
   };
 
   return (
-    <QuestionCard
+    <Question
       question="Are you buying the ticket for yourself?"
       handleContinue={handleContinue}
       showError={!!applicationForMe.error}
@@ -34,7 +34,7 @@ const CheckIfUserIsTheTicketHolder = ({ stepNavigation }: TStepProps) => {
           { text: 'No', html: null, value: false, info: null },
         ]}
       />
-    </QuestionCard>
+    </Question>
   );
 };
 

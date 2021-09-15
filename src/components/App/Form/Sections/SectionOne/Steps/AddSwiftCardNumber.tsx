@@ -1,4 +1,4 @@
-import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
+import Question from 'components/shared/Question/Question';
 import Input from 'components/shared/Input';
 import InsetText from 'components/shared/InsetText/InsetText';
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
@@ -19,7 +19,7 @@ const AddSwiftCard = ({ stepNavigation }: TStepProps) => {
   };
 
   return (
-    <QuestionCard
+    <Question
       question="What is the Swift card number?"
       handleContinue={handleContinue}
       showError={!!currentSwiftcardNumber.error}
@@ -45,7 +45,7 @@ const AddSwiftCard = ({ stepNavigation }: TStepProps) => {
           </span>
         }
       />
-    </QuestionCard>
+    </Question>
   );
 };
 

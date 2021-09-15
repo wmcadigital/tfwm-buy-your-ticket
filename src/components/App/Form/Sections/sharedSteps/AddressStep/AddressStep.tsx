@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
+import Question from 'components/shared/Question/Question';
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 import AddressManual from './AddressManual/AddressManual';
 import AddressAutocomplete from './AddressAutocomplete/AddressAutocomplete';
@@ -33,14 +33,14 @@ const AddressStep = ({ handleNavigation, question, dataNamePrefix }: TSharedStep
   };
 
   return (
-    <QuestionCard question={question} handleContinue={handleContinue}>
+    <Question question={question} handleContinue={handleContinue}>
       <p className="wmnds-m-b-lg">We&apos;ll send the ticket to this address.</p>
       {isAddressMissing ? (
         <AddressManual address={address} />
       ) : (
         <AddressAutocomplete address={address} handleNotFound={enterAddressManually} />
       )}
-    </QuestionCard>
+    </Question>
   );
 };
 

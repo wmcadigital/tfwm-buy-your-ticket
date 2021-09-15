@@ -1,4 +1,4 @@
-import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
+import Question from 'components/shared/Question/Question';
 import FileUpload from 'components/shared/FileUpload/FileUpload';
 
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
@@ -13,7 +13,7 @@ const PhotoUploadStep = ({ handleNavigation, question }: TPhotoUploadProps) => {
   };
 
   return (
-    <QuestionCard question={question} handleContinue={handleContinue}>
+    <Question question={question} handleContinue={handleContinue}>
       <p>We&apos;ll use this on your new ticket.</p>
       <p>This must be a clear portrait photo of your face without any filters.</p>
       <FileUpload
@@ -24,7 +24,7 @@ const PhotoUploadStep = ({ handleNavigation, question }: TPhotoUploadProps) => {
         accept=".png, .jpg, .jpeg"
         updateValue={(file: string) => ticketHolderPhoto.set(file)}
       />
-    </QuestionCard>
+    </Question>
   );
 };
 

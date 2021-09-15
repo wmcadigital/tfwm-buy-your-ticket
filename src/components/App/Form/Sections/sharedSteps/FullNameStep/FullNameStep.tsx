@@ -1,4 +1,4 @@
-import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
+import Question from 'components/shared/Question/Question';
 import Input from 'components/shared/Input';
 import WarningText from 'components/shared/WarningText/WarningText';
 
@@ -24,7 +24,7 @@ const FullNameStep = ({
   const showError = !!firstName.error && !!lastName.error;
 
   return (
-    <QuestionCard question={question} handleContinue={handleContinue} showError={showError}>
+    <Question question={question} handleContinue={handleContinue} showError={showError}>
       {warningText && <WarningText type="info" message={warningText} className="wmnds-m-b-lg" />}
       <Input
         groupClassName="wmnds-m-b-lg"
@@ -48,7 +48,7 @@ const FullNameStep = ({
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => lastName.set(e.target.value)}
         error={lastName.error}
       />
-    </QuestionCard>
+    </Question>
   );
 };
 

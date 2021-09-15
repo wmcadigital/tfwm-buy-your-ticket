@@ -1,4 +1,4 @@
-import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
+import Question from 'components/shared/Question/Question';
 import DateInput from 'components/shared/Date/DateInput';
 
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
@@ -13,11 +13,7 @@ const BirthDateStep = ({ handleNavigation, question, dataNamePrefix }: TSharedSt
   };
 
   return (
-    <QuestionCard
-      question={question}
-      handleContinue={handleContinue}
-      showError={birthDate.hasError}
-    >
+    <Question question={question} handleContinue={handleContinue} showError={birthDate.hasError}>
       <DateInput
         hint={
           <>
@@ -30,7 +26,7 @@ const BirthDateStep = ({ handleNavigation, question, dataNamePrefix }: TSharedSt
         onChange={birthDate.set}
         hasError={birthDate.hasError}
       />
-    </QuestionCard>
+    </Question>
   );
 };
 
