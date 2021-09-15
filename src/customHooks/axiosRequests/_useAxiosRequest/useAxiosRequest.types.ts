@@ -6,5 +6,5 @@ export type TUseAxiosRequest = <T>(
   isLoading: boolean;
   hasError: boolean;
   response: AxiosResponse<T> | null;
-  sendRequest: () => Promise<void>;
+  sendRequest: () => Promise<AxiosResponse<T> | null>;
 };

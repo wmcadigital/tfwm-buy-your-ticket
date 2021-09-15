@@ -28,26 +28,28 @@ const useAxiosRequest: TUseAxiosRequest = <T>(axiosConfig: AxiosRequestConfig) =
   const sendRequest = useCallback(async () => {
     source.current = axios.CancelToken.source();
     mounted.current = true;
+    setHasError(false);
     startApiTimeout();
 
-    if (isLoading) return;
+    if (isLoading) return null;
     setIsLoading(true);
     let axiosResponse: AxiosResponse<T>;
 
     try {
       axiosResponse = await axios(axiosConfig);
       clearApiTimeout();
-      if (!mounted.current) return;
+      if (!mounted.current) return null;
 
       setIsLoading(false);
-      setHasError(false);
       setResponse(axiosResponse);
+      return axiosResponse;
     } catch (error) {
       setIsLoading(false);
       // eslint-disable-next-line no-console
       if (!axios.isCancel(error)) console.log({ error });
       setResponse(null);
       setHasError(true);
+      return null;
     }
   }, [axiosConfig, isLoading, startApiTimeout]);
 

@@ -2,7 +2,7 @@ import Button from 'components/shared/Button';
 import Loader from 'components/shared/Loader/Loader';
 import { useGlobalContext } from 'state/globalState/context';
 import { TTicket } from 'types/ticket';
-import useGetTicketInfo from './customHooks/useGetTicketInfo/useGetTicketInfo';
+import { useGetTicketInfo } from 'customHooks/axiosRequests';
 import TicketCard from './TicketCard/TicketCard';
 
 const StartPage = () => {
