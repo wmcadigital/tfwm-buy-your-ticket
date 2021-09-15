@@ -1,6 +1,6 @@
 import { TSectionProps } from 'types/section';
 import { useFormDataContext } from 'state/formDataState/context';
-import useStepLogic from '../customHooks/useStepLogic/useStepLogic';
+import useStepLogic from 'customHooks/useStepLogic/useStepLogic';
 
 // Steps
 import PayerOrTicketHolderBirthDate from './Steps/PayerOrTicketHolderBirthDate';

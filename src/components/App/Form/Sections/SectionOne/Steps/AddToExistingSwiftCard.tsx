@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
 import Radios from 'components/shared/Radios/Radios';
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
@@ -6,31 +5,24 @@ import { TStepProps } from 'types/step';
 
 const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
   const { goToNextStep, skipToStep } = stepNavigation;
-  const [errors, setErrors] = useState<{ name: { message: string } }[] | null[]>([]);
   const addProductToExistingCard = useFormDataSubscription('addProductToExistingCard');
   // console.log(addProductToExistingCard);
-  const { value } = addProductToExistingCard;
 
   const setCurrentValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     addProductToExistingCard.set(e.target.value.toLowerCase() === 'true');
   };
 
   const handleContinue = () => {
-    if (addProductToExistingCard.value !== null) {
-      addProductToExistingCard.save();
-      if (value === true) return goToNextStep();
-      return skipToStep(4);
-    }
-    const errorObj = { name: { message: 'This field is mandatory' } };
-    setErrors([errorObj]);
-    return false;
+    if (!addProductToExistingCard.save()) return;
+    if (addProductToExistingCard.value === true) goToNextStep();
+    else skipToStep(4);
   };
 
   return (
     <QuestionCard
       question="Would you like to add the ticket to an existing Swift card?"
       handleContinue={handleContinue}
-      showError={errors.length > 0}
+      showError={!!addProductToExistingCard.error}
     >
       <Radios
         name="existingSwiftCard"
@@ -45,8 +37,8 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
             </ul>
           </>
         }
-        error={errors ? errors[0] : null}
-        currentValue={value}
+        error={addProductToExistingCard.error}
+        currentValue={addProductToExistingCard.value}
         onChange={setCurrentValue}
         radios={[
           { text: 'Yes', html: null, value: true, info: null },

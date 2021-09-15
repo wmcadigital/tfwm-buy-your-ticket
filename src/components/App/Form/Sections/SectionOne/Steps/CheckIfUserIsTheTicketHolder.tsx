@@ -8,28 +8,27 @@ const CheckIfUserIsTheTicketHolder = ({ stepNavigation }: TStepProps) => {
   const { goToNextStep, skipToSection } = stepNavigation;
 
   const applicationForMe = useFormDataSubscription('applicationForMe');
-  const { value } = applicationForMe;
-
   const setCurrentValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     applicationForMe.set(e.target.value.toLowerCase() === 'true');
   };
 
   const handleContinue = () => {
-    applicationForMe.save();
-    if (value === false) return goToNextStep();
-    return skipToSection(3);
+    if (!applicationForMe.save()) return;
+    if (applicationForMe.value === false) goToNextStep();
+    else skipToSection(3);
   };
 
   return (
     <QuestionCard
       question="Are you buying the ticket for yourself?"
       handleContinue={handleContinue}
+      showError={!!applicationForMe.error}
     >
       <Radios
         name="isApplicationForMe"
         onChange={setCurrentValue}
-        currentValue={value}
-        error={null}
+        currentValue={applicationForMe.value}
+        error={applicationForMe.error}
         radios={[
           { text: 'Yes', html: null, value: true, info: null },
           { text: 'No', html: null, value: false, info: null },

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import DatePickerInput from 'components/shared/DatePickerInput/DatePickerInput';
+import DatePicker from 'components/shared/DatePicker/DatePicker';
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 import { TStepProps } from 'types/step';
 import QuestionCard from 'components/App/Form/QuestionCard/QuestionCard';
@@ -27,7 +27,7 @@ const TicketStartDate = ({ stepNavigation }: TStepProps) => {
       question="When would you like the ticket to start?"
       handleContinue={handleContinue}
     >
-      <DatePickerInput
+      <DatePicker
         startDate={startDate.value}
         setStartDate={startDate.set}
         availableDates={availableDates}

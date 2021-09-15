@@ -15,13 +15,16 @@ const FullNameStep = ({
   const lastName = useFormDataSubscription(`${dataNamePrefix}LastName`);
 
   const handleContinue = () => {
-    firstName.save();
-    lastName.save();
-    return handleNavigation();
+    const firstNameValid = firstName.save();
+    const lastNameValid = lastName.save();
+    if (!firstNameValid || !lastNameValid) return;
+    handleNavigation();
   };
 
+  const showError = !!firstName.error && !!lastName.error;
+
   return (
-    <QuestionCard question={question} handleContinue={handleContinue}>
+    <QuestionCard question={question} handleContinue={handleContinue} showError={showError}>
       {warningText && <WarningText type="info" message={warningText} className="wmnds-m-b-lg" />}
       <Input
         groupClassName="wmnds-m-b-lg"
@@ -32,6 +35,7 @@ const FullNameStep = ({
         type="text"
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => firstName.set(e.target.value)}
+        error={firstName.error}
       />
       <Input
         groupClassName="wmnds-m-b-lg"
@@ -42,6 +46,7 @@ const FullNameStep = ({
         type="text"
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => lastName.set(e.target.value)}
+        error={lastName.error}
       />
     </QuestionCard>
   );

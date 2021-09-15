@@ -19,7 +19,7 @@ const Radios = ({ name, hint, error, radios, onChange, currentValue, required }:
             <span
               className="wmnds-fe-error-message"
               dangerouslySetInnerHTML={{
-                __html: sanitize(error.name.message),
+                __html: sanitize(error.message),
               }}
             />
           )}
@@ -45,7 +45,9 @@ const Radios = ({ name, hint, error, radios, onChange, currentValue, required }:
 Radios.propTypes = {
   name: PropTypes.string.isRequired,
   hint: PropTypes.node,
-  error: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
+  error: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+  }),
   onChange: PropTypes.func.isRequired,
   currentValue: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   required: PropTypes.bool,

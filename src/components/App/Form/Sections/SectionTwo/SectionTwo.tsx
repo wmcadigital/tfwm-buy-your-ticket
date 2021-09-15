@@ -1,5 +1,5 @@
 import { TSectionProps } from 'types/section';
-import useStepLogic from '../customHooks/useStepLogic/useStepLogic';
+import useStepLogic from 'customHooks/useStepLogic/useStepLogic';
 // Steps
 import TicketHolderAddress from './Steps/TicketHolderAddress';
 import TicketHolderBirthDate from './Steps/TicketHolderBirthDate';

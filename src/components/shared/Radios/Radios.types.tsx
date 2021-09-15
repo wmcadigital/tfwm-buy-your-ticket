@@ -1,9 +1,11 @@
+import { Nullable } from 'types/helpers';
+import { TError } from 'types/validation';
 import { TRadioProps } from './Radio/Radio.types';
 
 export type TRadiosProps = {
   name: string;
   hint?: string | JSX.Element | null;
-  error?: { name: { message: string } } | null;
+  error?: Nullable<TError>;
   radios: Array<
     Pick<TRadioProps, 'text' | 'info'> & { html: string | null } & { value: string | boolean }
   >;

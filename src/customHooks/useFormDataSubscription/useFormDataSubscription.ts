@@ -1,7 +1,13 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useFormDataContext } from 'state/formDataState/context';
 import { useGlobalContext } from 'state/globalState/context';
+
+import { validate } from 'helpers/validation';
+
+import { Nullable } from 'types/helpers';
 import { TSubscription, TSubscriptionReturn } from 'types/subscription';
+import { TError } from 'types/validation';
+
 import { TUseFormDataSubscription } from './useFormDataSubscription.types';
 
 const useFormDataSubscription: TUseFormDataSubscription = (dataName) => {
@@ -28,11 +34,23 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName) => {
   const initialState = typeof savedData !== null ? savedData : null;
   const [currentValue, setCurrentValue] = useState<TSavedData>(initialState);
 
-  // return object to the component
-  const subscription: TSubscriptionReturn<TSavedData> = {
-    value: currentValue,
-    set: (newValue: typeof currentValue) => setCurrentValue(newValue),
-    save: () => {
+  const [error, setError] = useState<Nullable<TError>>(null);
+
+  const checkNotEmpty = useCallback(() => {
+    if (!validate(currentValue, ['NOT_EMPTY'])) {
+      setError({
+        message: 'This field is mandatory',
+      });
+      return false;
+    }
+
+    setError(null);
+    return true;
+  }, [currentValue]);
+
+  const save = useCallback(() => {
+    const isValid = checkNotEmpty();
+    if (isValid) {
       formDataDispatch({
         type: 'UPDATE_FORM_DATA',
         payload: {
@@ -40,7 +58,17 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName) => {
           value: currentValue,
         },
       });
-    },
+    }
+    return isValid;
+  }, [currentValue, dataName, formDataDispatch, checkNotEmpty]);
+
+  // return object to the component
+  const subscription: TSubscriptionReturn<TSavedData> = {
+    value: currentValue,
+    set: (newValue: typeof currentValue) => setCurrentValue(newValue),
+    save,
+    error,
+    hasError: !!error,
   };
 
   const [isNowSubscribed, setIsNowSubscribed] = useState(false); // Boolean to run the subscription only once
@@ -70,6 +98,12 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isNowSubscribed]);
+
+  useEffect(() => {
+    if (currentValue !== null) {
+      setError(null);
+    }
+  }, [currentValue]);
 
   return subscription;
 };

@@ -15,7 +15,7 @@ const Input = ({
   defaultValue,
   spellcheck,
   type,
-  errors,
+  error,
   onChange,
   pattern,
 }: TInputProps) => {
@@ -24,7 +24,7 @@ const Input = ({
     <>
       <input
         autoComplete={autocomplete}
-        className={`wmnds-fe-input ${errors ? 'wmnds-fe-input--error' : ''}`}
+        className={`wmnds-fe-input ${error ? 'wmnds-fe-input--error' : ''}`}
         defaultValue={defaultValue || ''}
         id={name}
         inputMode={inputmode}
@@ -39,7 +39,9 @@ const Input = ({
   );
   return (
     <div
-      className={`wmnds-fe-group ${groupClassName} ${errors?.name ? 'wmnds-fe-group--error' : ''}`}
+      className={`wmnds-fe-group ${groupClassName} ${
+        error?.message ? 'wmnds-fe-group--error' : ''
+      }`}
     >
       {label && typeof label === 'string' && (
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
@@ -49,17 +51,18 @@ const Input = ({
           dangerouslySetInnerHTML={{ __html: sanitize(label) }}
         />
       )}
+
       {label && typeof label !== 'string' && (
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
         <label className="wmnds-fe-label" htmlFor={name}>
           {label}
         </label>
       )}
-      {/* to be tested */}
-      {errors?.name?.message && typeof errors.name.message === 'string' && (
+
+      {error?.message && typeof error.message === 'string' && (
         <span
           className="wmnds-fe-error-message"
-          dangerouslySetInnerHTML={{ __html: sanitize(errors.name.message) }}
+          dangerouslySetInnerHTML={{ __html: sanitize(error.message) }}
         />
       )}
 
@@ -80,7 +83,9 @@ Input.propTypes = {
   spellcheck: PropTypes.bool,
   type: PropTypes.string,
   onChange: PropTypes.func,
-  errors: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
+  error: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+  }),
 };
 
 Input.defaultProps = {
@@ -91,7 +96,7 @@ Input.defaultProps = {
   inputmode: 'text',
   spellcheck: false,
   type: 'text',
-  errors: null,
+  error: null,
   onChange: null,
 };
 

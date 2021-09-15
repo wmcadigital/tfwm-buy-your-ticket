@@ -8,26 +8,30 @@ const AddSwiftCard = ({ stepNavigation }: TStepProps) => {
   const { goToNextStep } = stepNavigation;
 
   const currentSwiftcardNumber = useFormDataSubscription('currentSwiftcardNumber');
-  const { value } = currentSwiftcardNumber;
 
   const setCurrentValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     currentSwiftcardNumber.set(e.target.value);
   };
 
   const handleContinue = () => {
-    currentSwiftcardNumber.save();
+    if (!currentSwiftcardNumber.save()) return;
     goToNextStep();
   };
 
   return (
-    <QuestionCard question="What is the Swift card number?" handleContinue={handleContinue}>
+    <QuestionCard
+      question="What is the Swift card number?"
+      handleContinue={handleContinue}
+      showError={!!currentSwiftcardNumber.error}
+    >
       <Input
         groupClassName="wmnds-m-b-lg"
         name="swiftCardNumber"
         label="This is the 18-digit number on the front of the card."
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={setCurrentValue}
-        defaultValue={value}
+        defaultValue={currentSwiftcardNumber.value}
+        error={currentSwiftcardNumber.error}
       />
       <InsetText
         classes="wmnds-m-b-lg"

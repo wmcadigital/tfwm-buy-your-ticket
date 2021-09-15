@@ -1,3 +1,6 @@
+import { Nullable } from 'types/helpers';
+import { TError } from 'types/validation';
+
 export type TInputProps = {
   autocomplete?: string;
   className?: string;
@@ -9,7 +12,7 @@ export type TInputProps = {
   defaultValue?: string | null;
   spellcheck?: boolean;
   type?: 'text' | 'number';
-  errors?: { name: { message: string } };
+  error?: Nullable<TError>;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   pattern?: string;
 };
