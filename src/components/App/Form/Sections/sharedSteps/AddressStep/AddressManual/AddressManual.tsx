@@ -52,7 +52,7 @@ const AddressManual = ({ address }: TAddressManualProps) => {
         error={addressLine4.error}
       />
       <Input
-        groupClassName="wmnds-m-b-none"
+        groupClassName="wmnds-m-b-lg"
         className="wmnds-col-1 wmnds-col-md-2-3"
         name="postcode"
         inputmode="text"

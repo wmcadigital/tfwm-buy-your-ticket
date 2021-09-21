@@ -71,7 +71,7 @@ const AddressAutocomplete = ({ handleNotFound, address }: TAddressAutocompletePr
           />
           <div className="wmnds-col-1">
             <Button
-              btnClass="wmnds-btn--primary"
+              btnClass="wmnds-btn--primary wmnds-m-b-lg"
               disabled={!postcode}
               onClick={handleFindAddress}
               text="Find address"
@@ -106,7 +106,7 @@ const AddressAutocomplete = ({ handleNotFound, address }: TAddressAutocompletePr
             onChange={onChange}
           />
           <Button
-            btnClass="wmnds-btn--link"
+            btnClass="wmnds-btn--link wmnds-m-b-lg"
             onClick={handleNotFound}
             text="I can't find my address in the list"
             title="I can't find my address in the list"
