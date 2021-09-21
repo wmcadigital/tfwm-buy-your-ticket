@@ -8,7 +8,7 @@ const initialState: TGlobalState = {
     isSubmitted: false,
     isEditing: false,
     currentSection: 2, //
-    currentStep: 3, //
+    currentStep: 4, //
     history: {
       index: -1,
       path: [],

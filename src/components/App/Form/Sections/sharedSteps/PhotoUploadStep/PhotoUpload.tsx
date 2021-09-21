@@ -8,21 +8,26 @@ const PhotoUploadStep = ({ handleNavigation, question }: TPhotoUploadProps) => {
   const ticketHolderPhoto = useFormDataSubscription('filename');
 
   const handleContinue = () => {
-    ticketHolderPhoto.save();
+    if (!ticketHolderPhoto.save()) return;
     handleNavigation();
   };
 
   return (
-    <Question question={question} handleContinue={handleContinue}>
+    <Question
+      question={question}
+      handleContinue={handleContinue}
+      showError={ticketHolderPhoto.hasError}
+    >
       <p>We&apos;ll use this on your new ticket.</p>
       <p>This must be a clear portrait photo of your face without any filters.</p>
       <FileUpload
         label="Your photo"
         hint="Files must be jpeg or png file format"
+        accept=".png, .jpg, .jpeg"
         name="ticketHolderPhoto"
         defaultValue={ticketHolderPhoto.value}
-        accept=".png, .jpg, .jpeg"
-        updateValue={(file: string) => ticketHolderPhoto.set(file)}
+        updateValue={ticketHolderPhoto.set}
+        error={ticketHolderPhoto.error}
       />
     </Question>
   );
