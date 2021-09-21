@@ -2,7 +2,7 @@ import { TFormDataStateValue } from 'state/formDataState/types';
 import { Nullable } from 'types/helpers';
 import { TError } from 'types/validation';
 
-export type TValidationRules = 'NOT_EMPTY' | 'EMAIL' | 'PHONE_NUMBER';
+export type TValidationRules = 'NOT_EMPTY' | 'EMPTY_ALLOWED' | 'EMAIL' | 'PHONE_NUMBER';
 export type TValidationReturn = {
   isValid: boolean;
   error: Nullable<TError>;
@@ -15,7 +15,10 @@ export const validate = (
   if (!validationRules.length) return { isValid: true, error: null };
 
   // Not empty
-  if (validationRules.indexOf('NOT_EMPTY') >= 0) {
+  if (
+    validationRules.indexOf('NOT_EMPTY') >= 0 &&
+    !(validationRules.indexOf('EMPTY_ALLOWED') >= 0)
+  ) {
     const isValueEmpty = value === null || (typeof value === 'string' && value?.trim() === '');
     if (isValueEmpty) return { isValid: false, error: { message: 'This field is mandatory' } };
   }

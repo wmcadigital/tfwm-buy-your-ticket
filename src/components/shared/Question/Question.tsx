@@ -20,7 +20,13 @@ const Question = ({
       <h2 className="wmnds-m-t-lg wmnds-m-b-lg">{question}</h2>
       {children}
       <div className="wmnds-col-1">
-        <Button type="button" text="Continue" onClick={handleContinue} isFetching={isLoading} />
+        <Button
+          btnClass="wmnds-m-t-lg"
+          type="button"
+          text="Continue"
+          onClick={handleContinue}
+          isFetching={isLoading}
+        />
       </div>
     </>
   );

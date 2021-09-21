@@ -14,6 +14,7 @@ type DropdownProps = {
   label: string;
   defaultValue?: string | null;
   options: { text: string; value: string }[];
+  disabledOptionText: string | null;
   onChange?: (e: React.FocusEvent<HTMLSelectElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLSelectElement>) => void;
 };
@@ -26,6 +27,7 @@ const Dropdown = ({
   className,
   options,
   defaultValue,
+  disabledOptionText,
   onChange,
   onBlur,
 }: DropdownProps) => {
@@ -57,13 +59,11 @@ const Dropdown = ({
             onChange={onChange}
             onBlur={onBlur}
           >
-            <option value="">Choose from list</option>
+            <option value="" disabled>
+              {disabledOptionText || 'Choose from list'}
+            </option>
             {options.map((option) => (
-              <option
-                key={option.text}
-                value={option.value}
-                selected={option.value === defaultSelectValue}
-              >
+              <option key={option.text} value={option.value}>
                 {option.text}
               </option>
             ))}

@@ -15,6 +15,7 @@ const AddressManual = ({ address }: TAddressManualProps) => {
         defaultValue={addressLine1.value}
         onChange={(e) => addressLine1.set(e.target.value)}
         type="text"
+        error={addressLine1.error}
       />
       <Input
         groupClassName="wmnds-m-b-lg"
@@ -26,6 +27,7 @@ const AddressManual = ({ address }: TAddressManualProps) => {
         defaultValue={addressLine2.value}
         onChange={(e) => addressLine2.set(e.target.value)}
         type="text"
+        error={addressLine2.error}
       />
       <Input
         groupClassName="wmnds-m-b-lg"
@@ -36,6 +38,7 @@ const AddressManual = ({ address }: TAddressManualProps) => {
         defaultValue={addressLine3.value}
         onChange={(e) => addressLine3.set(e.target.value)}
         type="text"
+        error={addressLine3.error}
       />
       <Input
         groupClassName="wmnds-m-b-lg"
@@ -46,9 +49,10 @@ const AddressManual = ({ address }: TAddressManualProps) => {
         defaultValue={addressLine4.value}
         onChange={(e) => addressLine4.set(e.target.value)}
         type="text"
+        error={addressLine4.error}
       />
       <Input
-        groupClassName="wmnds-m-b-lg"
+        groupClassName="wmnds-m-b-none"
         className="wmnds-col-1 wmnds-col-md-2-3"
         name="postcode"
         inputmode="text"
@@ -56,6 +60,7 @@ const AddressManual = ({ address }: TAddressManualProps) => {
         defaultValue={postcode.value}
         onChange={(e) => postcode.set(e.target.value)}
         type="text"
+        error={postcode.error}
       />
     </>
   );

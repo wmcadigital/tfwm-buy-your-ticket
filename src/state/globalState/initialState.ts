@@ -3,12 +3,12 @@ import { TGlobalState } from './types';
 
 const initialState: TGlobalState = {
   form: {
-    isStarted: false,
+    isStarted: true, //
     isFinished: false,
     isSubmitted: false,
     isEditing: false,
-    currentSection: 0,
-    currentStep: 0,
+    currentSection: 2, //
+    currentStep: 3, //
     history: {
       index: -1,
       path: [],

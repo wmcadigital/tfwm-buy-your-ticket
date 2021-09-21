@@ -17,4 +17,5 @@ export type TSubscriptionReturn<T> = {
   save: () => boolean;
   error: Nullable<TError>;
   hasError: boolean;
+  validate: () => boolean;
 };

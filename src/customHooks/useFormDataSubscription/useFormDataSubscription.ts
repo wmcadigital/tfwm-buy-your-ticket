@@ -36,7 +36,7 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationR
 
   const [error, setError] = useState<Nullable<TError>>(null);
 
-  const checkNotEmpty = useCallback(() => {
+  const validateData = useCallback(() => {
     const validation = validate(currentValue, ['NOT_EMPTY', ...validationRules]);
     if (!validation.isValid) {
       setError(validation.error);
@@ -48,7 +48,7 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationR
   }, [currentValue, validationRules]);
 
   const save = useCallback(() => {
-    const isValid = checkNotEmpty();
+    const isValid = validateData();
     if (isValid) {
       formDataDispatch({
         type: 'UPDATE_FORM_DATA',
@@ -59,13 +59,14 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationR
       });
     }
     return isValid;
-  }, [currentValue, dataName, formDataDispatch, checkNotEmpty]);
+  }, [currentValue, dataName, formDataDispatch, validateData]);
 
   // return object to the component
   const subscription: TSubscriptionReturn<TSavedData> = {
     value: currentValue,
     set: (newValue: typeof currentValue) => setCurrentValue(newValue),
     save,
+    validate: validateData,
     error,
     hasError: !!error,
   };
