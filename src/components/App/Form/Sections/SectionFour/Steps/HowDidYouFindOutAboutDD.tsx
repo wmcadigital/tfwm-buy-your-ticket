@@ -12,14 +12,15 @@ const HowDidYouFindOutAboutDD = ({ stepNavigation }: TStepProps) => {
   );
 
   const handleContinue = () => {
-    howDidYouHearAboutCentroDirectDebit.save();
-    return goToNextStep();
+    if (!howDidYouHearAboutCentroDirectDebit.save()) return;
+    goToNextStep();
   };
 
   return (
     <Question
       question="How did you find out about the Direct Debit scheme?"
       handleContinue={handleContinue}
+      showError={howDidYouHearAboutCentroDirectDebit.hasError}
     >
       <Radios
         name="findAboutDD"
@@ -27,7 +28,7 @@ const HowDidYouFindOutAboutDD = ({ stepNavigation }: TStepProps) => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           howDidYouHearAboutCentroDirectDebit.set(e.target.value)
         }
-        error={null}
+        error={howDidYouHearAboutCentroDirectDebit.error}
         radios={[
           { text: 'Ticket finder', html: null, value: 'ticket-finder', info: null },
           { text: 'Word of mouth', html: null, value: 'word-of-mouth', info: null },
