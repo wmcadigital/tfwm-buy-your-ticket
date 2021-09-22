@@ -1,3 +1,4 @@
+import { TSession } from 'types/session';
 import { TSectionAndStep } from 'types/subscription';
 import { TTicket } from 'types/ticket';
 
@@ -17,12 +18,17 @@ export type TGlobalState = {
     history: TGlobalStateHistory;
   };
   ticket: TTicket;
+  session: TSession;
 };
 
 export type TGlobalStateAction =
   | {
       type: 'START_FORM';
       payload?: null;
+    }
+  | {
+      type: 'UPDATE_SESSION_DATA';
+      payload: TSession;
     }
   | {
       type: 'SHOW_SUMMARY_PAGE';

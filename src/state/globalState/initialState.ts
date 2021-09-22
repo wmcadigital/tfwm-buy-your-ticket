@@ -3,12 +3,12 @@ import { TGlobalState } from './types';
 
 const initialState: TGlobalState = {
   form: {
-    isStarted: true, //
+    isStarted: false,
     isFinished: false,
     isSubmitted: false,
     isEditing: false,
-    currentSection: 2, //
-    currentStep: 4, //
+    currentSection: 0,
+    currentStep: 0,
     history: {
       index: -1,
       path: [],
@@ -20,6 +20,12 @@ const initialState: TGlobalState = {
     modes: [],
     priceString: '',
     availableDates: [],
+  },
+  session: {
+    id: '',
+    sessionNo: 0,
+    createdDateTime: null,
+    token: '',
   },
 };
 

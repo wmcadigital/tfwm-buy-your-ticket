@@ -1,3 +1,4 @@
+import { TSession } from 'types/session';
 import { TSectionAndStep } from 'types/subscription';
 import { TTicket } from 'types/ticket';
 import { TGlobalStateReducer, TGlobalStateHistory } from './types';
@@ -20,6 +21,20 @@ const reducer: TGlobalStateReducer = (state, action) => {
           },
         },
       };
+
+    case 'UPDATE_SESSION_DATA': {
+      const session = payload as TSession;
+
+      return {
+        ...state,
+        session: {
+          ...state.session,
+          createdDateTime: session.createdDateTime,
+          id: session.id,
+          sessionNo: session.sessionNo,
+        },
+      };
+    }
 
     case 'SHOW_SUMMARY_PAGE':
       return {

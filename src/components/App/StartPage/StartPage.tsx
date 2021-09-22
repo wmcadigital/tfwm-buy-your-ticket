@@ -2,17 +2,36 @@ import Button from 'components/shared/Button';
 import Loader from 'components/shared/Loader/Loader';
 import { useGlobalContext } from 'state/globalState/context';
 import { TTicket } from 'types/ticket';
-import { useGetTicketInfo } from 'customHooks/axiosRequests';
+import { useGetTicketInfo, useStartSession } from 'customHooks/axiosRequests';
+import { TSession } from 'types/session';
+import { Nullable } from 'types/helpers';
 import TicketCard from './TicketCard/TicketCard';
 
 const StartPage = () => {
   const [globalState, globalStateDispatch] = useGlobalContext();
   const { ticket } = globalState;
 
-  const { isLoading, hasError, ticketInfo } = useGetTicketInfo(ticket.id);
+  const ticketInfoRequest = useGetTicketInfo(ticket.id);
+  const startSessionRequest = useStartSession();
 
-  const startForm = () => {
-    globalStateDispatch({ type: 'ADD_TICKET_INFO', payload: ticketInfo as TTicket });
+  const startForm = async () => {
+    let session: Nullable<TSession> = null;
+
+    try {
+      const response = await startSessionRequest.startSession();
+      session = response!?.data;
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(e);
+    }
+
+    if (!session) return;
+
+    globalStateDispatch({ type: 'UPDATE_SESSION_DATA', payload: session });
+    globalStateDispatch({
+      type: 'ADD_TICKET_INFO',
+      payload: ticketInfoRequest.ticketInfo as TTicket,
+    });
     globalStateDispatch({ type: 'START_FORM' });
   };
 
@@ -22,7 +41,11 @@ const StartPage = () => {
         <h1>Buy on Direct Debit</h1>
         <h2>Your ticket</h2>
         <div className="wmnds-m-b-md">
-          {!ticketInfo || isLoading ? <Loader /> : <TicketCard ticket={ticketInfo} />}
+          {!ticketInfoRequest.ticketInfo || ticketInfoRequest.isLoading ? (
+            <Loader />
+          ) : (
+            <TicketCard ticket={ticketInfoRequest.ticketInfo} />
+          )}
         </div>
         <h2 className="wmnds-m-b-lg">Before you start</h2>
         <ul>
@@ -56,7 +79,12 @@ const StartPage = () => {
           text="Buy on Direct Debit"
           btnClass="wmnds-btn wmnds-btn--start wmnds-m-t-md"
           iconRight="general-chevron-right"
-          disabled={!ticketInfo?.name || hasError || isLoading}
+          disabled={
+            !ticketInfoRequest.ticketInfo?.name ||
+            ticketInfoRequest.hasError ||
+            ticketInfoRequest.isLoading
+          }
+          isFetching={startSessionRequest.isLoading}
           onClick={startForm}
         />
       </div>
