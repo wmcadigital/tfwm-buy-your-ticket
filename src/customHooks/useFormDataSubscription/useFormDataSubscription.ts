@@ -3,14 +3,13 @@ import { useFormDataContext } from 'state/formDataState/context';
 import { useGlobalContext } from 'state/globalState/context';
 
 import { validate } from 'helpers/validation';
-
 import { Nullable } from 'types/helpers';
 import { TSubscription, TSubscriptionReturn } from 'types/subscription';
 import { TError } from 'types/validation';
 
 import { TUseFormDataSubscription } from './useFormDataSubscription.types';
 
-const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationRules = []) => {
+const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationConfig = []) => {
   // Check whether this data exists in the formData
   const [formDataState, formDataDispatch] = useFormDataContext();
   if (!Object.prototype.hasOwnProperty.call(formDataState, dataName))
@@ -37,7 +36,7 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationR
   const [error, setError] = useState<Nullable<TError>>(null);
 
   const validateData = useCallback(() => {
-    const validation = validate(currentValue, ['NOT_EMPTY', ...validationRules]);
+    const validation = validate(currentValue, validationConfig);
     if (!validation.isValid) {
       setError(validation.error);
       return false;
@@ -45,7 +44,7 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationR
 
     setError(null);
     return true;
-  }, [currentValue, validationRules]);
+  }, [currentValue, validationConfig]);
 
   const save = useCallback(() => {
     const isValid = validateData();

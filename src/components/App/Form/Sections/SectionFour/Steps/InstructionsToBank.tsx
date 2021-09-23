@@ -3,26 +3,40 @@ import Input from 'components/shared/Input';
 
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 import { TStepProps } from 'types/step';
-import ddlogo from './DirectDebitLogo.png';
+import ddlogo from 'assets/images/DirectDebitLogo.png';
+import useValidateBankAccount from 'customHooks/axiosRequests/useValidateBankAccount/useValidateBankAccount';
 
 const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
   const { goToNextStep } = stepNavigation;
 
   const accountName = useFormDataSubscription('accountName');
-  const accountNumber = useFormDataSubscription('accountNumber');
-  const sortCode = useFormDataSubscription('sortCode');
 
-  const handleContinue = () => {
-    accountName.save();
-    accountNumber.save();
-    sortCode.save();
-    return goToNextStep();
+  const sortCode = useFormDataSubscription('sortCode', [
+    { rule: 'NUMBER', message: 'The account number must be 6 digit a number' },
+  ]);
+
+  const accountNumber = useFormDataSubscription('accountNumber', [
+    { rule: 'NUMBER', message: 'The account number must be 6 to 8 digit number a number' },
+  ]);
+
+  const bankAccountValidation = useValidateBankAccount(sortCode.value, accountNumber.value);
+
+  const handleContinue = async () => {
+    const accountNameValid = accountName.save();
+    const accountNumberValid = accountNumber.save();
+    const sortCodeValid = sortCode.save();
+    if (!accountNameValid || !accountNumberValid || !sortCodeValid) return;
+    const isBankAccountValid = await bankAccountValidation.sendRequest();
+    if (!isBankAccountValid) return;
+    goToNextStep();
   };
 
   return (
     <Question
       question="Instruction to your bank or building society to pay by Direct Debit"
       handleContinue={handleContinue}
+      showError={accountName.hasError || accountNumber.hasError || sortCode.hasError}
+      isLoading={bankAccountValidation.isLoading}
     >
       <div className="wmnds-grid wmnds-grid--justify-between wmnds-grid--align-center wmnds-m-b-lg">
         <div className="wmnds-col-1 wmnds-col-md-2-3">
@@ -68,6 +82,7 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
         type="text"
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => accountName.set(e.target.value)}
+        error={accountName.error}
       />
       <Input
         groupClassName="wmnds-m-b-lg"
@@ -82,8 +97,11 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
         }
         defaultValue={sortCode.value}
         type="text"
+        pattern="[0-9]*"
+        maxLength={6}
         className="wmnds-col-1 wmnds-col-md-1-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => sortCode.set(e.target.value)}
+        error={sortCode.error}
       />
       <Input
         groupClassName="wmnds-m-b-lg"
@@ -98,8 +116,11 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
         }
         defaultValue={accountNumber.value}
         type="text"
+        pattern="[0-9]*"
+        maxLength={8}
         className="wmnds-col-1 wmnds-col-md-1-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => accountNumber.set(e.target.value)}
+        error={accountNumber.error}
       />
       <p>
         Please pay West Midlands Combined Authority Direct Debits from the account detailed in this

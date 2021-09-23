@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { isValidDateNumber } from 'helpers/validation';
+import { isValidDateNumber } from 'helpers/validation/validation';
 
 // Import components
 import SingleDateInput from './SingleDateInput.js/SingleDateInput';

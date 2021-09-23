@@ -14,5 +14,6 @@ export type TInputProps = {
   type?: 'text' | 'number';
   error?: Nullable<TError>;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
+  maxLength?: number;
   pattern?: string;
 };

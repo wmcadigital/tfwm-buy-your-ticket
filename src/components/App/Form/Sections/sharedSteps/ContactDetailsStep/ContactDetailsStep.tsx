@@ -5,9 +5,12 @@ import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 import { TSharedStepProps } from '../types';
 
 const ContactDetailsStep = ({ handleNavigation, question, dataNamePrefix }: TSharedStepProps) => {
-  const emailAddress = useFormDataSubscription(`${dataNamePrefix}EmailAddress`, ['EMAIL']);
+  const emailAddress = useFormDataSubscription(`${dataNamePrefix}EmailAddress`, [
+    { rule: 'EMAIL' },
+  ]);
+
   const phoneNumber = useFormDataSubscription(`${dataNamePrefix}MobilePhoneNumber`, [
-    'PHONE_NUMBER',
+    { rule: 'PHONE_NUMBER' },
   ]);
 
   const handleContinue = () => {

@@ -17,6 +17,7 @@ const Input = ({
   type,
   error,
   onChange,
+  maxLength,
   pattern,
 }: TInputProps) => {
   // Set input to render below
@@ -34,6 +35,7 @@ const Input = ({
         type={type}
         onChange={onChange}
         pattern={pattern}
+        maxLength={maxLength}
       />
     </>
   );
@@ -83,6 +85,7 @@ Input.propTypes = {
   spellcheck: PropTypes.bool,
   type: PropTypes.string,
   onChange: PropTypes.func,
+  maxLength: PropTypes.number,
   error: PropTypes.shape({
     message: PropTypes.string.isRequired,
   }),
@@ -98,6 +101,7 @@ Input.defaultProps = {
   type: 'text',
   error: null,
   onChange: null,
+  maxLength: null,
 };
 
 export default Input;

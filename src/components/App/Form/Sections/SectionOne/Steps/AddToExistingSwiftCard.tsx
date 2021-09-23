@@ -6,7 +6,6 @@ import { TStepProps } from 'types/step';
 const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
   const { goToNextStep, skipToStep } = stepNavigation;
   const addProductToExistingCard = useFormDataSubscription('addProductToExistingCard');
-  // console.log(addProductToExistingCard);
 
   const setCurrentValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     addProductToExistingCard.set(e.target.value.toLowerCase() === 'true');
