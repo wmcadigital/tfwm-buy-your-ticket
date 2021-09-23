@@ -2,8 +2,8 @@ import { TSectionProps } from 'types/section';
 import useStepLogic from 'customHooks/useStepLogic/useStepLogic';
 
 // Steps
-import InstructionsToBank from './Steps/InstructionsToBank';
-import HowDidYouFindOutAboutDD from './Steps/HowDidYouFindOutAboutDD';
+import InstructionsToBank from './Steps/1-InstructionsToBank';
+import HowDidYouFindOutAboutDD from './Steps/2-HowDidYouFindOutAboutDD';
 
 const steps = [InstructionsToBank, HowDidYouFindOutAboutDD];
 

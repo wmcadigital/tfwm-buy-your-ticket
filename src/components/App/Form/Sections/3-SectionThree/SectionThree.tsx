@@ -3,11 +3,11 @@ import { useFormDataContext } from 'state/formDataState/context';
 import useStepLogic from 'customHooks/useStepLogic/useStepLogic';
 
 // Steps
-import PayerOrTicketHolderBirthDate from './Steps/PayerOrTicketHolderBirthDate';
-import PayerOrTicketHolderName from './Steps/PayerOrTicketHolderName';
-import PayerOrTicketHolderContactDetails from './Steps/PayerOrTicketHolderContactDetails';
-import PayerOrTicketHolderAddress from './Steps/PayerOrTicketHolderAddress';
-import PayerOrTicketHolderPhoto from './Steps/PayerOrTicketHolderPhoto';
+import PayerOrTicketHolderBirthDate from './Steps/2-PayerOrTicketHolderBirthDate';
+import PayerOrTicketHolderName from './Steps/1-PayerOrTicketHolderName';
+import PayerOrTicketHolderContactDetails from './Steps/3-PayerOrTicketHolderContactDetails';
+import PayerOrTicketHolderAddress from './Steps/4-PayerOrTicketHolderAddress';
+import PayerOrTicketHolderPhoto from './Steps/5-PayerOrTicketHolderPhoto';
 
 const steps = [
   PayerOrTicketHolderName,

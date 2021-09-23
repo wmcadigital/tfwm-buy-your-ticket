@@ -1,10 +1,10 @@
 import { TSectionProps } from 'types/section';
 import useStepLogic from 'customHooks/useStepLogic/useStepLogic';
 // Steps
-import TicketHolderAddress from './Steps/TicketHolderAddress';
-import TicketHolderBirthDate from './Steps/TicketHolderBirthDate';
-import TicketHolderName from './Steps/TicketHolderName';
-import TicketHolderPhoto from './Steps/TicketHolderPhoto';
+import TicketHolderAddress from './Steps/3-TicketHolderAddress';
+import TicketHolderBirthDate from './Steps/2-TicketHolderBirthDate';
+import TicketHolderName from './Steps/1-TicketHolderName';
+import TicketHolderPhoto from './Steps/4-TicketHolderPhoto';
 
 const steps = [TicketHolderName, TicketHolderBirthDate, TicketHolderAddress, TicketHolderPhoto];
 

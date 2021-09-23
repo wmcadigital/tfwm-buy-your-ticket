@@ -4,10 +4,10 @@ import Summary from './Summary/Summary';
 import s from './Form.module.scss';
 
 // Sections
-import SectionOne from './Sections/SectionOne/SectionOne';
-import SectionTwo from './Sections/SectionTwo/SectionTwo';
-import SectionThree from './Sections/SectionThree/SectionThree';
-import SectionFour from './Sections/SectionFour/SectionFour';
+import SectionOne from './Sections/1-SectionOne/SectionOne';
+import SectionTwo from './Sections/2-SectionTwo/SectionTwo';
+import SectionThree from './Sections/3-SectionThree/SectionThree';
+import SectionFour from './Sections/4-SectionFour/SectionFour';
 
 const sections = [SectionOne, SectionTwo, SectionThree, SectionFour];
 
