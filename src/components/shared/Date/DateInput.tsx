@@ -18,10 +18,19 @@ const DateInputs = ({ name, defaultDate, onChange, hasError, hint }: TDateInputP
   const [year, setYear] = useState(initialYear?.toString() || '');
   const isYearValid = isValidDateNumber(year, 1900, new Date().getFullYear());
 
-  const [day, setDay] = useState(initialDay?.toString() || '');
   // get the days in a given month, in a given year, using "new Date(YEAR, MONTH, 0).getDate()"
   const daysInMonth = new Date(parseInt(year, 10), parseInt(month, 10), 0).getDate();
+  const [day, setDay] = useState(initialDay?.toString() || '');
   const isDayValid = isValidDateNumber(day, 1, Number.isNaN(daysInMonth) ? 31 : daysInMonth);
+
+  const dateErrorArray = []; // Used to tell the user which input has an error
+  if (!isDayValid) dateErrorArray.push('day');
+  if (!isMonthValid) dateErrorArray.push('month');
+  if (!isYearValid) dateErrorArray.push('year');
+
+  const errorMessage = `Please check the following field${
+    dateErrorArray.length > 1 ? 's' : ''
+  }: ${dateErrorArray.join(', ')} `;
 
   const [shouldUpdateDate, setShouldUpdateDate] = useState(false);
 
@@ -52,7 +61,7 @@ const DateInputs = ({ name, defaultDate, onChange, hasError, hint }: TDateInputP
       {hint && <div>{hint}</div>}
 
       {/* If there is an error, show here */}
-      {hasError && <span className="wmnds-fe-error-message">Problem with X, X, X</span>}
+      {hasError && <span className="wmnds-fe-error-message">{errorMessage}</span>}
 
       <div className={`wmnds-fe-group ${hasError ? 'wmnds-fe-group--error' : ''}`}>
         <div className="wmnds-col-1-2 wmnds-col-sm-1-12 wmnds-m-r-md">
