@@ -12,7 +12,7 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
   const accountName = useFormDataSubscription('accountName');
 
   const sortCode = useFormDataSubscription('sortCode', [
-    { rule: 'NUMBER', message: 'The account number must be 6 digit a number' },
+    { rule: 'NUMBER', message: 'The sort code must be 6 digit a number' },
   ]);
 
   const accountNumber = useFormDataSubscription('accountNumber', [
