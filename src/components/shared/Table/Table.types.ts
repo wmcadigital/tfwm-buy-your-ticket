@@ -5,4 +5,5 @@ export type TTableProps = {
   values: JSX.Element[][];
   classes?: string;
   cellClasses?: string[];
+  cellColSpans?: number[];
 };

@@ -2,7 +2,15 @@
 import PropTypes, { arrayOf } from 'prop-types';
 import { TTableProps } from './Table.types';
 
-const Table = ({ title, caption, headers, values, classes, cellClasses }: TTableProps) => {
+const Table = ({
+  title,
+  caption,
+  headers,
+  values,
+  classes,
+  cellClasses,
+  cellColSpans,
+}: TTableProps) => {
   const noHeadersClass = headers && headers.length > 0 ? '' : 'wmnds-table--without-header';
 
   return (
@@ -30,12 +38,15 @@ const Table = ({ title, caption, headers, values, classes, cellClasses }: TTable
               return (
                 <tr key={`line${lineIndex}`}>
                   {line.map((col, index) => {
+                    const shouldRemoveBorder = (cellColSpans?.[lineIndex + 1] || 0) >= 1;
                     if (index === 0)
                       return (
                         <th
                           key={index}
                           scope="row"
                           className={cellClasses?.[index] || ''}
+                          colSpan={cellColSpans?.[lineIndex] || 0}
+                          style={shouldRemoveBorder ? { borderBottom: 'none' } : {}}
                           data-header={headers[index]}
                         >
                           {col}
@@ -45,6 +56,8 @@ const Table = ({ title, caption, headers, values, classes, cellClasses }: TTable
                       <td
                         key={index}
                         className={cellClasses?.[index] || ''}
+                        colSpan={cellColSpans?.[lineIndex] || 0}
+                        style={shouldRemoveBorder ? { borderBottom: 'none' } : {}}
                         data-header={headers[index]}
                       >
                         {col}
@@ -68,6 +81,7 @@ Table.propTypes = {
   values: PropTypes.arrayOf(arrayOf(PropTypes.element)),
   classes: PropTypes.string,
   cellClasses: PropTypes.arrayOf(PropTypes.string),
+  cellColSpans: PropTypes.arrayOf(PropTypes.number),
 };
 Table.defaultProps = {
   headers: [],
@@ -76,6 +90,7 @@ Table.defaultProps = {
   caption: null,
   classes: null,
   cellClasses: null,
+  cellColSpans: null,
 };
 
 export default Table;
