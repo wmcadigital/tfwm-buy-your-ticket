@@ -3,34 +3,27 @@ import PropTypes from 'prop-types';
 import dompurify from 'dompurify';
 
 import Icon from '../Icon/Icon';
+import { TCheckboxProps } from './Checkbox.types';
 
 const { sanitize } = dompurify;
 
 const InputCheckbox = ({
-  fieldValidation,
   name,
   labelValue,
   labelElement,
   defaultValue,
+  onChange,
   classes,
-  errors,
-}: {
-  fieldValidation: () => void | null;
-  name: string;
-  defaultValue: string | number | readonly string[] | null | undefined;
-  labelValue: string | null;
-  labelElement: JSX.Element | null;
-  errors: { name: { message: string } };
-  classes: string | null;
-}) => {
+  error,
+}: TCheckboxProps) => {
   // Set input to render below
   return (
-    <div className={`wmnds-fe-group ${errors.name ? 'wmnds-fe-group--error' : ''} ${classes}`}>
-      {errors.name && (
+    <div className={`wmnds-fe-group ${error?.message ? 'wmnds-fe-group--error' : ''} ${classes}`}>
+      {error && error?.message && (
         <span
           className="wmnds-fe-error-message"
           dangerouslySetInnerHTML={{
-            __html: sanitize(errors.name.message),
+            __html: sanitize(error.message),
           }}
         />
       )}
@@ -45,9 +38,9 @@ const InputCheckbox = ({
           />
         )}
         <input
-          ref={fieldValidation}
-          defaultValue={defaultValue || ''}
           className="wmnds-fe-checkboxes__input"
+          checked={defaultValue}
+          onChange={onChange}
           name={name}
           type="checkbox"
         />
@@ -61,21 +54,21 @@ const InputCheckbox = ({
 
 InputCheckbox.propTypes = {
   labelValue: PropTypes.string,
-  fieldValidation: PropTypes.func,
   name: PropTypes.string.isRequired,
   classes: PropTypes.string,
   labelElement: PropTypes.element,
-  defaultValue: PropTypes.string,
-  errors: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
+  defaultValue: PropTypes.bool,
+  error: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+  }),
 };
 
 InputCheckbox.defaultProps = {
   labelValue: null,
   labelElement: null,
-  fieldValidation: null,
   classes: null,
-  errors: null,
-  defaultValue: undefined,
+  error: null,
+  defaultValue: false,
 };
 
 export default InputCheckbox;
