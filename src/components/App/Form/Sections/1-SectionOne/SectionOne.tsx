@@ -2,8 +2,8 @@ import { TSectionProps } from 'types/section';
 import useStepLogic from 'customHooks/useStepLogic/useStepLogic';
 // Steps
 import TicketStartDate from './Steps/1-TicketStartDate';
-import AddToExistingSwiftCard from './Steps/3-AddToExistingSwiftCard';
-import AddSwiftCard from './Steps/2-AddSwiftCardNumber';
+import AddToExistingSwiftCard from './Steps/2-AddToExistingSwiftCard';
+import AddSwiftCard from './Steps/3-AddSwiftCardNumber';
 import CheckIfUserIsTheTicketHolder from './Steps/4-CheckIfUserIsTheTicketHolder';
 
 const steps = [TicketStartDate, AddToExistingSwiftCard, AddSwiftCard, CheckIfUserIsTheTicketHolder];
