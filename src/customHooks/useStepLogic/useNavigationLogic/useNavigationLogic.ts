@@ -6,12 +6,19 @@ const useNavigationLogic: TUseNavigationLogic = (
   currentStep,
   totalSections,
   totalSectionSteps,
+  globalState,
   globalStateDispatch,
 ) => {
   // Helper booleans
   const isOnLastStep = totalSectionSteps === currentStep;
   const isOnLastSection = currentSection === totalSections;
   const isOnLastSectionAndLastStep = isOnLastSection && isOnLastStep;
+  const isEditingStep = globalState.form.isEditing;
+
+  // Goes to the summary page
+  const goToSummary = useCallback(() => {
+    return globalStateDispatch({ type: 'SHOW_SUMMARY_PAGE' });
+  }, [globalStateDispatch]);
 
   // Skips to a specific section
   const skipToSection = useCallback(
@@ -26,9 +33,10 @@ const useNavigationLogic: TUseNavigationLogic = (
         throw Error('"skipToSection" can only go forwards');
       }
 
+      if (isEditingStep) return goToSummary();
       return globalStateDispatch({ type: 'GO_TO_SECTION', payload: newSection });
     },
-    [currentSection, globalStateDispatch, totalSections],
+    [currentSection, globalStateDispatch, goToSummary, isEditingStep, totalSections],
   );
 
   // Skips to a specific step in the current section
@@ -43,18 +51,16 @@ const useNavigationLogic: TUseNavigationLogic = (
       if (newStep <= currentStep) {
         throw Error('"skipToStep" can only go forwards');
       }
+
+      if (isEditingStep) return goToSummary();
       return globalStateDispatch({ type: 'GO_TO_STEP', payload: newStep });
     },
-    [currentStep, globalStateDispatch, totalSectionSteps],
+    [currentStep, globalStateDispatch, goToSummary, isEditingStep, totalSectionSteps],
   );
-
-  // Goes to the summary page
-  const goToSummary = useCallback(() => {
-    return globalStateDispatch({ type: 'SHOW_SUMMARY_PAGE' });
-  }, [globalStateDispatch]);
 
   // Goes to the next step (if there is one) or the first step of the next section
   const goToNextStep = useCallback(() => {
+    if (isEditingStep) return goToSummary();
     if (isOnLastSectionAndLastStep) return goToSummary();
     if (isOnLastStep) return skipToSection(currentSection + 1);
 
@@ -65,6 +71,7 @@ const useNavigationLogic: TUseNavigationLogic = (
     currentStep,
     globalStateDispatch,
     goToSummary,
+    isEditingStep,
     isOnLastSectionAndLastStep,
     isOnLastStep,
     skipToSection,

@@ -2,7 +2,13 @@ import { TFormDataStateValue } from 'state/formDataState/types';
 import { Nullable } from 'types/helpers';
 import { TError } from 'types/validation';
 
-export type TValidationRule = 'MANDATORY' | 'OPTIONAL' | 'EMAIL' | 'PHONE_NUMBER' | 'NUMBER';
+export type TValidationRule =
+  | 'MANDATORY'
+  | 'MANDATORY_BOOLEAN'
+  | 'OPTIONAL'
+  | 'EMAIL'
+  | 'PHONE_NUMBER'
+  | 'NUMBER';
 
 export type TValidationConfig = {
   rule: TValidationRule;
@@ -20,6 +26,6 @@ export type TCheckForRule = (
 ) => Nullable<TValidationConfig>;
 
 export type TValidate = (
-  value: TFormDataStateValue,
+  value: TFormDataStateValue | boolean,
   config: TValidationConfig[],
 ) => TValidationReturn;

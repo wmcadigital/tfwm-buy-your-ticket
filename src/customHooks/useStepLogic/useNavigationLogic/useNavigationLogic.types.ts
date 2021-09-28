@@ -1,4 +1,4 @@
-import { TGlobalStateAction } from 'state/globalState/types';
+import { TGlobalState, TGlobalStateAction } from 'state/globalState/types';
 import { TStepNavigation } from 'types/step';
 
 export type TUseNavigationLogic = (
@@ -6,5 +6,6 @@ export type TUseNavigationLogic = (
   currentStep: number,
   totalSections: number,
   totalSectionSteps: number,
+  globalState: TGlobalState,
   globalStateDispatch: React.Dispatch<TGlobalStateAction>,
 ) => TStepNavigation;

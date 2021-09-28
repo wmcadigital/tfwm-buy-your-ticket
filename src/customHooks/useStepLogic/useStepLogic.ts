@@ -18,6 +18,7 @@ const useStepLogic: TUseStepLogic = (totalSections, totalSectionSteps) => {
     currentStep,
     totalSections,
     totalSectionSteps,
+    globalState,
     globalStateDispatch,
   );
 

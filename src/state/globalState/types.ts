@@ -35,6 +35,10 @@ export type TGlobalStateAction =
       payload?: null;
     }
   | {
+      type: 'EDIT_STEP';
+      payload: TSectionAndStep;
+    }
+  | {
       type: 'ADD_TICKET_INFO';
       payload: TTicket;
     }

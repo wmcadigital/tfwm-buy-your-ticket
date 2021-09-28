@@ -19,6 +19,15 @@ export const validate: TValidate = (value, config) => {
     }
   }
 
+  const mandatoryBooleanRule = checkForRule(config, 'MANDATORY');
+  if (mandatoryBooleanRule) {
+    const isFalseOrEmpty = typeof value === 'boolean' && !value;
+    if (isFalseOrEmpty) {
+      const message = mandatoryRule?.message || 'This field is mandatory';
+      return { isValid: false, error: { message } };
+    }
+  }
+
   // EMAIL
   const emailRule = checkForRule(config, 'EMAIL');
   if (emailRule) {

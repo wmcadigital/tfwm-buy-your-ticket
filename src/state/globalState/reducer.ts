@@ -42,8 +42,24 @@ const reducer: TGlobalStateReducer = (state, action) => {
         form: {
           ...state.form,
           isFinished: true,
+          isEditing: false,
         },
       };
+
+    case 'EDIT_STEP': {
+      const { section: newSection, step: newStep } = payload as TSectionAndStep;
+
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          currentSection: newSection,
+          currentStep: newStep,
+          isFinished: false,
+          isEditing: true,
+        },
+      };
+    }
 
     case 'ADD_TICKET_INFO':
       return {
