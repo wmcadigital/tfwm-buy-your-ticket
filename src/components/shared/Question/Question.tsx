@@ -1,5 +1,6 @@
 import Button from 'components/shared/Button';
 import GenericError from 'components/shared/Errors/GenericError';
+import { TQuestionProps } from './Question.types';
 
 const Question = ({
   question,
@@ -7,13 +8,7 @@ const Question = ({
   children,
   showError,
   isLoading = false,
-}: {
-  question: string;
-  handleContinue: () => void;
-  children: React.ReactNode;
-  showError?: boolean;
-  isLoading?: boolean;
-}): JSX.Element => {
+}: TQuestionProps) => {
   return (
     <>
       {showError && <GenericError />}
