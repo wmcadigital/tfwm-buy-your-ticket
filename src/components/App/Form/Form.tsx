@@ -15,6 +15,12 @@ const Form = () => {
   const [globalState, globalDispatch] = useGlobalContext();
   const { form } = globalState;
 
+  const handleBackButtonClick = () => {
+    return globalDispatch({
+      type: form.isEditing ? 'SHOW_SUMMARY_PAGE' : 'GO_BACK',
+    });
+  };
+
   const totalSections = sections.length;
   const SectionToShow = sections[form.currentSection - 1];
   const whichSectionText = `Section ${form.currentSection} of ${totalSections}`;
@@ -22,7 +28,7 @@ const Form = () => {
   return (
     <div className="wmnds-container wmnds-p-t-lg wmnds-p-b-lg wmnds-grid">
       <div className="wmnds-col-1 wmnds-m-b-lg">
-        <BackButton onClick={() => globalDispatch({ type: 'GO_BACK' })} />
+        <BackButton onClick={handleBackButtonClick} />
       </div>
       <div className="wmnds-col-1 wmnds-col-md-3-4">
         <div className={`${s.card} bg-white wmnds-m-b-lg`}>
