@@ -24,7 +24,7 @@ const HowDidYouFindOutAboutDD = ({ stepNavigation }: TStepProps) => {
     >
       <Radios
         name="findAboutDD"
-        currentValue={howDidYouHearAboutCentroDirectDebit.value}
+        currentValue={howDidYouHearAboutCentroDirectDebit.currentValue}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           howDidYouHearAboutCentroDirectDebit.set(e.target.value)
         }

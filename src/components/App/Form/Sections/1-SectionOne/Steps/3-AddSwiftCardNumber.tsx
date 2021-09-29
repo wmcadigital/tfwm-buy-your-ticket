@@ -13,7 +13,7 @@ const AddSwiftCard = ({ stepNavigation }: TStepProps) => {
     currentSwiftcardNumber.set(e.target.value);
   };
 
-  const validateSwiftCardNumber = useValidateSwiftCardNumber(currentSwiftcardNumber.value);
+  const validateSwiftCardNumber = useValidateSwiftCardNumber(currentSwiftcardNumber.currentValue);
 
   const handleContinue = async () => {
     if (!currentSwiftcardNumber.save()) return;
@@ -35,7 +35,7 @@ const AddSwiftCard = ({ stepNavigation }: TStepProps) => {
         label="This is the 18-digit number on the front of the card."
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={setCurrentValue}
-        defaultValue={currentSwiftcardNumber.value}
+        defaultValue={currentSwiftcardNumber.currentValue}
         error={
           currentSwiftcardNumber.error ||
           (validateSwiftCardNumber.hasError

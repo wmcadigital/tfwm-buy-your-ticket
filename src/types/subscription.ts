@@ -12,7 +12,7 @@ export type TSubscription<T = any> = {
 };
 
 export type TSubscriptionReturn<T> = {
-  value: T | null;
+  currentValue: T | null;
   set: (newValue: T) => void;
   save: () => boolean;
   error: Nullable<TError>;

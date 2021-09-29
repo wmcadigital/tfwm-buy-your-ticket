@@ -12,7 +12,7 @@ const AddressManual = ({ address }: TAddressManualProps) => {
         name="AddressLine1"
         inputmode="text"
         label="Building and street"
-        defaultValue={addressLine1.value}
+        defaultValue={addressLine1.currentValue}
         onChange={(e) => addressLine1.set(e.target.value)}
         type="text"
         error={addressLine1.error}
@@ -24,7 +24,7 @@ const AddressManual = ({ address }: TAddressManualProps) => {
         inputmode="text"
         label=""
         aria-label="Address Line 2"
-        defaultValue={addressLine2.value}
+        defaultValue={addressLine2.currentValue}
         onChange={(e) => addressLine2.set(e.target.value)}
         type="text"
         error={addressLine2.error}
@@ -35,7 +35,7 @@ const AddressManual = ({ address }: TAddressManualProps) => {
         name="TownOrCity"
         inputmode="text"
         label="Town or city"
-        defaultValue={addressLine3.value}
+        defaultValue={addressLine3.currentValue}
         onChange={(e) => addressLine3.set(e.target.value)}
         type="text"
         error={addressLine3.error}
@@ -46,7 +46,7 @@ const AddressManual = ({ address }: TAddressManualProps) => {
         name="County"
         inputmode="text"
         label="County"
-        defaultValue={addressLine4.value}
+        defaultValue={addressLine4.currentValue}
         onChange={(e) => addressLine4.set(e.target.value)}
         type="text"
         error={addressLine4.error}
@@ -57,7 +57,7 @@ const AddressManual = ({ address }: TAddressManualProps) => {
         name="postcode"
         inputmode="text"
         label="Postcode"
-        defaultValue={postcode.value}
+        defaultValue={postcode.currentValue}
         onChange={(e) => postcode.set(e.target.value)}
         type="text"
         error={postcode.error}

@@ -13,7 +13,7 @@ const TicketStartDate = ({ stepNavigation }: TStepProps) => {
   const { availableDates } = globalState.ticket;
 
   useEffect(() => {
-    if (availableDates && !startDate.value) startDate.set(availableDates[0]);
+    if (availableDates && !startDate.currentValue) startDate.set(availableDates[0]);
   }, [availableDates, startDate]);
 
   const handleContinue = () => {
@@ -25,7 +25,7 @@ const TicketStartDate = ({ stepNavigation }: TStepProps) => {
   return (
     <Question question="When would you like the ticket to start?" handleContinue={handleContinue}>
       <DatePicker
-        startDate={startDate.value}
+        startDate={startDate.currentValue}
         setStartDate={startDate.set}
         availableDates={availableDates}
       />

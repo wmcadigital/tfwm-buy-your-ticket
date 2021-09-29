@@ -40,7 +40,7 @@ const ContactDetailsStep = ({ handleNavigation, question, dataNamePrefix }: TSha
             For example, name@example.com
           </>
         }
-        defaultValue={emailAddress.value}
+        defaultValue={emailAddress.currentValue}
         type="text"
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => emailAddress.set(e.target.value)}
@@ -57,7 +57,7 @@ const ContactDetailsStep = ({ handleNavigation, question, dataNamePrefix }: TSha
             For example, 07700900457
           </>
         }
-        defaultValue={phoneNumber.value}
+        defaultValue={phoneNumber.currentValue}
         type="text"
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => phoneNumber.set(e.target.value)}

@@ -62,7 +62,7 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationC
 
   // return object to the component
   const subscription: TSubscriptionReturn<TSavedData> = {
-    value: currentValue,
+    currentValue,
     set: (newValue: typeof currentValue) => setCurrentValue(newValue),
     save,
     validate: validateData,

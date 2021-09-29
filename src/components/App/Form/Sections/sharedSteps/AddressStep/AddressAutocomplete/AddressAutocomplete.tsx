@@ -64,7 +64,7 @@ const AddressAutocomplete = ({ handleNotFound, address }: TAddressAutocompletePr
             name="postcode"
             inputmode="text"
             label="Postcode"
-            defaultValue={postcode.value}
+            defaultValue={postcode.currentValue}
             onChange={(e) => postcode.set(e.target.value)}
             type="text"
             error={postcode.error}
@@ -84,7 +84,7 @@ const AddressAutocomplete = ({ handleNotFound, address }: TAddressAutocompletePr
         <div className="wmnds-col-1">
           <p className="wmnds-fe-label">Postcode</p>
           <p className="wmnds-m-b-none">
-            {postcode.value}
+            {postcode.currentValue}
             <button
               type="button"
               className="wmnds-btn wmnds-btn--link wmnds-m-l-md"

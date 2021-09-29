@@ -22,7 +22,7 @@ const BirthDateStep = ({ handleNavigation, question, dataNamePrefix }: TSharedSt
           </>
         }
         name="DateOfBirth"
-        defaultDate={birthDate.value}
+        defaultDate={birthDate.currentValue}
         onChange={birthDate.set}
         hasError={birthDate.hasError}
       />

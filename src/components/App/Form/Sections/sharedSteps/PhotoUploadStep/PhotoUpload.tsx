@@ -25,7 +25,7 @@ const PhotoUploadStep = ({ handleNavigation, question }: TPhotoUploadProps) => {
         hint="Files must be jpeg or png file format"
         accept=".png, .jpg, .jpeg"
         name="ticketHolderPhoto"
-        defaultValue={ticketHolderPhoto.value}
+        defaultValue={ticketHolderPhoto.currentValue}
         updateValue={ticketHolderPhoto.set}
         error={ticketHolderPhoto.error}
       />

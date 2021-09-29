@@ -14,7 +14,7 @@ const CheckIfUserIsTheTicketHolder = ({ stepNavigation }: TStepProps) => {
 
   const handleContinue = () => {
     if (!applicationForMe.save()) return;
-    if (applicationForMe.value === false) goToNextStep();
+    if (applicationForMe.currentValue === false) goToNextStep();
     else skipToSection(3);
   };
 
@@ -27,7 +27,7 @@ const CheckIfUserIsTheTicketHolder = ({ stepNavigation }: TStepProps) => {
       <Radios
         name="isApplicationForMe"
         onChange={setCurrentValue}
-        currentValue={applicationForMe.value}
+        currentValue={applicationForMe.currentValue}
         error={applicationForMe.error}
         radios={[
           { text: 'Yes', html: null, value: true, info: null },

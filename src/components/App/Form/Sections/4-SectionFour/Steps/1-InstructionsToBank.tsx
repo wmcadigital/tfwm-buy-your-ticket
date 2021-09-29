@@ -19,7 +19,10 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
     { rule: 'NUMBER', message: 'The account number must be 6 to 8 digit number a number' },
   ]);
 
-  const bankAccountValidation = useValidateBankAccount(sortCode.value, accountNumber.value);
+  const bankAccountValidation = useValidateBankAccount(
+    sortCode.currentValue,
+    accountNumber.currentValue,
+  );
 
   const handleContinue = async () => {
     const accountNameValid = accountName.save();
@@ -78,7 +81,7 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
         name="accountName"
         inputmode="text"
         label="Name on the account"
-        defaultValue={accountName.value}
+        defaultValue={accountName.currentValue}
         type="text"
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => accountName.set(e.target.value)}
@@ -95,7 +98,7 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
             Must be 6 digits long
           </>
         }
-        defaultValue={sortCode.value}
+        defaultValue={sortCode.currentValue}
         type="text"
         pattern="[0-9]*"
         maxLength={6}
@@ -114,7 +117,7 @@ const InstructionsToBank = ({ stepNavigation }: TStepProps) => {
             Must be between 6 and 8 digits long
           </>
         }
-        defaultValue={accountNumber.value}
+        defaultValue={accountNumber.currentValue}
         type="text"
         pattern="[0-9]*"
         maxLength={8}

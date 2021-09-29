@@ -13,7 +13,7 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
 
   const handleContinue = () => {
     if (!addProductToExistingCard.save()) return;
-    if (addProductToExistingCard.value === true) goToNextStep();
+    if (addProductToExistingCard.currentValue === true) goToNextStep();
     else skipToStep(4);
   };
 
@@ -37,7 +37,7 @@ const AddToExistingSwiftCard = ({ stepNavigation }: TStepProps) => {
           </>
         }
         error={addProductToExistingCard.error}
-        currentValue={addProductToExistingCard.value}
+        currentValue={addProductToExistingCard.currentValue}
         onChange={setCurrentValue}
         radios={[
           { text: 'Yes', html: null, value: true, info: null },

@@ -31,7 +31,7 @@ const FullNameStep = ({
         name="firstName"
         inputmode="text"
         label="First Name"
-        defaultValue={firstName.value as string}
+        defaultValue={firstName.currentValue as string}
         type="text"
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => firstName.set(e.target.value)}
@@ -42,7 +42,7 @@ const FullNameStep = ({
         name="lastName"
         inputmode="text"
         label="Last Name"
-        defaultValue={lastName.value as string}
+        defaultValue={lastName.currentValue as string}
         type="text"
         className="wmnds-col-1 wmnds-col-md-2-3"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => lastName.set(e.target.value)}
