@@ -74,7 +74,7 @@ const reducer: TFormDataStateReducer = (state, action) => {
         return {
           ...acc,
           [name]: {
-            value: null,
+            savedValue: null,
             subscriptions: [],
           },
         };

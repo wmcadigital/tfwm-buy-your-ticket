@@ -7,8 +7,8 @@ const PayerName = ({ stepNavigation }: TStepProps) => {
   const [formDataState] = useFormDataContext();
   const { applicationForMe } = formDataState;
 
-  const question = applicationForMe.value ? 'What is your name?' : "What is the payer's name?";
-  const dataNamePrefix = applicationForMe.value ? 'ticketHolder' : 'payer';
+  const question = applicationForMe.savedValue ? 'What is your name?' : "What is the payer's name?";
+  const dataNamePrefix = applicationForMe.savedValue ? 'ticketHolder' : 'payer';
 
   return (
     <FullNameStep

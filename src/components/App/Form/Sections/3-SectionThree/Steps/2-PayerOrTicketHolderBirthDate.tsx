@@ -7,11 +7,11 @@ const PayerBirthDate = ({ stepNavigation }: TStepProps) => {
   const [formDataState] = useFormDataContext();
   const { applicationForMe } = formDataState;
 
-  const question = applicationForMe.value
+  const question = applicationForMe.savedValue
     ? 'What is your date of birth?'
     : "What is the payer's date of birth?";
 
-  const dataNamePrefix = applicationForMe.value ? 'ticketHolder' : 'payer';
+  const dataNamePrefix = applicationForMe.savedValue ? 'ticketHolder' : 'payer';
 
   return (
     <BirthDateStep

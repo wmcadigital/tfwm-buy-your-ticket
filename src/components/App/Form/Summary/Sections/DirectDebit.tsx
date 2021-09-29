@@ -12,7 +12,7 @@ const DirectDebit = () => {
   } = formDataState;
 
   const howDidYouHearAboutDDString = (() => {
-    const separatedString = howDidYouHearAboutCentroDirectDebit.value?.split('-').join(' ');
+    const separatedString = howDidYouHearAboutCentroDirectDebit.savedValue?.split('-').join(' ');
     return separatedString!.charAt(0).toUpperCase() + separatedString!.slice(1);
   })();
 
@@ -23,17 +23,17 @@ const DirectDebit = () => {
       values={[
         [
           <span>Account Holder</span>,
-          <>{accountName.value}</>,
+          <>{accountName.savedValue}</>,
           <ChangeAnswer subscription={accountName} />,
         ],
         [
           <span>Bank or building society account number</span>,
-          <>{accountNumber.value}</>,
+          <>{accountNumber.savedValue}</>,
           <ChangeAnswer subscription={accountNumber} />,
         ],
         [
           <span>Branch sort code</span>,
-          <>{sortCode.value}</>,
+          <>{sortCode.savedValue}</>,
           <ChangeAnswer subscription={sortCode} />,
         ],
         [

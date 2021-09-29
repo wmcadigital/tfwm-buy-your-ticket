@@ -21,13 +21,13 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationC
 
   // Set the current value of for the component to the saved valued
   const savedSubscription = formDataState[dataName] as TSubscription;
-  const shoudlClearSavedValue =
+  const shouldClearSavedValue =
     savedSubscription.subscriptions.length > 0 &&
     !savedSubscription.subscriptions.some(
       (item) => item.section === currentSection && item.step === currentStep,
     );
 
-  const savedData = shoudlClearSavedValue ? null : savedSubscription.value;
+  const savedData = shouldClearSavedValue ? null : savedSubscription.savedValue;
   type TSavedData = typeof savedData;
 
   const initialState = typeof savedData !== null ? savedData : null;

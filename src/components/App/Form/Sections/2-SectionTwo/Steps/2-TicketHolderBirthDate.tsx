@@ -11,7 +11,7 @@ const TicketHolderBirthDate = ({ stepNavigation }: TStepProps) => {
     <BirthDateStep
       handleNavigation={goToNextStep}
       dataNamePrefix="ticketHolder"
-      question={`What is ${ticketHolderFirstName.value}'s date of birth?`}
+      question={`What is ${ticketHolderFirstName.savedValue}'s date of birth?`}
     />
   );
 };

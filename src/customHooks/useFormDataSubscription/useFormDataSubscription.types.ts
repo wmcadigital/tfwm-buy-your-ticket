@@ -6,5 +6,5 @@ export type TUseFormDataSubscription = <T extends TFormDataStateKey>(
   dataName: T,
   validationConfig?: TValidationConfig[],
 ) => TSubscriptionReturn<
-  TFormDataState[T] extends TSubscription ? TFormDataState[T]['value'] : TFormDataState[T]
+  TFormDataState[T] extends TSubscription ? TFormDataState[T]['savedValue'] : TFormDataState[T]
 >;

@@ -7,7 +7,7 @@ export type TSectionAndStep = {
 };
 
 export type TSubscription<T = any> = {
-  value: Nullable<T>;
+  savedValue: Nullable<T>;
   subscriptions: TSectionAndStep[];
 };
 

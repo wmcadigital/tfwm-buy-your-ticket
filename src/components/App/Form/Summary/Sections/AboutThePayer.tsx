@@ -25,35 +25,35 @@ const AboutThePayer = () => {
       values={[
         [
           <span>Are you buying the ticket for yourself?</span>,
-          <span>{applicationForMe.value ? 'Yes' : 'No'}</span>,
+          <span>{applicationForMe.savedValue ? 'Yes' : 'No'}</span>,
           <ChangeAnswer subscription={applicationForMe} />,
         ],
         [
           <span>Payer&apos;s name</span>,
-          <span>{`${payerFirstName.value} ${payerLastName.value}`}</span>,
+          <span>{`${payerFirstName.savedValue} ${payerLastName.savedValue}`}</span>,
           <ChangeAnswer subscription={payerFirstName} />,
         ],
         [
           <span>Payer&apos;s date of birth</span>,
-          <span>{payerDateOfBirth.value?.toLocaleDateString()}</span>,
+          <span>{payerDateOfBirth.savedValue?.toLocaleDateString()}</span>,
           <ChangeAnswer subscription={payerDateOfBirth} />,
         ],
         [
           <span>Payer&apos;s contact details</span>,
           <>
-            <p className="wmnds-m-b-none">{payerMobilePhoneNumber.value}</p>
-            <p className="wmnds-m-b-none">{payerEmailAddress.value}</p>
+            <p className="wmnds-m-b-none">{payerMobilePhoneNumber.savedValue}</p>
+            <p className="wmnds-m-b-none">{payerEmailAddress.savedValue}</p>
           </>,
           <ChangeAnswer subscription={payerMobilePhoneNumber} />, // or payerEmailAddress />
         ],
         [
           <span>Payer&apos;s address</span>,
           <>
-            <p className="wmnds-m-b-none">{payerCurrentAddressLine1.value}</p>
-            <p className="wmnds-m-b-none">{payerCurrentAddressLine2.value}</p>
-            <p className="wmnds-m-b-none">{payerCurrentAddressLine3.value}</p>
-            <p className="wmnds-m-b-none">{payerCurrentAddressLine4.value}</p>
-            <p className="wmnds-m-b-none">{payerCurrentPostcode.value}</p>
+            <p className="wmnds-m-b-none">{payerCurrentAddressLine1.savedValue}</p>
+            <p className="wmnds-m-b-none">{payerCurrentAddressLine2.savedValue}</p>
+            <p className="wmnds-m-b-none">{payerCurrentAddressLine3.savedValue}</p>
+            <p className="wmnds-m-b-none">{payerCurrentAddressLine4.savedValue}</p>
+            <p className="wmnds-m-b-none">{payerCurrentPostcode.savedValue}</p>
           </>,
           <ChangeAnswer subscription={payerCurrentAddressLine1} />, // Or any other the other address items
         ],

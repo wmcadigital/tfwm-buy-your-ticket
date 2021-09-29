@@ -21,7 +21,7 @@ const Summary = () => {
     <div className={s.summaryTable}>
       <h2>Check your answers</h2>
       <AboutTheTicket />
-      {applicationForMe.value ? (
+      {applicationForMe.savedValue ? (
         <AboutYou />
       ) : (
         <>

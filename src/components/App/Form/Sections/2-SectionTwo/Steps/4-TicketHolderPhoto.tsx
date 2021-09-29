@@ -10,7 +10,7 @@ const TicketHolderPhoto = ({ stepNavigation }: TStepProps) => {
   return (
     <PhotoUploadStep
       handleNavigation={goToNextStep}
-      question={`Upload a photo of ${ticketHolderFirstName.value}`}
+      question={`Upload a photo of ${ticketHolderFirstName.savedValue}`}
     />
   );
 };
