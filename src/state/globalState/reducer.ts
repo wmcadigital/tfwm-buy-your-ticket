@@ -1,7 +1,7 @@
 import { TSession } from 'types/session';
 import { TSectionAndStep } from 'types/subscription';
 import { TTicket } from 'types/ticket';
-import { TGlobalStateReducer, TGlobalStateHistory } from './types';
+import { TGlobalStateReducer, TGlobalStateHistory, TSectionAndStepRange } from './types';
 
 const reducer: TGlobalStateReducer = (state, action) => {
   const { type, payload } = action;
@@ -41,22 +41,43 @@ const reducer: TGlobalStateReducer = (state, action) => {
         ...state,
         form: {
           ...state.form,
+          currentSection: 0,
+          currentStep: 0,
           isFinished: true,
           isEditing: false,
+          edit: {
+            ...state.form.edit,
+            from: null,
+            to: null,
+          },
         },
       };
 
-    case 'EDIT_STEP': {
-      const { section: newSection, step: newStep } = payload as TSectionAndStep;
+    case 'EDIT_FORM': {
+      let to: TSectionAndStep;
+      let from: TSectionAndStep;
+
+      if ((payload as TSectionAndStepRange)?.from && (payload as TSectionAndStepRange)?.to) {
+        from = (payload as TSectionAndStepRange).from;
+        to = (payload as TSectionAndStepRange).to;
+      } else {
+        from = payload as TSectionAndStep;
+        to = payload as TSectionAndStep;
+      }
 
       return {
         ...state,
         form: {
           ...state.form,
-          currentSection: newSection,
-          currentStep: newStep,
+          currentSection: from.section,
+          currentStep: from.step,
           isFinished: false,
           isEditing: true,
+          edit: {
+            ...state.form.edit,
+            from,
+            to,
+          },
         },
       };
     }

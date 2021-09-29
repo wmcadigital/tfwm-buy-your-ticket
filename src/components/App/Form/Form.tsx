@@ -16,13 +16,25 @@ const Form = () => {
   const { form } = globalState;
 
   const handleBackButtonClick = () => {
+    let shouldGoToSummary = false;
+
+    if (form.isEditing) {
+      const { currentSection, currentStep } = form;
+      const editStartSectionAndStep = form.edit.from!;
+
+      shouldGoToSummary =
+        currentSection === editStartSectionAndStep?.section &&
+        currentStep === editStartSectionAndStep?.step;
+    }
+
     return globalDispatch({
-      type: form.isEditing ? 'SHOW_SUMMARY_PAGE' : 'GO_BACK',
+      type: shouldGoToSummary ? 'SHOW_SUMMARY_PAGE' : 'GO_BACK',
     });
   };
 
   const totalSections = sections.length;
   const SectionToShow = sections[form.currentSection - 1];
+  const shouldShowSummary = form.isFinished && !form.isEditing;
   const whichSectionText = `Section ${form.currentSection} of ${totalSections}`;
 
   return (
@@ -32,7 +44,7 @@ const Form = () => {
       </div>
       <div className="wmnds-col-1 wmnds-col-md-3-4">
         <div className={`${s.card} bg-white wmnds-m-b-lg`}>
-          {form.isFinished && !form.isEditing ? (
+          {shouldShowSummary ? (
             <Summary />
           ) : (
             <>

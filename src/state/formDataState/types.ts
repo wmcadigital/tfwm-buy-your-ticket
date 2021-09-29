@@ -106,8 +106,12 @@ export type TFormDataStateAction =
       };
     }
   | {
-      type: 'CLEAR_SUBSCRIPTION_VALUES';
+      type: 'CLEAR_SECTION_AND_STEP_DATA';
       payload: TSectionAndStep[];
+    }
+  | {
+      type: 'CLEAR_FORM_DATA';
+      payload: TFormDataStateKey[];
     };
 
 export type TFormDataStateReducer = (

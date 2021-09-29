@@ -1,5 +1,6 @@
-import { TSubscription } from 'types/subscription';
+import { TSectionAndStep } from 'types/subscription';
 
 export type TChangeAnswerProps = {
-  subscription: TSubscription;
+  from: TSectionAndStep;
+  to?: TSectionAndStep;
 };

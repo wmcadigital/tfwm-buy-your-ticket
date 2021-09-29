@@ -24,12 +24,12 @@ const AboutTheTicketUser = () => {
         [
           <span>Name</span>,
           <span>{`${ticketHolderFirstName.savedValue} ${ticketHolderLastName.savedValue}`}</span>,
-          <ChangeAnswer subscription={ticketHolderFirstName} />, // Or ticketHolderLastName
+          <ChangeAnswer from={{ section: 2, step: 1 }} to={{ section: 2, step: 2 }} />,
         ],
         [
           <span>Date of birth</span>,
           <span>{ticketHolderDateOfBirth.savedValue?.toLocaleDateString()}</span>,
-          <ChangeAnswer subscription={ticketHolderDateOfBirth} />,
+          <ChangeAnswer from={ticketHolderDateOfBirth.subscriptions[0]} />,
         ],
         [
           <span>Address</span>,
@@ -40,14 +40,14 @@ const AboutTheTicketUser = () => {
             <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine4.savedValue}</p>
             <p className="wmnds-m-b-none">{ticketHolderCurrentPostcode.savedValue}</p>
           </>,
-          <ChangeAnswer subscription={ticketHolderCurrentAddressLine1} />, // Or any other the other address items
+          <ChangeAnswer from={ticketHolderCurrentAddressLine1.subscriptions[0]} />, // Or any other the other address items
         ],
         [
           <span>Photo</span>,
           <>
             <img src={filename.savedValue!} alt="" />
           </>,
-          <ChangeAnswer subscription={filename} />,
+          <ChangeAnswer from={filename.subscriptions[0]} />,
         ],
       ]}
     />

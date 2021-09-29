@@ -33,6 +33,11 @@ const initialState: TGlobalState = {
     isFinished: true,
     isSubmitted: false,
     isEditing: false,
+    edit: {
+      from: null,
+      to: null,
+      history: null,
+    },
     currentSection: 4,
     currentStep: 2,
     history: {

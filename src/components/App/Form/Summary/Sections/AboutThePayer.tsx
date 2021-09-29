@@ -26,17 +26,17 @@ const AboutThePayer = () => {
         [
           <span>Are you buying the ticket for yourself?</span>,
           <span>{applicationForMe.savedValue ? 'Yes' : 'No'}</span>,
-          <ChangeAnswer subscription={applicationForMe} />,
+          <ChangeAnswer from={applicationForMe.subscriptions[0]} />,
         ],
         [
           <span>Payer&apos;s name</span>,
           <span>{`${payerFirstName.savedValue} ${payerLastName.savedValue}`}</span>,
-          <ChangeAnswer subscription={payerFirstName} />,
+          <ChangeAnswer from={payerFirstName.subscriptions[0]} />,
         ],
         [
           <span>Payer&apos;s date of birth</span>,
           <span>{payerDateOfBirth.savedValue?.toLocaleDateString()}</span>,
-          <ChangeAnswer subscription={payerDateOfBirth} />,
+          <ChangeAnswer from={payerDateOfBirth.subscriptions[0]} />,
         ],
         [
           <span>Payer&apos;s contact details</span>,
@@ -44,7 +44,7 @@ const AboutThePayer = () => {
             <p className="wmnds-m-b-none">{payerMobilePhoneNumber.savedValue}</p>
             <p className="wmnds-m-b-none">{payerEmailAddress.savedValue}</p>
           </>,
-          <ChangeAnswer subscription={payerMobilePhoneNumber} />, // or payerEmailAddress />
+          <ChangeAnswer from={payerMobilePhoneNumber.subscriptions[0]} />, // or payerEmailAddress />
         ],
         [
           <span>Payer&apos;s address</span>,
@@ -55,7 +55,7 @@ const AboutThePayer = () => {
             <p className="wmnds-m-b-none">{payerCurrentAddressLine4.savedValue}</p>
             <p className="wmnds-m-b-none">{payerCurrentPostcode.savedValue}</p>
           </>,
-          <ChangeAnswer subscription={payerCurrentAddressLine1} />, // Or any other the other address items
+          <ChangeAnswer from={payerCurrentAddressLine1.subscriptions[0]} />, // Or any other the other address items
         ],
       ]}
     />

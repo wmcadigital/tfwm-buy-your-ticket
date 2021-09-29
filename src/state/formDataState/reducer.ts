@@ -50,7 +50,7 @@ const reducer: TFormDataStateReducer = (state, action) => {
       };
     }
 
-    case 'CLEAR_SUBSCRIPTION_VALUES': {
+    case 'CLEAR_SECTION_AND_STEP_DATA': {
       const sectionsAndSteps = payload as TSectionAndStep[];
       const valuesToClear = [] as TFormDataStateKey[];
 
@@ -69,6 +69,25 @@ const reducer: TFormDataStateReducer = (state, action) => {
       });
 
       // console.log(valuesToClear);
+
+      const dataToClear = valuesToClear.reduce((acc, name) => {
+        return {
+          ...acc,
+          [name]: {
+            savedValue: null,
+            subscriptions: [],
+          },
+        };
+      }, {});
+
+      return {
+        ...state,
+        ...dataToClear,
+      };
+    }
+
+    case 'CLEAR_FORM_DATA': {
+      const valuesToClear = payload as TFormDataStateKey[];
 
       const dataToClear = valuesToClear.reduce((acc, name) => {
         return {

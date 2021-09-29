@@ -24,22 +24,22 @@ const DirectDebit = () => {
         [
           <span>Account Holder</span>,
           <>{accountName.savedValue}</>,
-          <ChangeAnswer subscription={accountName} />,
+          <ChangeAnswer from={accountName.subscriptions[0]} />,
         ],
         [
           <span>Bank or building society account number</span>,
           <>{accountNumber.savedValue}</>,
-          <ChangeAnswer subscription={accountNumber} />,
+          <ChangeAnswer from={accountNumber.subscriptions[0]} />,
         ],
         [
           <span>Branch sort code</span>,
           <>{sortCode.savedValue}</>,
-          <ChangeAnswer subscription={sortCode} />,
+          <ChangeAnswer from={sortCode.subscriptions[0]} />,
         ],
         [
           <span>How did you find out about the Direct Debit scheme?</span>,
           <>{howDidYouHearAboutDDString}</>,
-          <ChangeAnswer subscription={howDidYouHearAboutCentroDirectDebit} />,
+          <ChangeAnswer from={howDidYouHearAboutCentroDirectDebit.subscriptions[0]} />,
         ],
       ]}
     />

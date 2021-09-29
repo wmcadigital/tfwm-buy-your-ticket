@@ -13,7 +13,9 @@ const useNavigationLogic: TUseNavigationLogic = (
   const isOnLastStep = totalSectionSteps === currentStep;
   const isOnLastSection = currentSection === totalSections;
   const isOnLastSectionAndLastStep = isOnLastSection && isOnLastStep;
-  const isEditingStep = globalState.form.isEditing;
+
+  const { isEditing } = globalState.form;
+  const editEndSectionAndStep = globalState.form.edit.to!;
 
   // Goes to the summary page
   const goToSummary = useCallback(() => {
@@ -33,10 +35,17 @@ const useNavigationLogic: TUseNavigationLogic = (
         throw Error('"skipToSection" can only go forwards');
       }
 
-      if (isEditingStep) return goToSummary();
+      if (isEditing && newSection > editEndSectionAndStep?.section) return goToSummary();
       return globalStateDispatch({ type: 'GO_TO_SECTION', payload: newSection });
     },
-    [currentSection, globalStateDispatch, goToSummary, isEditingStep, totalSections],
+    [
+      currentSection,
+      editEndSectionAndStep?.section,
+      globalStateDispatch,
+      goToSummary,
+      isEditing,
+      totalSections,
+    ],
   );
 
   // Skips to a specific step in the current section
@@ -52,26 +61,34 @@ const useNavigationLogic: TUseNavigationLogic = (
         throw Error('"skipToStep" can only go forwards');
       }
 
-      if (isEditingStep) return goToSummary();
+      if (isEditing && newStep > editEndSectionAndStep?.step) return goToSummary();
       return globalStateDispatch({ type: 'GO_TO_STEP', payload: newStep });
     },
-    [currentStep, globalStateDispatch, goToSummary, isEditingStep, totalSectionSteps],
+    [
+      currentStep,
+      editEndSectionAndStep?.step,
+      globalStateDispatch,
+      goToSummary,
+      isEditing,
+      totalSectionSteps,
+    ],
   );
 
   // Goes to the next step (if there is one) or the first step of the next section
   const goToNextStep = useCallback(() => {
-    if (isEditingStep) return goToSummary();
     if (isOnLastSectionAndLastStep) return goToSummary();
     if (isOnLastStep) return skipToSection(currentSection + 1);
 
     const nextStep = currentStep + 1;
+    if (isEditing && nextStep > editEndSectionAndStep?.step) return goToSummary();
     return globalStateDispatch({ type: 'GO_TO_STEP', payload: nextStep });
   }, [
     currentSection,
     currentStep,
+    editEndSectionAndStep?.step,
     globalStateDispatch,
     goToSummary,
-    isEditingStep,
+    isEditing,
     isOnLastSectionAndLastStep,
     isOnLastStep,
     skipToSection,

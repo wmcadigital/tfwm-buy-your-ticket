@@ -86,7 +86,7 @@ const AboutTheTicket = () => {
           })}
         </span>
       </div>,
-      <ChangeAnswer subscription={startDate} />,
+      <ChangeAnswer from={startDate.subscriptions[0]} />,
     ],
     [
       <span>Payment date</span>,
@@ -100,12 +100,12 @@ const AboutTheTicket = () => {
           })}
         </span>
       </div>,
-      <ChangeAnswer subscription={startDate} />,
+      <ChangeAnswer from={startDate.subscriptions[0]} />,
     ],
     [
       <span>Add to existing Swift card</span>,
       <span>{addProductToExistingCard.savedValue ? 'Yes' : 'No'}</span>,
-      <ChangeAnswer subscription={addProductToExistingCard} />,
+      <ChangeAnswer from={{ section: 1, step: 2 }} to={{ section: 1, step: 3 }} />,
     ],
   ];
 

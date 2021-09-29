@@ -28,7 +28,7 @@ const useHistoryLogic: TUseHistoryLogic = (
     if (hasHistoryChanged && !isOnLastStepOfHistory) {
       // console.log(history.path.slice(history.index));
       formDataStateDispatch({
-        type: 'CLEAR_SUBSCRIPTION_VALUES',
+        type: 'CLEAR_SECTION_AND_STEP_DATA',
         payload: history.path.slice(history.index),
       });
     }

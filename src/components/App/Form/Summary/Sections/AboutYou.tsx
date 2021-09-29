@@ -27,17 +27,17 @@ const AboutYou = () => {
         [
           <span>Are you buying the ticket for yourself?</span>,
           <span>{applicationForMe.savedValue ? 'Yes' : 'No'}</span>,
-          <ChangeAnswer subscription={applicationForMe} />,
+          <ChangeAnswer from={applicationForMe.subscriptions[0]} />,
         ],
         [
           <span>Name</span>,
           <span>{`${ticketHolderFirstName.savedValue} ${ticketHolderLastName.savedValue}`}</span>,
-          <ChangeAnswer subscription={ticketHolderFirstName} />, // or ticketHolderLastName
+          <ChangeAnswer from={ticketHolderFirstName.subscriptions[0]} />, // or ticketHolderLastName
         ],
         [
           <span>Date of birth</span>,
           <span>{ticketHolderDateOfBirth.savedValue?.toLocaleDateString()}</span>,
-          <ChangeAnswer subscription={ticketHolderDateOfBirth} />,
+          <ChangeAnswer from={ticketHolderDateOfBirth.subscriptions[0]} />,
         ],
         [
           <span>Contact details</span>,
@@ -45,7 +45,7 @@ const AboutYou = () => {
             <p className="wmnds-m-b-none">{ticketHolderMobilePhoneNumber.savedValue}</p>
             <p className="wmnds-m-b-none">{ticketHolderEmailAddress.savedValue}</p>
           </>,
-          <ChangeAnswer subscription={ticketHolderMobilePhoneNumber} />, // or ticketHolderEmailAddress
+          <ChangeAnswer from={ticketHolderMobilePhoneNumber.subscriptions[0]} />, // or ticketHolderEmailAddress
         ],
         [
           <span>Address</span>,
@@ -56,14 +56,14 @@ const AboutYou = () => {
             <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine4.savedValue}</p>
             <p className="wmnds-m-b-none">{ticketHolderCurrentPostcode.savedValue}</p>
           </>,
-          <ChangeAnswer subscription={ticketHolderCurrentAddressLine1} />, // Or any other the other address items
+          <ChangeAnswer from={ticketHolderCurrentAddressLine1.subscriptions[0]} />, // Or any other the other address items
         ],
         [
           <span>Photo</span>,
           <>
             <img src={filename.savedValue!} alt="" />
           </>,
-          <ChangeAnswer subscription={filename} />,
+          <ChangeAnswer from={filename.subscriptions[0]} />,
         ],
       ]}
     />

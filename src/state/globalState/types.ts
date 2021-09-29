@@ -1,3 +1,4 @@
+import { Nullable } from 'types/helpers';
 import { TSession } from 'types/session';
 import { TSectionAndStep } from 'types/subscription';
 import { TTicket } from 'types/ticket';
@@ -13,12 +14,22 @@ export type TGlobalState = {
     isFinished: boolean;
     isSubmitted: boolean;
     isEditing: boolean;
+    edit: {
+      from: Nullable<TSectionAndStep>;
+      to: Nullable<TSectionAndStep>;
+      history: Nullable<TSectionAndStep[]>;
+    };
     currentSection: number;
     currentStep: number;
     history: TGlobalStateHistory;
   };
   ticket: TTicket;
   session: TSession;
+};
+
+export type TSectionAndStepRange = {
+  from: TSectionAndStep;
+  to: TSectionAndStep;
 };
 
 export type TGlobalStateAction =
@@ -35,8 +46,8 @@ export type TGlobalStateAction =
       payload?: null;
     }
   | {
-      type: 'EDIT_STEP';
-      payload: TSectionAndStep;
+      type: 'EDIT_FORM';
+      payload: TSectionAndStep | TSectionAndStepRange;
     }
   | {
       type: 'ADD_TICKET_INFO';
