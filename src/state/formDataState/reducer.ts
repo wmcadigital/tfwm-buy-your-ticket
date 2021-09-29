@@ -16,7 +16,7 @@ const reducer: TFormDataStateReducer = (state, action) => {
           ...state,
           [name]: {
             ...current,
-            value,
+            savedValue: value,
           },
         };
       }
