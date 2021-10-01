@@ -53,6 +53,7 @@ const useGetTicketInfo = (ticketId: number) => {
       modes: getTicketModes(ticketInfoData),
       priceString: getTicketPriceString(ticketInfoData),
       availableDates: formatAvalalbleDates(unformattedDates),
+      raw: ticketInfoData,
     };
   }
 

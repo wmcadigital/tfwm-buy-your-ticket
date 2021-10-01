@@ -26,44 +26,44 @@ const AboutYou = () => {
       values={[
         [
           <span>Are you buying the ticket for yourself?</span>,
-          <span>{applicationForMe.savedValue ? 'Yes' : 'No'}</span>,
-          <ChangeAnswer from={applicationForMe.subscriptions[0]} />,
+          <span>{applicationForMe ? 'Yes' : 'No'}</span>,
+          <ChangeAnswer from="CheckIfUserIsTheTicketHolder" />,
         ],
         [
           <span>Name</span>,
-          <span>{`${ticketHolderFirstName.savedValue} ${ticketHolderLastName.savedValue}`}</span>,
-          <ChangeAnswer from={ticketHolderFirstName.subscriptions[0]} />, // or ticketHolderLastName
+          <span>{`${ticketHolderFirstName} ${ticketHolderLastName}`}</span>,
+          <ChangeAnswer from="PayerOrTicketHolderName" />, // or ticketHolderLastName
         ],
         [
           <span>Date of birth</span>,
-          <span>{ticketHolderDateOfBirth.savedValue?.toLocaleDateString()}</span>,
-          <ChangeAnswer from={ticketHolderDateOfBirth.subscriptions[0]} />,
+          <span>{ticketHolderDateOfBirth?.toLocaleDateString()}</span>,
+          <ChangeAnswer from="PayerOrTicketHolderBirthDate" />,
         ],
         [
           <span>Contact details</span>,
           <>
-            <p className="wmnds-m-b-none">{ticketHolderMobilePhoneNumber.savedValue}</p>
-            <p className="wmnds-m-b-none">{ticketHolderEmailAddress.savedValue}</p>
+            <p className="wmnds-m-b-none">{ticketHolderMobilePhoneNumber}</p>
+            <p className="wmnds-m-b-none">{ticketHolderEmailAddress}</p>
           </>,
-          <ChangeAnswer from={ticketHolderMobilePhoneNumber.subscriptions[0]} />, // or ticketHolderEmailAddress
+          <ChangeAnswer from="PayerOrTicketHolderContactDetails" />, // or ticketHolderEmailAddress
         ],
         [
           <span>Address</span>,
           <>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine1.savedValue}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine2.savedValue}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine3.savedValue}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine4.savedValue}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentPostcode.savedValue}</p>
+            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine1}</p>
+            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine2}</p>
+            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine3}</p>
+            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine4}</p>
+            <p className="wmnds-m-b-none">{ticketHolderCurrentPostcode}</p>
           </>,
-          <ChangeAnswer from={ticketHolderCurrentAddressLine1.subscriptions[0]} />, // Or any other the other address items
+          <ChangeAnswer from="PayerOrTicketHolderAddress" />, // Or any other the other address items
         ],
         [
           <span>Photo</span>,
           <>
-            <img src={filename.savedValue!} alt="" />
+            <img src={filename!} alt="" />
           </>,
-          <ChangeAnswer from={filename.subscriptions[0]} />,
+          <ChangeAnswer from="PayerOrTicketHolderPhoto" />,
         ],
       ]}
     />

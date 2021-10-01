@@ -23,31 +23,31 @@ const AboutTheTicketUser = () => {
       values={[
         [
           <span>Name</span>,
-          <span>{`${ticketHolderFirstName.savedValue} ${ticketHolderLastName.savedValue}`}</span>,
-          <ChangeAnswer from={{ section: 2, step: 1 }} to={{ section: 2, step: 2 }} />,
+          <span>{`${ticketHolderFirstName} ${ticketHolderLastName}`}</span>,
+          <ChangeAnswer from="TicketHolderName" />,
         ],
         [
           <span>Date of birth</span>,
-          <span>{ticketHolderDateOfBirth.savedValue?.toLocaleDateString()}</span>,
-          <ChangeAnswer from={ticketHolderDateOfBirth.subscriptions[0]} />,
+          <span>{ticketHolderDateOfBirth?.toLocaleDateString()}</span>,
+          <ChangeAnswer from="TicketHolderBirthDate" />,
         ],
         [
           <span>Address</span>,
           <>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine1.savedValue}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine2.savedValue}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine3.savedValue}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine4.savedValue}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentPostcode.savedValue}</p>
+            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine1}</p>
+            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine2}</p>
+            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine3}</p>
+            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine4}</p>
+            <p className="wmnds-m-b-none">{ticketHolderCurrentPostcode}</p>
           </>,
-          <ChangeAnswer from={ticketHolderCurrentAddressLine1.subscriptions[0]} />, // Or any other the other address items
+          <ChangeAnswer from="TicketHolderAddress" />, // Or any other the other address items
         ],
         [
           <span>Photo</span>,
           <>
-            <img src={filename.savedValue!} alt="" />
+            <img src={filename!} alt="" />
           </>,
-          <ChangeAnswer from={filename.subscriptions[0]} />,
+          <ChangeAnswer from="TicketHolderPhoto" />,
         ],
       ]}
     />

@@ -1,2 +1,2 @@
-export { validate, isValidDateNumber } from './validation';
-export * from './validation.types';
+export { default as validate } from './validate';
+export { default as isValidDateNumber } from './isValidDateNumber';

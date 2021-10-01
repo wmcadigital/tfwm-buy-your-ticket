@@ -54,7 +54,7 @@ const AboutTheTicket = () => {
 
   const ticketPayementDate = (() => {
     const paymentDate = new Date();
-    paymentDate.setDate(startDate.savedValue!?.getDate() + 1);
+    paymentDate.setDate(startDate!?.getDate() + 1);
     return paymentDate;
   })();
 
@@ -78,7 +78,7 @@ const AboutTheTicket = () => {
       <span>Ticket starts from</span>,
       <div>
         <span>
-          {startDate.savedValue?.toLocaleDateString('en-GB', {
+          {startDate?.toLocaleDateString('en-GB', {
             weekday: 'long',
             year: 'numeric',
             month: 'long',
@@ -86,7 +86,7 @@ const AboutTheTicket = () => {
           })}
         </span>
       </div>,
-      <ChangeAnswer from={startDate.subscriptions[0]} />,
+      <ChangeAnswer from="TicketStartDate" />,
     ],
     [
       <span>Payment date</span>,
@@ -100,12 +100,12 @@ const AboutTheTicket = () => {
           })}
         </span>
       </div>,
-      <ChangeAnswer from={startDate.subscriptions[0]} />,
+      <ChangeAnswer from="TicketStartDate" />,
     ],
     [
       <span>Add to existing Swift card</span>,
-      <span>{addProductToExistingCard.savedValue ? 'Yes' : 'No'}</span>,
-      <ChangeAnswer from={{ section: 1, step: 2 }} to={{ section: 1, step: 3 }} />,
+      <span>{addProductToExistingCard ? 'Yes' : 'No'}</span>,
+      <ChangeAnswer from="AddToExistingSwiftCard" to="AddSwiftCardNumber" />,
     ],
   ];
 

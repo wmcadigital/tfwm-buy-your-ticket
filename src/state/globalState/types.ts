@@ -1,12 +1,8 @@
+import { TFormStep } from 'components/App/Form/Questions/Sections';
+import { TFormDataState, TFormDataStateItem } from 'state/formDataState/types';
 import { Nullable } from 'types/helpers';
-import { TSession } from 'types/session';
-import { TSectionAndStep } from 'types/subscription';
+import { TSectionAndStep } from 'types/sectionAndStep';
 import { TTicket } from 'types/ticket';
-
-export type TGlobalStateHistory = {
-  index: number;
-  path: TSectionAndStep[];
-};
 
 export type TGlobalState = {
   form: {
@@ -17,14 +13,14 @@ export type TGlobalState = {
     edit: {
       from: Nullable<TSectionAndStep>;
       to: Nullable<TSectionAndStep>;
-      history: Nullable<TSectionAndStep[]>;
+      temporaryData: Partial<TFormDataState>;
     };
     currentSection: number;
     currentStep: number;
-    history: TGlobalStateHistory;
+    previousSection: number;
+    previousStep: number;
   };
   ticket: TTicket;
-  session: TSession;
 };
 
 export type TSectionAndStepRange = {
@@ -38,8 +34,8 @@ export type TGlobalStateAction =
       payload?: null;
     }
   | {
-      type: 'UPDATE_SESSION_DATA';
-      payload: TSession;
+      type: 'SHOW_START_PAGE';
+      payload?: null;
     }
   | {
       type: 'SHOW_SUMMARY_PAGE';
@@ -50,27 +46,35 @@ export type TGlobalStateAction =
       payload: TSectionAndStep | TSectionAndStepRange;
     }
   | {
+      type: 'UPDATE_EDIT_FORM_TO';
+      payload: TFormStep;
+    }
+  | {
       type: 'ADD_TICKET_INFO';
       payload: TTicket;
-    }
-  | {
-      type: 'UPDATE_HISTORY';
-      payload: Partial<TGlobalStateHistory>;
-    }
-  | {
-      type: 'GO_TO_SECTION';
-      payload: number;
-    }
-  | {
-      type: 'GO_TO_STEP';
-      payload: number;
     }
   | {
       type: 'GO_TO_SECTION_AND_STEP';
       payload: TSectionAndStep;
     }
   | {
+      type: 'SET_PREVIOUS_SECTION_AND_STEP';
+      payload: TSectionAndStep;
+    }
+  | {
       type: 'GO_BACK';
+      payload?: null;
+    }
+  | {
+      type: 'UPDATE_TEMP_FORM_DATA';
+      payload: TFormDataStateItem;
+    }
+  | {
+      type: 'ADD_EMPTY_TEMP_PAYER_AND_TICKET_HOLDER_DATA';
+      payload?: null;
+    }
+  | {
+      type: 'CLEAR_TEMP_FORM_DATA';
       payload?: null;
     };
 

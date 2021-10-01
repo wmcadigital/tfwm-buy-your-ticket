@@ -1,12 +1,13 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 import { useFormDataContext } from 'state/formDataState/context';
-import { useGlobalContext } from 'state/globalState/context';
 
 import { validate } from 'helpers/validation';
 import { Nullable } from 'types/helpers';
-import { TSubscription, TSubscriptionReturn } from 'types/subscription';
+import { TSubscriptionReturn } from 'types/subscription';
 import { TError } from 'types/validation';
 
+import { useGlobalContext } from 'state/globalState/context';
+import { TSingleFormDataStateValue } from 'state/formDataState/types';
 import { TUseFormDataSubscription } from './useFormDataSubscription.types';
 
 const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationConfig = []) => {
@@ -15,24 +16,18 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationC
   if (!Object.prototype.hasOwnProperty.call(formDataState, dataName))
     throw new Error(`The property "${dataName}" is not in formData`);
 
-  // Variables for setting the section and step
-  const [globalState] = useGlobalContext();
-  const { currentSection, currentStep } = globalState.form;
+  const [globalState, globalStateDispatch] = useGlobalContext();
+  const { isEditing, edit } = globalState.form;
 
   // Set the current value of for the component to the saved valued
-  const savedSubscription = formDataState[dataName] as TSubscription;
-  const shouldClearSavedValue =
-    savedSubscription.subscriptions.length > 0 &&
-    !savedSubscription.subscriptions.some(
-      (item) => item.section === currentSection && item.step === currentStep,
-    );
+  const savedValue =
+    isEditing && edit.temporaryData?.[dataName] !== undefined
+      ? (edit.temporaryData?.[dataName] as TSingleFormDataStateValue<typeof dataName>)
+      : formDataState[dataName];
+  type TSavedValue = typeof savedValue;
 
-  const savedData = shouldClearSavedValue ? null : savedSubscription.savedValue;
-  type TSavedData = typeof savedData;
-
-  const initialState = typeof savedData !== null ? savedData : null;
-  const [currentValue, setCurrentValue] = useState<TSavedData>(initialState);
-
+  const initialState: Nullable<TSavedValue> = typeof savedValue !== null ? savedValue : null;
+  const [currentValue, setCurrentValue] = useState(initialState);
   const [error, setError] = useState<Nullable<TError>>(null);
 
   const validateData = useCallback(() => {
@@ -49,19 +44,29 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationC
   const save = useCallback(() => {
     const isValid = validateData();
     if (isValid) {
-      formDataDispatch({
-        type: 'UPDATE_FORM_DATA',
-        payload: {
-          name: dataName,
-          value: currentValue,
-        },
-      });
+      if (isEditing) {
+        globalStateDispatch({
+          type: 'UPDATE_TEMP_FORM_DATA',
+          payload: {
+            name: dataName,
+            value: currentValue!,
+          },
+        });
+      } else {
+        formDataDispatch({
+          type: 'UPDATE_FORM_DATA',
+          payload: {
+            [dataName]: currentValue!,
+          },
+        });
+      }
     }
     return isValid;
-  }, [currentValue, dataName, formDataDispatch, validateData]);
+  }, [currentValue, dataName, formDataDispatch, globalStateDispatch, isEditing, validateData]);
 
   // return object to the component
-  const subscription: TSubscriptionReturn<TSavedData> = {
+  const subscription: TSubscriptionReturn<TSavedValue> = {
+    savedValue,
     currentValue,
     set: (newValue: typeof currentValue) => setCurrentValue(newValue),
     save,
@@ -69,40 +74,6 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationC
     error,
     hasError: !!error,
   };
-
-  const [isNowSubscribed, setIsNowSubscribed] = useState(false); // Boolean to run the subscription only once
-
-  // Set the step, section properties in the form data
-  // this way we can go back to the correct section and step from the Summary page
-  const subscribeToFormData = useCallback(() => {
-    // Update the data with the current section and step
-    formDataDispatch({
-      type: 'SUBSCRIBE_TO_FORM_DATA',
-      payload: {
-        dataName,
-        section: currentSection,
-        step: currentStep,
-      },
-    });
-
-    // Stop the useEffect from running again
-    setIsNowSubscribed(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSection, currentStep, dataName, formDataDispatch]);
-
-  useEffect(() => {
-    // console.log('useFormDataSubscription call');
-    if (!isNowSubscribed) {
-      subscribeToFormData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isNowSubscribed]);
-
-  useEffect(() => {
-    if (currentValue !== null) {
-      setError(null);
-    }
-  }, [currentValue]);
 
   return subscription;
 };

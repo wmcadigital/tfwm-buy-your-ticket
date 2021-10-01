@@ -1,18 +1,18 @@
+import { getSectionAndStep } from 'helpers/sectionAndStep';
 import { useGlobalContext } from 'state/globalState/context';
-import { TSectionAndStepRange } from 'state/globalState/types';
-import { TSectionAndStep } from 'types/subscription';
 import { TChangeAnswerProps } from './ChangeAnswer.types';
 
 const ChangeAnswer = ({ from, to }: TChangeAnswerProps) => {
   const [, globalStateDispatch] = useGlobalContext();
 
   const handleClick = () => {
-    let payload: TSectionAndStep | TSectionAndStepRange;
+    const fromStep = getSectionAndStep(from);
+    const toStep = to ? getSectionAndStep(to) : null;
 
-    if (to) payload = { from, to };
-    else payload = from;
-
-    globalStateDispatch({ type: 'EDIT_FORM', payload });
+    globalStateDispatch({
+      type: 'EDIT_FORM',
+      payload: toStep ? { from: fromStep, to: toStep } : fromStep,
+    });
   };
 
   return (

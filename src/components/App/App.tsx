@@ -1,10 +1,10 @@
 import ContextProvider from 'state/ProviderComposer';
-import ViewToShow from './ViewToShow';
+import Form from './Form/Form';
 
 const App = () => {
   return (
     <ContextProvider>
-      <ViewToShow />
+      <Form />
     </ContextProvider>
   );
 };

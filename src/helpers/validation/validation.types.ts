@@ -26,6 +26,6 @@ export type TCheckForRule = (
 ) => Nullable<TValidationConfig>;
 
 export type TValidate = (
-  value: TFormDataStateValue | boolean,
+  value: Nullable<TFormDataStateValue>,
   config: TValidationConfig[],
 ) => TValidationReturn;

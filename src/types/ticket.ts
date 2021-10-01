@@ -17,4 +17,5 @@ export type TTicket = {
   priceString: string;
   modes: Array<'bus' | 'rail' | 'metro'>;
   availableDates: Date[];
+  raw: Partial<TApiTicket>;
 };

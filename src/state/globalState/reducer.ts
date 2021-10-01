@@ -1,7 +1,10 @@
-import { TSession } from 'types/session';
-import { TSectionAndStep } from 'types/subscription';
+import { TFormStep } from 'components/App/Form/Questions/Sections';
+import { getSectionAndStep } from 'helpers/sectionAndStep';
+import { TFormDataStateItem, TFormDataStateKey } from 'state/formDataState/types';
+import { TSectionAndStep } from 'types/sectionAndStep';
 import { TTicket } from 'types/ticket';
-import { TGlobalStateReducer, TGlobalStateHistory, TSectionAndStepRange } from './types';
+import initialFormDataState from 'state/formDataState/initialState';
+import { TGlobalStateReducer, TSectionAndStepRange } from './types';
 
 const reducer: TGlobalStateReducer = (state, action) => {
   const { type, payload } = action;
@@ -15,26 +18,21 @@ const reducer: TGlobalStateReducer = (state, action) => {
           isStarted: true,
           currentSection: 1,
           currentStep: 1,
-          history: {
-            ...state.form.history,
-            index: 0,
-          },
         },
       };
 
-    case 'UPDATE_SESSION_DATA': {
-      const session = payload as TSession;
-
+    case 'SHOW_START_PAGE':
       return {
         ...state,
-        session: {
-          ...state.session,
-          createdDateTime: session.createdDateTime,
-          id: session.id,
-          sessionNo: session.sessionNo,
+        form: {
+          ...state.form,
+          currentSection: 0,
+          currentStep: 0,
+          isStarted: false,
+          isFinished: false,
+          isEditing: false,
         },
       };
-    }
 
     case 'SHOW_SUMMARY_PAGE':
       return {
@@ -82,59 +80,29 @@ const reducer: TGlobalStateReducer = (state, action) => {
       };
     }
 
+    case 'UPDATE_EDIT_FORM_TO': {
+      const formStepName = payload as TFormStep;
+      const newToSectionAndStep = getSectionAndStep(formStepName);
+
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          isFinished: false,
+          isEditing: true,
+          edit: {
+            ...state.form.edit,
+            to: newToSectionAndStep,
+          },
+        },
+      };
+    }
+
     case 'ADD_TICKET_INFO':
       return {
         ...state,
         ticket: payload as TTicket,
       };
-
-    case 'UPDATE_HISTORY': {
-      const newHistory = payload as TGlobalStateHistory;
-
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          history: {
-            ...state.form.history,
-            ...newHistory,
-          },
-        },
-      };
-    }
-
-    case 'GO_TO_STEP': {
-      const newStep = payload as number;
-
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          currentStep: newStep,
-          history: {
-            ...state.form.history,
-            index: state.form.history.index + 1,
-          },
-        },
-      };
-    }
-
-    case 'GO_TO_SECTION': {
-      const newSection = payload as number;
-
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          currentSection: newSection,
-          currentStep: 1,
-          history: {
-            ...state.form.history,
-            index: state.form.history.index + 1,
-          },
-        },
-      };
-    }
 
     case 'GO_TO_SECTION_AND_STEP': {
       const { section: newSection, step: newStep } = payload as TSectionAndStep;
@@ -145,48 +113,96 @@ const reducer: TGlobalStateReducer = (state, action) => {
           ...state.form,
           currentSection: newSection,
           currentStep: newStep,
-          history: {
-            ...state.form.history,
-            index: state.form.history.index + 1,
-          },
+        },
+      };
+    }
+
+    case 'SET_PREVIOUS_SECTION_AND_STEP': {
+      const { section: newSection, step: newStep } = payload as TSectionAndStep;
+
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          previousSection: newSection,
+          previousStep: newStep,
         },
       };
     }
 
     case 'GO_BACK': {
-      const { history, isFinished } = state.form;
-      // If the user is on the first step then just show the start page
-      if (history.index === 0) {
-        return {
-          ...state,
-          form: {
-            ...state.form,
-            isFinished: false,
-            isStarted: false,
-            currentSection: 0,
-            currentStep: 0,
-            history: {
-              ...state.form.history,
-              index: -1,
-            },
-          },
-        };
-      }
-
-      // Step the history index back by one
-      const newHistoryIndex = isFinished ? history.index : history.index - 1;
-      const lastHistoryItem = history.path[newHistoryIndex];
+      const { previousSection, previousStep } = state.form;
 
       return {
         ...state,
         form: {
           ...state.form,
           isFinished: false,
-          currentSection: lastHistoryItem.section,
-          currentStep: lastHistoryItem.step,
-          history: {
-            ...state.form.history,
-            index: newHistoryIndex,
+          currentSection: previousSection,
+          currentStep: previousStep,
+        },
+      };
+    }
+
+    case 'UPDATE_TEMP_FORM_DATA': {
+      const { name, value } = payload as TFormDataStateItem;
+
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          edit: {
+            ...state.form.edit,
+            temporaryData: {
+              ...state.form.edit.temporaryData,
+              [name]: value,
+            },
+          },
+        },
+      };
+    }
+
+    case 'CLEAR_TEMP_FORM_DATA': {
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          edit: {
+            ...state.form.edit,
+            temporaryData: {},
+          },
+        },
+      };
+    }
+
+    case 'ADD_EMPTY_TEMP_PAYER_AND_TICKET_HOLDER_DATA': {
+      const keysToClear = (Object.keys(initialFormDataState) as TFormDataStateKey[]).filter(
+        (formDataKey) => {
+          return (
+            formDataKey.indexOf('ticketHolder') > -1 ||
+            formDataKey.indexOf('payer') > -1 ||
+            formDataKey === 'filename'
+          );
+        },
+      );
+
+      const emptyTempData = keysToClear.reduce((acc, name) => {
+        return {
+          ...acc,
+          [name]: null,
+        };
+      }, {});
+
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          edit: {
+            ...state.form.edit,
+            temporaryData: {
+              ...state.form.edit.temporaryData,
+              ...emptyTempData,
+            },
           },
         },
       };

@@ -1,6 +1,6 @@
-import { TSectionAndStep } from 'types/subscription';
+import { TFormStep } from 'components/App/Form/Questions/Sections';
 
 export type TChangeAnswerProps = {
-  from: TSectionAndStep;
-  to?: TSectionAndStep;
+  from: TFormStep;
+  to?: TFormStep;
 };

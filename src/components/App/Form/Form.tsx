@@ -1,61 +1,37 @@
 import { useGlobalContext } from 'state/globalState/context';
-import BackButton from './BackButton/BackButton';
-import Summary from './Summary/Summary';
+import BackButton from 'components/shared/BackButton';
+
 import s from './Form.module.scss';
+import StartPage from './StartPage';
+import Form from './Questions';
+import Summary from './Summary';
 
-// Sections
-import SectionOne from './Sections/1-SectionOne/SectionOne';
-import SectionTwo from './Sections/2-SectionTwo/SectionTwo';
-import SectionThree from './Sections/3-SectionThree/SectionThree';
-import SectionFour from './Sections/4-SectionFour/SectionFour';
+const ViewToShow = () => {
+  const [globalState] = useGlobalContext();
+  const { isStarted, isEditing, isFinished, isSubmitted } = globalState.form;
 
-const sections = [SectionOne, SectionTwo, SectionThree, SectionFour];
-
-const Form = () => {
-  const [globalState, globalDispatch] = useGlobalContext();
-  const { form } = globalState;
-
-  const handleBackButtonClick = () => {
-    let shouldGoToSummary = false;
-
-    if (form.isEditing) {
-      const { currentSection, currentStep } = form;
-      const editStartSectionAndStep = form.edit.from!;
-
-      shouldGoToSummary =
-        currentSection === editStartSectionAndStep?.section &&
-        currentStep === editStartSectionAndStep?.step;
-    }
-
-    return globalDispatch({
-      type: shouldGoToSummary ? 'SHOW_SUMMARY_PAGE' : 'GO_BACK',
-    });
-  };
-
-  const totalSections = sections.length;
-  const SectionToShow = sections[form.currentSection - 1];
-  const shouldShowSummary = form.isFinished && !form.isEditing;
-  const whichSectionText = `Section ${form.currentSection} of ${totalSections}`;
+  const showStartPage = !isStarted;
+  const showForm = isStarted && (!isFinished || isEditing);
+  const showSummary = isStarted && isFinished && !isEditing;
+  const showSuccess = isStarted && isFinished && !isEditing && isSubmitted;
 
   return (
     <div className="wmnds-container wmnds-p-t-lg wmnds-p-b-lg wmnds-grid">
-      <div className="wmnds-col-1 wmnds-m-b-lg">
-        <BackButton onClick={handleBackButtonClick} />
-      </div>
+      {!showStartPage && !showSuccess && (
+        <div className="wmnds-col-1 wmnds-m-b-lg">
+          <BackButton />
+        </div>
+      )}
       <div className="wmnds-col-1 wmnds-col-md-3-4">
         <div className={`${s.card} bg-white wmnds-m-b-lg`}>
-          {shouldShowSummary ? (
-            <Summary />
-          ) : (
-            <>
-              <p className="wmnds-m-b-none">{whichSectionText}</p>
-              <SectionToShow totalSections={totalSections} />
-            </>
-          )}
+          {showStartPage && <StartPage />}
+          {showForm && <Form />}
+          {showSummary && <Summary />}
+          {/* {showSuccess && <Success />} */}
         </div>
       </div>
     </div>
   );
 };
 
-export default Form;
+export default ViewToShow;
