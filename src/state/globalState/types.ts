@@ -19,6 +19,7 @@ export type TGlobalState = {
     currentStep: number;
     previousSection: number;
     previousStep: number;
+    referenceNo: string;
   };
   ticket: TTicket;
 };
@@ -40,6 +41,10 @@ export type TGlobalStateAction =
   | {
       type: 'SHOW_SUMMARY_PAGE';
       payload?: null;
+    }
+  | {
+      type: 'SHOW_SUCCESS_PAGE';
+      payload: string;
     }
   | {
       type: 'EDIT_FORM';

@@ -1,4 +1,4 @@
-import useNavigationLogic from 'customHooks/useNavigationLogic/useNavigationLogic';
+import useNavigationLogic from 'customHooks/useNavigationLogic';
 import { useEffect } from 'react';
 import { useFormDataContext } from 'state/formDataState/context';
 import { useGlobalContext } from 'state/globalState/context';

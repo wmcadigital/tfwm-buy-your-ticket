@@ -16,6 +16,7 @@ const initialState: TGlobalState = {
     currentStep: 0,
     previousSection: 0,
     previousStep: 0,
+    referenceNo: '',
   },
   ticket: {
     id: parseInt(getSearchParam('ticketId') as string, 10) || -1,

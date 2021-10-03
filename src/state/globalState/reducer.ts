@@ -51,6 +51,19 @@ const reducer: TGlobalStateReducer = (state, action) => {
         },
       };
 
+    case 'SHOW_SUCCESS_PAGE': {
+      const referenceNo = payload as string;
+
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          isSubmitted: true,
+          referenceNo,
+        },
+      };
+    }
+
     case 'EDIT_FORM': {
       let to: TSectionAndStep;
       let from: TSectionAndStep;

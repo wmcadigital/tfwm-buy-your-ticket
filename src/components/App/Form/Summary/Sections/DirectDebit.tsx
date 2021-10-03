@@ -13,7 +13,8 @@ const DirectDebit = () => {
 
   const howDidYouHearAboutDDString = (() => {
     const separatedString = howDidYouHearAboutCentroDirectDebit?.split('-').join(' ');
-    return separatedString!.charAt(0).toUpperCase() + separatedString!.slice(1);
+    if (!separatedString) return '';
+    return separatedString?.charAt(0).toUpperCase() + separatedString?.slice(1);
   })();
 
   return (

@@ -43,7 +43,7 @@ const Message = ({
         {iconName && <Icon className="wmnds-msg-summary__icon" iconName={iconName} />}
         <h3 className="wmnds-msg-summary__title">{title}</h3>
       </div>
-      <div className="wmnds-msg-summary__info">{content}</div>
+      <div className={`wmnds-msg-summary__info ${!iconName ? 'wmnds-p-none' : ''}`}>{content}</div>
     </div>
   );
 };

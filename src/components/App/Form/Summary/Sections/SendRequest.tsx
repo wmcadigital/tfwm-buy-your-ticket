@@ -4,8 +4,13 @@ import InputCheckbox from 'components/shared/Checkbox/Checkbox';
 import { validate } from 'helpers/validation';
 import { Nullable } from 'types/helpers';
 import { TError } from 'types/validation';
+import useSubmitSession from 'customHooks/axiosRequests/useSubmitSession/useSubmitSession';
+import { useGlobalContext } from 'state/globalState/context';
 
 const SendYourRequest = () => {
+  const submitSession = useSubmitSession();
+  const [, globalStateDispatch] = useGlobalContext();
+
   const [hasAgreedToTerms, setHasAgreedToTerms] = useState(false);
   const [termsError, setTermsError] = useState<Nullable<TError>>(null);
 
@@ -24,7 +29,7 @@ const SendYourRequest = () => {
     };
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const termsValidation = validate(hasAgreedToTerms, [
       { rule: 'MANDATORY_BOOLEAN', message: 'You must agree to the terms and conditions' },
     ]);
@@ -36,7 +41,10 @@ const SendYourRequest = () => {
     if (!termsValidation.isValid) setTermsError(termsValidation.error);
     if (!privacyValidation.isValid) setPrivacyError(privacyValidation.error);
     if (!termsValidation.isValid || !privacyValidation.isValid) return;
-    console.log('All good');
+    // const submitWasSuccessful = await submitSession.submitFormData();
+    await submitSession.submitFormData();
+    // if (submitWasSuccessful) globalStateDispatch({ type: 'SHOW_SUCCESS_PAGE' });
+    globalStateDispatch({ type: 'SHOW_SUCCESS_PAGE', payload: '987654321' });
   };
 
   return (
@@ -87,6 +95,7 @@ const SendYourRequest = () => {
         onClick={handleSubmit}
         text="Submit"
         iconRight="general-chevron-right"
+        isFetching={submitSession.isLoading}
       />
     </div>
   );

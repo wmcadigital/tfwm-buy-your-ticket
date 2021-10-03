@@ -5,6 +5,7 @@ import s from './Form.module.scss';
 import StartPage from './StartPage';
 import Form from './Questions';
 import Summary from './Summary';
+import SuccessPage from './SuccessPage/SuccessPage';
 
 const ViewToShow = () => {
   const [globalState] = useGlobalContext();
@@ -12,7 +13,7 @@ const ViewToShow = () => {
 
   const showStartPage = !isStarted;
   const showForm = isStarted && (!isFinished || isEditing);
-  const showSummary = isStarted && isFinished && !isEditing;
+  const showSummary = isStarted && isFinished && !isEditing && !isSubmitted;
   const showSuccess = isStarted && isFinished && !isEditing && isSubmitted;
 
   return (
@@ -23,11 +24,11 @@ const ViewToShow = () => {
         </div>
       )}
       <div className="wmnds-col-1 wmnds-col-md-3-4">
-        <div className={`${s.card} bg-white wmnds-m-b-lg`}>
+        <div className={`${showStartPage || showSuccess ? '' : `${s.card} bg-white`} wmnds-m-b-lg`}>
           {showStartPage && <StartPage />}
           {showForm && <Form />}
           {showSummary && <Summary />}
-          {/* {showSuccess && <Success />} */}
+          {showSuccess && <SuccessPage />}
         </div>
       </div>
     </div>
