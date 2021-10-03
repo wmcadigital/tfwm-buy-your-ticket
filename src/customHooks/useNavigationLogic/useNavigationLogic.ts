@@ -1,4 +1,3 @@
-import type { TFormStep } from 'components/App/Form/Questions/Sections';
 import {
   getSectionAndStep,
   isSectionAndStepGreater,
@@ -6,13 +5,7 @@ import {
 } from 'helpers/sectionAndStep';
 import { useState, useCallback, useEffect } from 'react';
 import { useGlobalContext } from 'state/globalState/context';
-
-type TUseNavigationLogic = (
-  prevStepName: TFormStep | 'StartPage',
-  nextStepName?: TFormStep | 'Summary',
-) => {
-  goToNextStep: () => void;
-};
+import { TUseNavigationLogic } from './useNavigationLogic.types';
 
 const useNavigationLogic: TUseNavigationLogic = (prevStepName, nextStepName) => {
   const [globalState, globalStateDispatch] = useGlobalContext();
