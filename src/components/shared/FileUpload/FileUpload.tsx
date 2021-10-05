@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
 import Icon from '../Icon/Icon';
 import s from './FileUpload.module.scss';
@@ -9,8 +8,8 @@ const FileUpload = ({
   name,
   label,
   hint,
-  defaultValue,
-  updateValue,
+  defaultFile,
+  updateFile,
   error,
   accept,
 }: TFileUploadProps): JSX.Element => {
@@ -18,13 +17,14 @@ const FileUpload = ({
   const handleFocus = () => setIsFileInputFocused(true);
   const handleBlur = () => setIsFileInputFocused(false);
 
+  const previewUrl = defaultFile ? URL.createObjectURL(defaultFile) : undefined;
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target?.files;
     const file = fileList ? fileList[0] : null;
 
     if (!file) return;
-    const fileUrl = URL.createObjectURL(file);
-    updateValue(fileUrl);
+    updateFile(file);
   };
 
   return (
@@ -39,7 +39,7 @@ const FileUpload = ({
         {/* If there is an error, show here */}
         {error && <span className="wmnds-fe-error-message">{error?.message}</span>}
 
-        {defaultValue ? (
+        {defaultFile ? (
           <>
             <Icon className="wmnds-btn__icon wmnds-btn__icon--right" iconName="general-trash" />
             <button
@@ -48,13 +48,13 @@ const FileUpload = ({
               name={name}
               id={name}
               title="Remove uploaded file"
-              onClick={() => updateValue(null)}
+              onClick={() => updateFile(null)}
             >
               Remove file
               <Icon className="wmnds-btn__icon wmnds-btn__icon--right" iconName="general-trash" />
             </button>
             <div className="wmnds-m-t-lg">
-              <img className={s.fileUploadPreview} src={defaultValue} alt="preview" />
+              <img className={s.fileUploadPreview} src={previewUrl} alt="preview" />
             </div>
           </>
         ) : (
@@ -87,26 +87,6 @@ const FileUpload = ({
       </div>
     </fieldset>
   );
-};
-
-FileUpload.propTypes = {
-  name: PropTypes.string.isRequired,
-  error: PropTypes.shape({
-    message: PropTypes.string.isRequired,
-  }),
-  label: PropTypes.string,
-  hint: PropTypes.string,
-  updateValue: PropTypes.func.isRequired,
-  defaultValue: PropTypes.string,
-  accept: PropTypes.string,
-};
-
-FileUpload.defaultProps = {
-  error: null,
-  label: null,
-  hint: null,
-  defaultValue: null,
-  accept: '*',
 };
 
 export default FileUpload;

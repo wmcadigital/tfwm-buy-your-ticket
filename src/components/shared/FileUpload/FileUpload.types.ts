@@ -6,7 +6,7 @@ export type TFileUploadProps = {
   error: Nullable<TError>;
   label?: string;
   hint?: string;
-  defaultValue?: Nullable<string>;
-  updateValue: (file: Nullable<string>) => void;
+  defaultFile?: Nullable<File>;
+  updateFile: (file: Nullable<File>) => void;
   accept?: string;
 };
