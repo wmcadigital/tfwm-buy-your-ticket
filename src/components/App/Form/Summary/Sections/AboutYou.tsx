@@ -16,6 +16,7 @@ const AboutYou = () => {
     ticketHolderCurrentAddressLine3,
     ticketHolderCurrentAddressLine4,
     ticketHolderCurrentPostcode,
+    file,
     filename,
   } = formDataState;
 
@@ -61,7 +62,8 @@ const AboutYou = () => {
         [
           <span>Photo</span>,
           <>
-            <img src={filename!} alt="" />
+            <p className="wmnds-m-b-sm">{filename}</p>
+            <img src={URL.createObjectURL(file)} alt="" />
           </>,
           <ChangeAnswer from="PayerOrTicketHolderPhoto" />,
         ],
