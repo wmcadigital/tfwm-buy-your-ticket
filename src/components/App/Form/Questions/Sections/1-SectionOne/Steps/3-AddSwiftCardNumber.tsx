@@ -11,6 +11,8 @@ const AddSwiftCard = () => {
     'CheckIfUserIsTheTicketHolder',
   );
 
+  const currentSwiftcard = useFormDataSubscription('currentSwiftcard');
+
   const currentSwiftcardNumber = useFormDataSubscription('currentSwiftcardNumber');
   const setCurrentValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     currentSwiftcardNumber.set(e.target.value);
@@ -19,9 +21,10 @@ const AddSwiftCard = () => {
   const validateSwiftCardNumber = useValidateSwiftCardNumber(currentSwiftcardNumber.currentValue);
 
   const handleContinue = async () => {
+    currentSwiftcard.set(true);
     if (!currentSwiftcardNumber.save()) return;
     const isValidSwiftCardNumber = await validateSwiftCardNumber.sendRequest();
-    if (!isValidSwiftCardNumber) return;
+    if (!isValidSwiftCardNumber || !currentSwiftcard.save()) return;
     goToNextStep();
   };
 
