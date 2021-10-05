@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'components/shared/Button';
 import InputCheckbox from 'components/shared/Checkbox/Checkbox';
 import { validate } from 'helpers/validation';
@@ -41,11 +41,14 @@ const SendYourRequest = () => {
     if (!termsValidation.isValid) setTermsError(termsValidation.error);
     if (!privacyValidation.isValid) setPrivacyError(privacyValidation.error);
     if (!termsValidation.isValid || !privacyValidation.isValid) return;
-    // const submitWasSuccessful = await submitSession.submitFormData();
     await submitSession.submitFormData();
-    // if (submitWasSuccessful) globalStateDispatch({ type: 'SHOW_SUCCESS_PAGE' });
-    globalStateDispatch({ type: 'SHOW_SUCCESS_PAGE', payload: '987654321' });
   };
+
+  useEffect(() => {
+    if (submitSession.submissionWasSuccessful) {
+      globalStateDispatch({ type: 'SHOW_SUCCESS_PAGE', payload: '987654321' });
+    }
+  }, [globalStateDispatch, submitSession.submissionWasSuccessful]);
 
   return (
     <div>
