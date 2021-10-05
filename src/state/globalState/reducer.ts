@@ -4,6 +4,7 @@ import { TFormDataStateItem, TFormDataStateKey } from 'state/formDataState/types
 import { TSectionAndStep } from 'types/sectionAndStep';
 import { TTicket } from 'types/ticket';
 import initialFormDataState from 'state/formDataState/initialState';
+import getInitialValue from 'helpers/formData/getInitialValue';
 import { TGlobalStateReducer, TSectionAndStepRange } from './types';
 
 const reducer: TGlobalStateReducer = (state, action) => {
@@ -202,7 +203,7 @@ const reducer: TGlobalStateReducer = (state, action) => {
       const emptyTempData = keysToClear.reduce((acc, name) => {
         return {
           ...acc,
-          [name]: null,
+          [name]: getInitialValue(name),
         };
       }, {});
 

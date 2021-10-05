@@ -17,7 +17,7 @@ export type TFormDataState = {
   ticketCode: Nullable<number>;
   addOn: Nullable<string>;
   promotionalCode: Nullable<string>;
-  previousCustomer: Nullable<number>;
+  previousCustomer: Nullable<boolean>;
   previousCustomerReferenceNumber: Nullable<number>;
   currentSwiftcard: Nullable<boolean>;
   currentSwiftcardNumber: Nullable<string>;
@@ -27,6 +27,7 @@ export type TFormDataState = {
   schoolPostcode: Nullable<string>;
   employerName: Nullable<string>;
   employerPostcode: Nullable<string>;
+  file: Nullable<File>;
   filename: Nullable<string>;
   payerTitle: Nullable<string>;
   payerFirstName: Nullable<string>;

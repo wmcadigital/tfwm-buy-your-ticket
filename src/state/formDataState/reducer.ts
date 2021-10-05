@@ -1,4 +1,4 @@
-// import { TSectionAndStep } from 'types/sectionAndStep';
+import getInitialValue from 'helpers/formData/getInitialValue';
 import { TSession } from 'types/session';
 import { TApiTicket } from 'types/ticket';
 import { TFormDataState, TFormDataStateKey, TFormDataStateReducer } from './types';
@@ -8,11 +8,13 @@ const reducer: TFormDataStateReducer = (state, action) => {
 
   switch (type) {
     case 'UPDATE_SESSION_DATA': {
-      const session = payload as TSession;
+      const { createdDateTime, id, sessionNo } = payload as TSession;
 
       return {
         ...state,
-        ...session,
+        createdDateTime,
+        id,
+        sessionNo,
       };
     }
 
@@ -53,13 +55,17 @@ const reducer: TFormDataStateReducer = (state, action) => {
 
     case 'CLEAR_TICKET_HOLDER_DATA': {
       const keysToClear = (Object.keys(state) as TFormDataStateKey[]).filter((formDataKey) => {
-        return formDataKey.indexOf('ticketHolder') > -1 || formDataKey === 'filename';
+        return (
+          formDataKey.indexOf('ticketHolder') > -1 ||
+          formDataKey === 'filename' ||
+          formDataKey === 'file'
+        );
       });
 
       const dataToClear = keysToClear.reduce((acc, name) => {
         return {
           ...acc,
-          [name]: null,
+          [name]: getInitialValue(name),
         };
       }, {});
 
@@ -77,7 +83,7 @@ const reducer: TFormDataStateReducer = (state, action) => {
       const dataToClear = keysToClear.reduce((acc, name) => {
         return {
           ...acc,
-          [name]: null,
+          [name]: getInitialValue(name),
         };
       }, {});
 

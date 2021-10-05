@@ -26,7 +26,8 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationC
       : formDataState[dataName];
   type TSavedValue = typeof savedValue;
 
-  const initialState: Nullable<TSavedValue> = typeof savedValue !== null ? savedValue : null;
+  const initialState: Nullable<TSavedValue> =
+    typeof savedValue !== null && savedValue !== '.' ? savedValue : null;
   const [currentValue, setCurrentValue] = useState(initialState);
   const [error, setError] = useState<Nullable<TError>>(null);
 
