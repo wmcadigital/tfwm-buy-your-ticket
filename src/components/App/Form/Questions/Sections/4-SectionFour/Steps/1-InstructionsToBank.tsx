@@ -11,7 +11,7 @@ const InstructionsToBank = () => {
   const [formDataState] = useFormDataContext();
   const { applicationForMe } = formDataState;
 
-  const prevStep = applicationForMe ? 'PayerOrTicketHolderAddress' : 'PayerOrTicketHolderPhoto';
+  const prevStep = applicationForMe ? 'PayerOrTicketHolderPhoto' : 'PayerOrTicketHolderAddress';
   const { goToNextStep } = useNavigationLogic(prevStep, 'HowDidYouFindOutAboutDD');
 
   const accountName = useFormDataSubscription('accountName');
