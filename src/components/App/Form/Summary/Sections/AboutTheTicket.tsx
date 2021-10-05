@@ -24,6 +24,11 @@ const AboutTheTicket = () => {
     return array;
   };
 
+  const handleChangeTicket = () => {
+    // eslint-disable-next-line no-console
+    console.log('Changing ticket');
+  };
+
   const changeTicketMessage = (
     <div>
       <Message
@@ -38,7 +43,7 @@ const AboutTheTicket = () => {
       <button
         type="button"
         className="wmnds-btn wmnds-btn--primary wmnds-m-r-sm wmnds-m-b-sm"
-        onClick={() => console.log('Changing ticket')}
+        onClick={handleChangeTicket}
       >
         Change my ticket
       </button>
