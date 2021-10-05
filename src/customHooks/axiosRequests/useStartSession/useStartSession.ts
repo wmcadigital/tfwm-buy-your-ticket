@@ -24,9 +24,8 @@ const useStartSession: TuseStartSession = () => {
   if (session.sessionNo && session.id) {
     return {
       startSession: () => {
-        return (Promise.resolve({ data: { session } }) as unknown) as Promise<
-          AxiosResponse<TSession>
-        >;
+        // eslint-disable-next-line prettier/prettier
+        return (Promise.resolve({ data: { session } }) as unknown) as Promise<AxiosResponse<TSession>>;
       },
       isLoading: false,
       hasError: false,

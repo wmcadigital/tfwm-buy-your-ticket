@@ -4,12 +4,8 @@ import ChangeAnswer from './ChangeAnswer/ChangeAnswer';
 
 const DirectDebit = () => {
   const [formDataState] = useFormDataContext();
-  const {
-    accountName,
-    accountNumber,
-    sortCode,
-    howDidYouHearAboutCentroDirectDebit,
-  } = formDataState;
+  // eslint-disable-next-line prettier/prettier
+  const { accountName, accountNumber, sortCode, howDidYouHearAboutCentroDirectDebit, } = formDataState;
 
   const howDidYouHearAboutDDString = (() => {
     const separatedString = howDidYouHearAboutCentroDirectDebit?.split('-').join(' ');
