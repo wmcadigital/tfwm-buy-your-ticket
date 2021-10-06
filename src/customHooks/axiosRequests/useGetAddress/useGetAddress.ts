@@ -1,5 +1,5 @@
-import useAxiosRequest from '../_useAxiosRequest';
 import { TApiAddress } from 'types/address';
+import useAxiosRequest from '../_useAxiosRequest';
 
 const useGetAddress = (searchString: string) => {
   const { REACT_APP_API_HOST } = process.env;
