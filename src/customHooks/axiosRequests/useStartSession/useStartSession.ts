@@ -21,6 +21,19 @@ const useStartSession: TuseStartSession = () => {
     method: 'POST',
   });
 
+  const antiForgeryRequest = useAxiosRequest<TSession>({
+    url: `${REACT_APP_DBAPI_HOST}/DirectDebit/GenerateAntiForgeryToken`,
+    method: 'POST',
+  });
+
+  const sendRequest = async () => {
+    const values = await Promise.all([
+      startSessionRequest.sendRequest(),
+      antiForgeryRequest.sendRequest(),
+    ]);
+    return values[0];
+  };
+
   if (session.sessionNo && session.id) {
     return {
       startSession: () => {
@@ -32,7 +45,8 @@ const useStartSession: TuseStartSession = () => {
     };
   }
 
-  const { isLoading, sendRequest, hasError } = startSessionRequest;
+  const isLoading = startSessionRequest.isLoading || antiForgeryRequest.isLoading;
+  const hasError = startSessionRequest.hasError || antiForgeryRequest.hasError;
 
   return {
     startSession: sendRequest,
