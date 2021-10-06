@@ -14,21 +14,24 @@ const AddressAutocomplete = ({ handleNotFound, address }: TAddressAutocompletePr
   const [addresses, setAddresses] = useState<Nullable<TAddressAutocompleteOption[]>>(null);
   const [isEditingPostcode, setIsEditingPostcode] = useState(true);
 
-  const getAddressRequest = useGetAddress();
+  const getAddressRequest = useGetAddress(postcode.currentValue || '');
 
   const handleFindAddress = async () => {
     if (!postcode.validate()) return;
     setIsEditingPostcode(false);
-    const apiAddresses = await getAddressRequest.sendRequest();
+    const response = await getAddressRequest.sendRequest();
+    const apiAddresses = response?.data;
+    if (!apiAddresses) return;
     setAddresses(
       apiAddresses.map((singleAddress) => {
         return {
-          text: singleAddress.formatted_address.filter((b) => !!b).join(', '),
+          text: singleAddress.summary_line,
           value: JSON.stringify({
             line1: singleAddress.line_1,
             line2: singleAddress.line_2,
-            line3: singleAddress.town_or_city,
+            line3: singleAddress.line_3,
             line4: singleAddress.county,
+            postcode: singleAddress.postcode,
           }),
         };
       }),
@@ -41,11 +44,12 @@ const AddressAutocomplete = ({ handleNotFound, address }: TAddressAutocompletePr
   };
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { line1, line2, line3, line4 } = JSON.parse(e.target.value) as T4LineAddress;
-    addressLine1.set(line1);
-    addressLine2.set(line2);
-    addressLine3.set(line3);
-    addressLine4.set(line4);
+    const addressToSet = JSON.parse(e.target.value) as T4LineAddress;
+    addressLine1.set(addressToSet.line1);
+    addressLine2.set(addressToSet.line2);
+    addressLine3.set(addressToSet.line3);
+    addressLine4.set(addressToSet.line4);
+    postcode.set(addressToSet.postcode);
   };
 
   // Helper booleans

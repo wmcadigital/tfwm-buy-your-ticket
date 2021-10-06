@@ -10,9 +10,9 @@ const useGetTicketInfo = (ticketId: number) => {
 
   // REQUESTS
   const ticketInfoRequest = useAxiosRequest<TApiTicket>({
-    url: `${REACT_APP_API_HOST}/ticketing/v2/tickets/${ticketId}`,
+    url: `${REACT_APP_API_HOST}/ticketing/tickets/${ticketId}`,
     headers: {
-      'Ocp-Apim-Subscription-Key': REACT_APP_API_KEY,
+      'Ocp-Apim-Subscription-Key': REACT_APP_API_KEY!,
     },
   });
 

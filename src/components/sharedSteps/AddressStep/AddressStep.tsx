@@ -15,7 +15,9 @@ const AddressStep = ({ handleNavigation, question, dataNamePrefix }: TSharedStep
     { rule: 'OPTIONAL' },
   ]);
 
-  const addressLine3 = useFormDataSubscription(`${dataNamePrefix}CurrentAddressLine3`);
+  const addressLine3 = useFormDataSubscription(`${dataNamePrefix}CurrentAddressLine3`, [
+    { rule: 'OPTIONAL' },
+  ]);
   const addressLine4 = useFormDataSubscription(`${dataNamePrefix}CurrentAddressLine4`);
   const postcode = useFormDataSubscription(`${dataNamePrefix}CurrentPostcode`);
 
