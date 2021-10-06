@@ -25,8 +25,7 @@ const AboutTheTicket = () => {
   };
 
   const handleChangeTicket = () => {
-    // eslint-disable-next-line no-console
-    console.log('Changing ticket');
+    window.location.href = 'https://find-a-ticket.tfwm.org.uk/';
   };
 
   const changeTicketMessage = (

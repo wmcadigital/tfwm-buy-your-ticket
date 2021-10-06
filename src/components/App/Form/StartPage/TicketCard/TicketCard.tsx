@@ -7,7 +7,7 @@ import s from './TicketCard.module.scss';
 
 const TicketCard = ({ ticket }: TTicketCardProps) => {
   const returnToTicketFinder = () => {
-    // Return to ticket finder application
+    window.location.href = 'https://find-a-ticket.tfwm.org.uk/';
   };
 
   return (
