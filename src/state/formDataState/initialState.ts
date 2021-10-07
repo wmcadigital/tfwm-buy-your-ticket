@@ -10,7 +10,7 @@ const initialState: TFormDataState = {
   applicationForMe: null,
   startDate: null,
   ticketId: null,
-  ticketCode: null,
+  ticketCode: '',
   addOn: null,
   promotionalCode: null,
   previousCustomer: false,

@@ -14,7 +14,7 @@ export type TFormDataState = {
   applicationForMe: Nullable<boolean>;
   startDate: Nullable<Date>;
   ticketId: Nullable<number>;
-  ticketCode: Nullable<number>;
+  ticketCode: Nullable<string>;
   addOn: Nullable<string>;
   promotionalCode: Nullable<string>;
   previousCustomer: Nullable<boolean>;
