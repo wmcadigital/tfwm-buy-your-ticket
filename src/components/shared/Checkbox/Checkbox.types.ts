@@ -4,7 +4,7 @@ import { TError } from 'types/validation';
 
 export type TCheckboxProps = {
   name: string;
-  defaultValue: boolean;
+  defaultValue: Nullable<boolean>;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   labelValue?: string;
   labelElement?: JSX.Element;

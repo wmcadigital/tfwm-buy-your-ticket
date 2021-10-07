@@ -6,6 +6,7 @@ import { Nullable } from 'types/helpers';
 import { TError } from 'types/validation';
 import useSubmitSession from 'customHooks/axiosRequests/useSubmitSession/useSubmitSession';
 import { useGlobalContext } from 'state/globalState/context';
+import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 
 const SendYourRequest = () => {
   const submitSession = useSubmitSession();
@@ -17,7 +18,11 @@ const SendYourRequest = () => {
   const [hasAgreedToPrivacy, sethasAgreedToPrivacy] = useState(false);
   const [privacyError, setPrivacyError] = useState<Nullable<TError>>(null);
 
-  const [hasAgreedToMarketing, sethasAgreedToMarketing] = useState(false);
+  const wouldLikeNetworkClubNews = useFormDataSubscription('wouldLikeNetworkClubNews', [
+    {
+      rule: 'OPTIONAL',
+    },
+  ]);
 
   const toggleCheckboxValue = (
     setState: React.Dispatch<React.SetStateAction<boolean>>,
@@ -30,6 +35,7 @@ const SendYourRequest = () => {
   };
 
   const handleSubmit = async () => {
+    wouldLikeNetworkClubNews.save();
     const termsValidation = validate(hasAgreedToTerms, [
       { rule: 'MANDATORY_BOOLEAN', message: 'You must agree to the terms and conditions' },
     ]);
@@ -89,8 +95,8 @@ const SendYourRequest = () => {
         name="TermsAndConditions"
         classes="wmnds-m-b-md"
         labelElement={<span>Agree to be contacted for marketing</span>}
-        defaultValue={hasAgreedToMarketing}
-        onChange={toggleCheckboxValue(sethasAgreedToMarketing)}
+        defaultValue={wouldLikeNetworkClubNews.currentValue}
+        onChange={(e) => wouldLikeNetworkClubNews.set(e.target.checked)}
       />
       <Button
         type="button"

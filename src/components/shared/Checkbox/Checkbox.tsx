@@ -39,7 +39,7 @@ const InputCheckbox = ({
         )}
         <input
           className="wmnds-fe-checkboxes__input"
-          checked={defaultValue}
+          checked={defaultValue || false}
           onChange={onChange}
           name={name}
           type="checkbox"
@@ -57,7 +57,7 @@ InputCheckbox.propTypes = {
   name: PropTypes.string.isRequired,
   classes: PropTypes.string,
   labelElement: PropTypes.element,
-  defaultValue: PropTypes.bool,
+  defaultValue: PropTypes.bool.isRequired,
   error: PropTypes.shape({
     message: PropTypes.string.isRequired,
   }),
