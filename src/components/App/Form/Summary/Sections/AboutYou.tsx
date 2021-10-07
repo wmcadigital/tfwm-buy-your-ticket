@@ -63,7 +63,7 @@ const AboutYou = () => {
           <span>Photo</span>,
           <>
             <p className="wmnds-m-b-sm">{filename}</p>
-            <img src={URL.createObjectURL(file)} alt="" />
+            <img src={window.URL.createObjectURL(file)} alt="" />
           </>,
           <ChangeAnswer from="PayerOrTicketHolderPhoto" />,
         ],
