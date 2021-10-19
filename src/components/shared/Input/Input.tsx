@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import dompurify from 'dompurify';
+
 import { TInputProps } from './Input.types';
 
 const { sanitize } = dompurify;

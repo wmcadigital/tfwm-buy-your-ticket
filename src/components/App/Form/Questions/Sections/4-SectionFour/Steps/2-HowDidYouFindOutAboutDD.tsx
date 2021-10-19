@@ -1,8 +1,5 @@
-import Question from 'components/shared/Question/Question';
-import Radios from 'components/shared/Radios/Radios';
-
-import useFormDataSubscription from 'customHooks/useFormDataSubscription';
-import useNavigationLogic from 'customHooks/useNavigationLogic/useNavigationLogic';
+import { useFormDataSubscription, useNavigationLogic } from 'customHooks';
+import { Question, Radios } from 'components/shared';
 
 const HowDidYouFindOutAboutDD = () => {
   const { goToNextStep } = useNavigationLogic('InstructionsToBank', 'Summary');

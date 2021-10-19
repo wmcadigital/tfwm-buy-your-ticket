@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { TSectionAndStep } from 'types/sectionAndStep';
+import { TSectionAndStep } from 'types/navigation';
 
 export const sectionAndStepAreEqual = (a: TSectionAndStep, b: TSectionAndStep): boolean => {
   const sectionEqual = a?.section === b?.section;

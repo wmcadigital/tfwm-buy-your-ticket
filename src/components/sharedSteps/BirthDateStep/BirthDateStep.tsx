@@ -1,8 +1,8 @@
 import Question from 'components/shared/Question/Question';
-import DateInput from 'components/shared/Date/DateInput';
+import DateInput from 'components/shared/DateInput/DateInput';
 
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
-import { TSharedStepProps } from 'types/sectionAndStep';
+import { TSharedStepProps } from 'types/step';
 
 const BirthDateStep = ({ handleNavigation, question, dataNamePrefix }: TSharedStepProps) => {
   const birthDate = useFormDataSubscription(`${dataNamePrefix}DateOfBirth`);

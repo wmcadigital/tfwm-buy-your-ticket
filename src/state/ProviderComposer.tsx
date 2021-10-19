@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { GlobalContextProvider } from './globalState/context';
-import { FormDataContextProvider } from './formDataState/context';
+import { GlobalContextProvider } from './globalState';
+import { FormDataContextProvider } from './formDataState';
 
 type TProviderComposerProps = {
   contexts: JSX.Element[];

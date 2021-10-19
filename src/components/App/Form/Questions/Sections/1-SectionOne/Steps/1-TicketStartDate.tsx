@@ -1,12 +1,8 @@
 import { useEffect } from 'react';
 
-import { useGlobalContext } from 'state/globalState/context';
-
-import useNavigationLogic from 'customHooks/useNavigationLogic/useNavigationLogic';
-import useFormDataSubscription from 'customHooks/useFormDataSubscription';
-
-import DatePicker from 'components/shared/DatePicker/DatePicker';
-import Question from 'components/shared/Question/Question';
+import { useGlobalContext } from 'state/globalState';
+import { useNavigationLogic, useFormDataSubscription } from 'customHooks';
+import { DatePicker, Question } from 'components/shared';
 
 const TicketStartDate = () => {
   const { goToNextStep } = useNavigationLogic('StartPage', 'AddToExistingSwiftCard');

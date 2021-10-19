@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
-import Icon from 'components/shared/Icon';
+
+import { Icon } from 'components/shared';
+
 import { TMessageProps } from './Message.types';
 
 const Message = ({

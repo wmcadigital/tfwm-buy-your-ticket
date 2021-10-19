@@ -1,6 +1,5 @@
+import { useFormDataSubscription, useNavigationLogic } from 'customHooks';
 import { FullNameStep } from 'components/sharedSteps';
-import useFormDataSubscription from 'customHooks/useFormDataSubscription';
-import useNavigationLogic from 'customHooks/useNavigationLogic/useNavigationLogic';
 
 const PayerName = () => {
   const applicationForMe = useFormDataSubscription('applicationForMe');

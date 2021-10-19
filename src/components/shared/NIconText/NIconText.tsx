@@ -1,7 +1,9 @@
 import { sanitize } from 'dompurify';
 import PropTypes from 'prop-types';
 
-const NIconText = ({ text, className = '' }: { text: string; className?: string }): JSX.Element => {
+import { TNIconTextProps } from './NIconText.types';
+
+const NIconText = ({ text, className = '' }: TNIconTextProps) => {
   // Function to replace text with our icon
   const replaceTextWithIcon = (textNode: string, phraseToReplace: string) => {
     if (!textNode.toLowerCase().includes(phraseToReplace.toLowerCase())) return textNode; // If textNode doesn't include our matched text, then return

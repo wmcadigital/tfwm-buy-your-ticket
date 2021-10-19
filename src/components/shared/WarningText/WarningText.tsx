@@ -39,8 +39,8 @@ const WarningText = ({
 
 WarningText.propTypes = {
   className: PropTypes.string,
-  type: PropTypes.string,
-  message: PropTypes.string || PropTypes.element,
+  type: PropTypes.oneOf(['error', 'warning', 'info', 'success']),
+  message: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
 
 WarningText.defaultProps = {

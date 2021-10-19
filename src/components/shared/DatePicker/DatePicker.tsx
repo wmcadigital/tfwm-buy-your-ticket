@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import enGB from 'date-fns/locale/en-GB';
-import InsetText from '../InsetText/InsetText';
+
+import { InsetText } from 'components/shared';
+
 import { TDatePickerProps } from './DatePicker.types';
 
 // Import styles
 import 'react-datepicker/dist/react-datepicker.css';
-// Import Custom CSS for the date picker.
 import './datePicker.scss';
 
 const DatePickerInput = ({

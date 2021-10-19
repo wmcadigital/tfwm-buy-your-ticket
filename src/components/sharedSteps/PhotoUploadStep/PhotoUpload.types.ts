@@ -1,3 +1,3 @@
-import { TSharedStepProps } from 'types/sectionAndStep';
+import { TSharedStepProps } from 'types/step';
 
 export type TPhotoUploadProps = Pick<TSharedStepProps, 'handleNavigation' | 'question'>;

@@ -1,6 +1,5 @@
+import { useFormDataSubscription, useNavigationLogic } from 'customHooks';
 import { ContactDetailsStep } from 'components/sharedSteps';
-import useNavigationLogic from 'customHooks/useNavigationLogic/useNavigationLogic';
-import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 
 const PayerContactDetails = () => {
   const { goToNextStep } = useNavigationLogic(

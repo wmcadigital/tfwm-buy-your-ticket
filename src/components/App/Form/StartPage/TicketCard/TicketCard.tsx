@@ -1,11 +1,9 @@
-import PropTypes from 'prop-types';
-import Button from 'components/shared/Button';
-import NIconText from 'components/shared/NIconText';
-import Icon from 'components/shared/Icon';
-import { TTicketCardProps } from './TicketCard.types';
+import { Button, NIconText, Icon } from 'components/shared';
+
+import { TProps, propTypes } from './TicketCard.types';
 import s from './TicketCard.module.scss';
 
-const TicketCard = ({ ticket }: TTicketCardProps) => {
+const TicketCard = ({ ticket }: TProps) => {
   const returnToTicketFinder = () => {
     window.location.href = 'https://find-a-ticket.tfwm.org.uk/';
   };
@@ -40,12 +38,6 @@ const TicketCard = ({ ticket }: TTicketCardProps) => {
   );
 };
 
-TicketCard.propTypes = {
-  ticket: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    modes: PropTypes.arrayOf(PropTypes.oneOf(['bus', 'rail', 'metro']).isRequired).isRequired,
-  }).isRequired,
-};
+TicketCard.propTypes = propTypes;
 
 export default TicketCard;

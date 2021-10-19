@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import Button from 'components/shared/Button';
-import InputCheckbox from 'components/shared/Checkbox/Checkbox';
+import { Button, Checkbox } from 'components/shared';
 import { validate } from 'helpers/validation';
 import { Nullable } from 'types/helpers';
 import { TError } from 'types/validation';
@@ -67,7 +66,7 @@ const SendYourRequest = () => {
         The completion of this form will allow a Direct Debit mandate to be set up on your account
         and will appear on your bank statements as WMCA.
       </p>
-      <InputCheckbox
+      <Checkbox
         name="TermsAndConditions"
         classes="wmnds-m-b-md"
         labelElement={
@@ -79,7 +78,7 @@ const SendYourRequest = () => {
         onChange={toggleCheckboxValue(setHasAgreedToTerms, setTermsError)}
         error={termsError}
       />
-      <InputCheckbox
+      <Checkbox
         name="PrivacyPolicy"
         classes="wmnds-m-b-md"
         labelElement={
@@ -91,7 +90,7 @@ const SendYourRequest = () => {
         onChange={toggleCheckboxValue(sethasAgreedToPrivacy, setPrivacyError)}
         error={privacyError}
       />
-      <InputCheckbox
+      <Checkbox
         name="TermsAndConditions"
         classes="wmnds-m-b-md"
         labelElement={<span>Agree to be contacted for marketing</span>}

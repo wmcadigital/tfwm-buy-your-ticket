@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import { TIconProps } from './Icon.types';
@@ -8,7 +7,7 @@ import { TIconProps } from './Icon.types';
 
 // Icons can be found at: https://designsystem.wmnetwork.co.uk/styles/icons/
 
-const Icon = ({ className = '', iconName }: TIconProps) => {
+const Icon = ({ className, iconName }: TIconProps) => {
   return (
     <svg className={className}>
       <use xlinkHref={`#wmnds-${iconName}`} href={`#wmnds-${iconName}`} />
@@ -19,6 +18,10 @@ const Icon = ({ className = '', iconName }: TIconProps) => {
 Icon.propTypes = {
   className: PropTypes.string,
   iconName: PropTypes.string.isRequired,
+};
+
+Icon.defaultProps = {
+  className: '',
 };
 
 export default Icon;

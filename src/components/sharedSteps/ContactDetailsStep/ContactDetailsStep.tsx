@@ -1,8 +1,8 @@
 import Question from 'components/shared/Question/Question';
-import Input from 'components/shared/Input';
+import { Input } from 'components/shared';
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 
-import { TSharedStepProps } from 'types/sectionAndStep';
+import { TSharedStepProps } from 'types/step';
 
 const ContactDetailsStep = ({ handleNavigation, question, dataNamePrefix }: TSharedStepProps) => {
   const emailAddress = useFormDataSubscription(`${dataNamePrefix}EmailAddress`, [

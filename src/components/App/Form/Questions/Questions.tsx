@@ -1,4 +1,4 @@
-import { useGlobalContext } from 'state/globalState/context';
+import { useGlobalContext } from 'state/globalState';
 
 // Sections
 import SectionOne from './Sections/1-SectionOne/SectionOne';

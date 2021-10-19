@@ -1,11 +1,9 @@
-import Question from 'components/shared/Question/Question';
-import Input from 'components/shared/Input';
+import { useFormDataContext } from 'state/formDataState';
+import { useFormDataSubscription, useNavigationLogic } from 'customHooks';
+import { useValidateBankAccount } from 'customHooks/axiosRequests';
+import { Input, Question } from 'components/shared';
 
-import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 import ddlogo from 'assets/images/DirectDebitLogo.png';
-import useValidateBankAccount from 'customHooks/axiosRequests/useValidateBankAccount/useValidateBankAccount';
-import { useFormDataContext } from 'state/formDataState/context';
-import useNavigationLogic from 'customHooks/useNavigationLogic/useNavigationLogic';
 
 const InstructionsToBank = () => {
   const [formDataState] = useFormDataContext();

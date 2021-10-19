@@ -1,11 +1,12 @@
-import { useGlobalContext } from 'state/globalState/context';
-import BackButton from 'components/shared/BackButton';
+import { useGlobalContext } from 'state/globalState';
+import { BackButton } from 'components/shared';
 
-import s from './Form.module.scss';
 import StartPage from './StartPage';
 import Form from './Questions';
 import Summary from './Summary';
 import SuccessPage from './SuccessPage';
+
+import s from './Form.module.scss';
 
 const ViewToShow = () => {
   const [globalState] = useGlobalContext();

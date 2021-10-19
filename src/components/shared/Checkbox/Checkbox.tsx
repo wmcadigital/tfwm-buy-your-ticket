@@ -2,7 +2,8 @@
 import PropTypes from 'prop-types';
 import dompurify from 'dompurify';
 
-import Icon from '../Icon/Icon';
+import { Icon } from 'components/shared';
+
 import { TCheckboxProps } from './Checkbox.types';
 
 const { sanitize } = dompurify;
@@ -57,7 +58,7 @@ InputCheckbox.propTypes = {
   name: PropTypes.string.isRequired,
   classes: PropTypes.string,
   labelElement: PropTypes.element,
-  defaultValue: PropTypes.bool.isRequired,
+  defaultValue: PropTypes.bool,
   error: PropTypes.shape({
     message: PropTypes.string.isRequired,
   }),

@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import dompurify from 'dompurify';
+
 import { TRadioProps } from './Radio.types';
 import s from './Radio.module.scss';
 

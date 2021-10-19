@@ -1,7 +1,7 @@
 import { useGlobalContext } from 'state/globalState/context';
-import { TSectionProps } from './Section.types';
+import { TProps, propTypes } from './Section.types';
 
-const Section = ({ totalSections, title, steps }: TSectionProps) => {
+const Section = ({ totalSections, title, steps }: TProps) => {
   const [globalState] = useGlobalContext();
   const { currentSection, currentStep } = globalState.form;
 
@@ -15,5 +15,7 @@ const Section = ({ totalSections, title, steps }: TSectionProps) => {
     </div>
   );
 };
+
+Section.propTypes = propTypes;
 
 export default Section;

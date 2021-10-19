@@ -1,4 +1,4 @@
-import { TSharedStepProps } from 'types/sectionAndStep';
+import { TSharedStepProps } from 'types/step';
 
 export type TFullNameStepProps = TSharedStepProps & {
   warningText?: string;

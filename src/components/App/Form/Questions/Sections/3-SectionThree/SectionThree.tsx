@@ -1,5 +1,6 @@
 import { useFormDataContext } from 'state/formDataState/context';
-import Section from 'components/shared/Section/Section';
+import { Section } from 'components/shared';
+import { TSectionProps, sectionPropTypes } from 'types/section';
 // Steps
 import PayerOrTicketHolderName from './Steps/1-PayerOrTicketHolderName';
 import PayerOrTicketHolderBirthDate from './Steps/2-PayerOrTicketHolderBirthDate';
@@ -7,7 +8,7 @@ import PayerOrTicketHolderContactDetails from './Steps/3-PayerOrTicketHolderCont
 import PayerOrTicketHolderAddress from './Steps/4-PayerOrTicketHolderAddress';
 import PayerOrTicketHolderPhoto from './Steps/5-PayerOrTicketHolderPhoto';
 
-const SectionThree = ({ totalSections }: { totalSections: number }) => {
+const SectionThree = ({ totalSections }: TSectionProps) => {
   const [formDataState] = useFormDataContext();
   const { applicationForMe } = formDataState;
 
@@ -27,5 +28,7 @@ const SectionThree = ({ totalSections }: { totalSections: number }) => {
     />
   );
 };
+
+SectionThree.propTypes = sectionPropTypes;
 
 export default SectionThree;

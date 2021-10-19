@@ -1,14 +1,10 @@
-import Button from 'components/shared/Button';
-import GenericError from 'components/shared/Errors/GenericError';
+import PropTypes from 'prop-types';
+
+import { Button, GenericError } from 'components/shared';
+
 import { TQuestionProps } from './Question.types';
 
-const Question = ({
-  question,
-  handleContinue,
-  children,
-  showError,
-  isLoading = false,
-}: TQuestionProps) => {
+const Question = ({ question, handleContinue, children, showError, isLoading }: TQuestionProps) => {
   return (
     <>
       {showError && <GenericError />}
@@ -25,6 +21,19 @@ const Question = ({
       </div>
     </>
   );
+};
+
+Question.propTypes = {
+  question: PropTypes.string.isRequired,
+  handleContinue: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  showError: PropTypes.bool,
+  isLoading: PropTypes.bool,
+};
+
+Question.defaultProps = {
+  showError: false,
+  isLoading: false,
 };
 
 export default Question;

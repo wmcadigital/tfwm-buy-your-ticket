@@ -1,6 +1,5 @@
-import useNavigationLogic from 'customHooks/useNavigationLogic/useNavigationLogic';
+import { useNavigationLogic, useFormDataSubscription } from 'customHooks';
 import { BirthDateStep } from 'components/sharedSteps';
-import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 
 const TicketHolderBirthDate = () => {
   const { goToNextStep } = useNavigationLogic('TicketHolderName', 'TicketHolderAddress');

@@ -1,7 +1,7 @@
 import { TFormStep } from 'components/App/Form/Questions/Sections';
 import { TFormDataState, TFormDataStateItem } from 'state/formDataState/types';
 import { Nullable } from 'types/helpers';
-import { TSectionAndStep } from 'types/sectionAndStep';
+import { TSectionAndStep } from 'types/navigation';
 import { TTicket } from 'types/ticket';
 
 export type TGlobalState = {

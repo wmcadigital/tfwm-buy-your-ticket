@@ -1,11 +1,13 @@
-import Button from 'components/shared/Button';
-import Loader from 'components/shared/Loader/Loader';
+import { Button, Loader } from 'components/shared';
+
 import { useGlobalContext } from 'state/globalState/context';
+import { useFormDataContext } from 'state/formDataState/context';
+
 import { TTicket } from 'types/ticket';
 import { useGetTicketInfo, useStartSession } from 'customHooks/axiosRequests';
 import { TSession } from 'types/session';
 import { Nullable } from 'types/helpers';
-import { useFormDataContext } from 'state/formDataState/context';
+
 import TicketCard from './TicketCard/TicketCard';
 
 const StartPage = () => {

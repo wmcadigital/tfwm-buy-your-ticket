@@ -1,7 +1,7 @@
 import { TFormStep } from 'components/App/Form/Questions/Sections';
 import { getSectionAndStep } from 'helpers/sectionAndStep';
 import { TFormDataStateItem, TFormDataStateKey } from 'state/formDataState/types';
-import { TSectionAndStep } from 'types/sectionAndStep';
+import { TSectionAndStep } from 'types/navigation';
 import { TTicket } from 'types/ticket';
 import initialFormDataState from 'state/formDataState/initialState';
 import getInitialValue from 'helpers/formData/getInitialValue';

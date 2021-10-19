@@ -1,8 +1,6 @@
-import Question from 'components/shared/Question/Question';
-import Radios from 'components/shared/Radios/Radios';
-import useFormDataSubscription from 'customHooks/useFormDataSubscription';
-import useNavigationLogic from 'customHooks/useNavigationLogic/useNavigationLogic';
-import { useFormDataContext } from 'state/formDataState/context';
+import { useFormDataContext } from 'state/formDataState';
+import { useFormDataSubscription, useNavigationLogic } from 'customHooks';
+import { Question, Radios } from 'components/shared';
 
 const AddToExistingSwiftCard = () => {
   const [, formDataDispatch] = useFormDataContext();

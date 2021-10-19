@@ -1,8 +1,6 @@
 import { useState } from 'react';
 
-import Button from 'components/shared/Button';
-import Dropdown from 'components/shared/Dropdown/Dropdown';
-import Input from 'components/shared/Input';
+import { Button, Dropdown, Input } from 'components/shared';
 
 import { useGetAddress } from 'customHooks/axiosRequests';
 import { Nullable } from 'types/helpers';

@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
-import Icon from 'components/shared/Icon';
-import { TButtonProps } from './Button.types';
+import { Icon } from 'components/shared';
+
+import { TProps, propTypes, defaultProps } from './Button.types';
 import s from './Button.module.scss';
 
 const Button = ({
@@ -13,8 +13,8 @@ const Button = ({
   onClick,
   text,
   title,
-  type = 'button',
-}: TButtonProps) => {
+  type,
+}: TProps) => {
   return (
     <button
       // eslint-disable-next-line react/button-has-type
@@ -52,17 +52,7 @@ const Button = ({
   );
 };
 
-Button.propTypes = {
-  btnClass: PropTypes.string,
-  disabled: PropTypes.bool,
-  iconLeft: PropTypes.string,
-  iconRight: PropTypes.string,
-  isActive: PropTypes.bool,
-  isFetching: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
-  title: PropTypes.string,
-  type: PropTypes.oneOf(['button', 'submit', 'reset']),
-};
+Button.propTypes = propTypes;
+Button.defaultProps = defaultProps;
 
 export default Button;

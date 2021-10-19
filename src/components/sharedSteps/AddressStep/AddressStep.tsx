@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Question from 'components/shared/Question/Question';
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
-import { TSharedStepProps } from 'types/sectionAndStep';
+import { TSharedStepProps } from 'types/step';
 import AddressManual from './AddressManual/AddressManual';
 import AddressAutocomplete from './AddressAutocomplete/AddressAutocomplete';
 
@@ -36,7 +36,6 @@ const AddressStep = ({ handleNavigation, question, dataNamePrefix }: TSharedStep
     const line4Valid = addressLine4.save();
     const postcodeValid = postcode.save();
     if (!line1Valid || !line2Valid || !line3Valid || !line4Valid || !postcodeValid) return;
-    postcode.save();
     handleNavigation();
   };
 

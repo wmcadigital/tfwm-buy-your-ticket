@@ -1,5 +1,5 @@
+import { useNavigationLogic } from 'customHooks';
 import { FullNameStep } from 'components/sharedSteps';
-import useNavigationLogic from 'customHooks/useNavigationLogic/useNavigationLogic';
 
 const TicketHolderName = () => {
   const { goToNextStep } = useNavigationLogic(

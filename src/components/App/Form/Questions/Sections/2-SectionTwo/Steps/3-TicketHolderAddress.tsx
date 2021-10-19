@@ -1,6 +1,5 @@
+import { useNavigationLogic, useFormDataSubscription } from 'customHooks';
 import { AddressStep } from 'components/sharedSteps';
-import useFormDataSubscription from 'customHooks/useFormDataSubscription';
-import useNavigationLogic from 'customHooks/useNavigationLogic/useNavigationLogic';
 
 const TicketHolderAddress = () => {
   const { goToNextStep } = useNavigationLogic('TicketHolderBirthDate', 'TicketHolderPhoto');

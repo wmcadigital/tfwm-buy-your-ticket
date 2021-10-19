@@ -1,9 +1,6 @@
-import Question from 'components/shared/Question/Question';
-import Input from 'components/shared/Input';
-import InsetText from 'components/shared/InsetText/InsetText';
-import useFormDataSubscription from 'customHooks/useFormDataSubscription';
+import { useFormDataSubscription, useNavigationLogic } from 'customHooks';
 import { useValidateSwiftCardNumber } from 'customHooks/axiosRequests';
-import useNavigationLogic from 'customHooks/useNavigationLogic/useNavigationLogic';
+import { Question, Input, InsetText } from 'components/shared';
 
 const AddSwiftCard = () => {
   const { goToNextStep } = useNavigationLogic(

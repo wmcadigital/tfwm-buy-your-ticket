@@ -1,6 +1,5 @@
+import { useFormDataSubscription, useNavigationLogic } from 'customHooks';
 import { BirthDateStep } from 'components/sharedSteps';
-import useNavigationLogic from 'customHooks/useNavigationLogic/useNavigationLogic';
-import useFormDataSubscription from 'customHooks/useFormDataSubscription';
 
 const PayerBirthDate = () => {
   const { goToNextStep } = useNavigationLogic(

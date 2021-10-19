@@ -1,9 +1,10 @@
-import Section from 'components/shared/Section/Section';
+import { Section } from 'components/shared';
+import { TSectionProps, sectionPropTypes } from 'types/section';
 // Steps
 import InstructionsToBank from './Steps/1-InstructionsToBank';
 import HowDidYouFindOutAboutDD from './Steps/2-HowDidYouFindOutAboutDD';
 
-const SectionFour = ({ totalSections }: { totalSections: number }) => {
+const SectionFour = ({ totalSections }: TSectionProps) => {
   return (
     <Section
       totalSections={totalSections}
@@ -12,5 +13,7 @@ const SectionFour = ({ totalSections }: { totalSections: number }) => {
     />
   );
 };
+
+SectionFour.propTypes = sectionPropTypes;
 
 export default SectionFour;

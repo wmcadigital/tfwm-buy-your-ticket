@@ -1,6 +1,6 @@
 import { formPath } from 'components/App/Form/Questions/Sections';
 import type { TFormStep } from 'components/App/Form/Questions/Sections';
-import type { TSectionAndStep } from 'types/sectionAndStep';
+import type { TSectionAndStep } from 'types/navigation';
 
 export const getSectionAndStep = (stepNameToFind: TFormStep): TSectionAndStep => {
   let returnSection: number = -1;
@@ -20,7 +20,3 @@ export const getSectionAndStep = (stepNameToFind: TFormStep): TSectionAndStep =>
 
   return { section: returnSection, step: returnStep };
 };
-
-export const getNextSectionAndStep = () => {};
-
-export const getPrevSectionAndStep = () => {};

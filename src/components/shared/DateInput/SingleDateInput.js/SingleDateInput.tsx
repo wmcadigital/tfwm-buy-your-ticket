@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ChangeEvent } from 'react';
+
 import { TSingleDateInput } from './SingleDateInput.types';
 
 const DateInput = ({
@@ -11,7 +11,7 @@ const DateInput = ({
   hasError,
 }: TSingleDateInput) => {
   const inputName = name + dateType;
-  const setValue = (e: ChangeEvent<HTMLInputElement>) => {
+  const setValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
 

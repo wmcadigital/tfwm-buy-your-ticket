@@ -1,5 +1,5 @@
-import initialState from 'state/formDataState/initialState';
-import { TFormDataStateKey } from 'state/formDataState/types';
+import { initialState } from 'state/formDataState';
+import type { TFormDataStateKey } from 'state/formDataState';
 
 const getInitialValue = (dataName: TFormDataStateKey) => {
   return initialState[dataName];

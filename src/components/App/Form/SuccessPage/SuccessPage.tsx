@@ -1,5 +1,5 @@
-import Message from 'components/shared/Message/Message';
-import { useGlobalContext } from 'state/globalState/context';
+import { useGlobalContext } from 'state/globalState';
+import { Message } from 'components/shared';
 
 const SuccessPage = () => {
   const [globalState] = useGlobalContext();
