@@ -3,6 +3,8 @@ import { TApiTicket, TTicket } from 'types/ticket';
 import { useGlobalContext } from 'state/globalState/context';
 import useAxiosRequest from '../_useAxiosRequest';
 
+import dummyApiTicket from './dummyTicketData';
+
 const useGetTicketInfo = (ticketId: number) => {
   const [globalState] = useGlobalContext();
   const { ticket } = globalState;
@@ -21,7 +23,8 @@ const useGetTicketInfo = (ticketId: number) => {
   });
 
   // RESPONSES
-  const ticketInfoData = ticketInfoRequest.response?.data;
+  // const ticketInfoData = ticketInfoRequest.response?.data; /* Uncomment when SSL cert is fixed */
+  const ticketInfoData = ticketInfoRequest.response?.data || dummyApiTicket.student;
   const unformattedDates = availableDatesRequest.response?.data;
 
   let ticketInfo: TTicket | null = null;
@@ -58,7 +61,7 @@ const useGetTicketInfo = (ticketId: number) => {
   }
 
   useEffect(() => {
-    if (!ticket.name) {
+    if (!ticket.name || !ticket.id) {
       ticketInfoRequest.sendRequest();
       availableDatesRequest.sendRequest();
     }

@@ -1,4 +1,4 @@
-import getInitialValue from 'helpers/formData/getInitialValue';
+import { getInitialValue } from 'helpers/formData';
 import { TSession } from 'types/session';
 import { TApiTicket } from 'types/ticket';
 import { TFormDataState, TFormDataStateKey, TFormDataStateReducer } from './types';
@@ -43,7 +43,7 @@ const reducer: TFormDataStateReducer = (state, action) => {
       const dataToClear = valuesToClear.reduce((acc, name) => {
         return {
           ...acc,
-          [name]: null,
+          [name]: getInitialValue(name),
         };
       }, {});
 
@@ -55,11 +55,7 @@ const reducer: TFormDataStateReducer = (state, action) => {
 
     case 'CLEAR_TICKET_HOLDER_DATA': {
       const keysToClear = (Object.keys(state) as TFormDataStateKey[]).filter((formDataKey) => {
-        return (
-          formDataKey.indexOf('ticketHolder') > -1 ||
-          formDataKey === 'filename' ||
-          formDataKey === 'file'
-        );
+        return formDataKey.indexOf('ticketHolder') > -1 || formDataKey === 'filename';
       });
 
       const dataToClear = keysToClear.reduce((acc, name) => {

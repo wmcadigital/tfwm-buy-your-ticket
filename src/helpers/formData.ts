@@ -5,4 +5,4 @@ const getInitialValue = (dataName: TFormDataStateKey) => {
   return initialState[dataName];
 };
 
-export default getInitialValue;
+export { getInitialValue };

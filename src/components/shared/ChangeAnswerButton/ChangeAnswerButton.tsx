@@ -1,8 +1,8 @@
 import { getSectionAndStep } from 'helpers/sectionAndStep';
 import { useGlobalContext } from 'state/globalState/context';
-import { TChangeAnswerProps } from './ChangeAnswer.types';
+import { TProps, propTypes, defaultProps } from './ChangeAnswerButton.types';
 
-const ChangeAnswer = ({ from, to }: TChangeAnswerProps) => {
+const ChangeAnswerButton = ({ from, to }: TProps) => {
   const [, globalStateDispatch] = useGlobalContext();
 
   const handleClick = () => {
@@ -22,4 +22,7 @@ const ChangeAnswer = ({ from, to }: TChangeAnswerProps) => {
   );
 };
 
-export default ChangeAnswer;
+ChangeAnswerButton.propTypes = propTypes;
+ChangeAnswerButton.defaultProps = defaultProps;
+
+export default ChangeAnswerButton;

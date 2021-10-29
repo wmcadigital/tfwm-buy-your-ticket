@@ -9,6 +9,7 @@ import { TError } from 'types/validation';
 import { useGlobalContext } from 'state/globalState/context';
 import { TSingleFormDataStateValue } from 'state/formDataState/types';
 import { TUseFormDataSubscription } from './useFormDataSubscription.types';
+import { isNotNull } from 'helpers/misc';
 
 const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationConfig = []) => {
   // Check whether this data exists in the formData
@@ -65,15 +66,25 @@ const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationC
     return isValid;
   }, [currentValue, dataName, formDataDispatch, globalStateDispatch, isEditing, validateData]);
 
+  const clearSavedValue = useCallback(() => {
+    formDataDispatch({ type: 'CLEAR_FORM_DATA', payload: [dataName] });
+  }, [dataName, formDataDispatch]);
+
   // return object to the component
   const subscription: TSubscriptionReturn<TSavedValue> = {
     savedValue,
+    hasSavedValue: isNotNull(savedValue),
     currentValue,
-    set: (newValue: typeof currentValue) => setCurrentValue(newValue),
-    save,
-    validate: validateData,
+    hasCurrentValue: isNotNull(currentValue),
     error,
     hasError: !!error,
+    set: (newValue: typeof currentValue) => {
+      setCurrentValue(newValue);
+      setError(null);
+    },
+    save,
+    clearSavedValue,
+    validate: validateData,
   };
 
   return subscription;

@@ -57,8 +57,8 @@ const validate: TValidate = (value, config) => {
   const numberRule = checkForRule(config, 'NUMBER');
   if (numberRule) {
     const regex = new RegExp('^[0-9]*$', 'g');
-    const isValidEmail = regex.test(`${value}`);
-    if (!isValidEmail) {
+    const isValidNumber = regex.test(`${value}`);
+    if (!isValidNumber) {
       const message = numberRule.message || 'Please enter a valid number';
       return { isValid: false, error: { message } };
     }

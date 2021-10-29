@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { useFormDataContext } from 'state/formDataState/context';
-import { useGlobalContext } from 'state/globalState/context';
-import NIconText from 'components/shared/NIconText';
-import Table from 'components/shared/Table/Table';
-import Message from 'components/shared/Message/Message';
-import ChangeAnswer from './ChangeAnswer/ChangeAnswer';
+import { useFormDataContext } from 'state/formDataState';
+import { useGlobalContext } from 'state/globalState';
+import { NIconText, Message, Table, ChangeAnswerButton } from 'components/shared';
+import { removeNthItem } from 'helpers/summary';
+import { DateCell } from 'components/sharedTableCells';
 
 const AboutTheTicket = () => {
   const [formDataState] = useFormDataContext();
@@ -19,10 +18,6 @@ const AboutTheTicket = () => {
   const [isChangingTicket, setIsChangingTicket] = useState(false);
   const showChangeTicketMessage = () => setIsChangingTicket(true);
   const hideChangeTicketMessage = () => setIsChangingTicket(false);
-  const removeSecondIndex = (array: any[]) => {
-    array.splice(1, 1);
-    return array;
-  };
 
   const handleChangeTicket = () => {
     window.location.href = 'https://find-a-ticket.tfwm.org.uk/';
@@ -80,36 +75,18 @@ const AboutTheTicket = () => {
     [<>{changeTicketMessage}</>],
     [
       <span>Ticket starts from</span>,
-      <div>
-        <span>
-          {startDate?.toLocaleDateString('en-GB', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </span>
-      </div>,
-      <ChangeAnswer from="TicketStartDate" />,
+      <DateCell date={startDate!} showDay />,
+      <ChangeAnswerButton from="TicketStartDate" />,
     ],
     [
       <span>Payment date</span>,
-      <div>
-        <span>
-          {ticketPayementDate?.toLocaleDateString('en-GB', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </span>
-      </div>,
-      <ChangeAnswer from="TicketStartDate" />,
+      <DateCell date={ticketPayementDate!} showDay />,
+      <ChangeAnswerButton from="TicketStartDate" />,
     ],
     [
       <span>Add to existing Swift card</span>,
       <span>{addProductToExistingCard ? 'Yes' : 'No'}</span>,
-      <ChangeAnswer from="AddToExistingSwiftCard" to="AddSwiftCardNumber" />,
+      <ChangeAnswerButton from="AddToExistingSwiftCard" to="AddSwiftCardNumber" />,
     ],
   ];
 
@@ -119,9 +96,9 @@ const AboutTheTicket = () => {
   return (
     <Table
       title="About the ticket"
-      values={isChangingTicket ? tableValues : removeSecondIndex(tableValues)}
+      values={isChangingTicket ? tableValues : removeNthItem(tableValues, 2)}
       cellClasses={tableCellClasses}
-      cellColSpans={isChangingTicket ? tableCellColSpans : removeSecondIndex(tableCellColSpans)}
+      cellColSpans={isChangingTicket ? tableCellColSpans : removeNthItem(tableCellColSpans, 2)}
     />
   );
 };

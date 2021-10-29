@@ -9,6 +9,10 @@ export type TApiTicket = {
   // Direct debit details
   buyOnDirectDebit: boolean;
   directDebitCode: string;
+  isAdult: boolean;
+  isChild: boolean;
+  isStudent: boolean;
+  outOfCounty: boolean;
 };
 
 export type TTicket = {

@@ -1,6 +1,6 @@
-import Table from 'components/shared/Table/Table';
 import { useFormDataContext } from 'state/formDataState/context';
-import ChangeAnswer from './ChangeAnswer/ChangeAnswer';
+import { Table, ChangeAnswerButton } from 'components/shared';
+import { AddressCell, ContactDetailsCell, DateCell } from 'components/sharedTableCells';
 
 const AboutThePayer = () => {
   const [formDataState] = useFormDataContext();
@@ -26,36 +26,36 @@ const AboutThePayer = () => {
         [
           <span>Are you buying the ticket for yourself?</span>,
           <span>{applicationForMe ? 'Yes' : 'No'}</span>,
-          <ChangeAnswer from="CheckIfUserIsTheTicketHolder" />,
+          <ChangeAnswerButton from="CheckIfUserIsTheTicketHolder" />,
         ],
         [
           <span>Payer&apos;s name</span>,
           <span>{`${payerFirstName} ${payerLastName}`}</span>,
-          <ChangeAnswer from="PayerOrTicketHolderName" />,
+          <ChangeAnswerButton from="PayerOrTicketHolderName" />,
         ],
         [
           <span>Payer&apos;s date of birth</span>,
-          <span>{payerDateOfBirth?.toLocaleDateString()}</span>,
-          <ChangeAnswer from="PayerOrTicketHolderBirthDate" />,
+          <DateCell date={payerDateOfBirth!} />,
+          <ChangeAnswerButton from="PayerOrTicketHolderBirthDate" />,
         ],
         [
           <span>Payer&apos;s contact details</span>,
-          <>
-            <p className="wmnds-m-b-none">{payerMobilePhoneNumber}</p>
-            <p className="wmnds-m-b-none">{payerEmailAddress}</p>
-          </>,
-          <ChangeAnswer from="PayerOrTicketHolderContactDetails" />,
+          <ContactDetailsCell
+            phoneNumber={payerMobilePhoneNumber!}
+            emailAddress={payerEmailAddress!}
+          />,
+          <ChangeAnswerButton from="PayerOrTicketHolderContactDetails" />,
         ],
         [
           <span>Payer&apos;s address</span>,
-          <>
-            <p className="wmnds-m-b-none">{payerCurrentAddressLine1}</p>
-            <p className="wmnds-m-b-none">{payerCurrentAddressLine2}</p>
-            <p className="wmnds-m-b-none">{payerCurrentAddressLine3}</p>
-            <p className="wmnds-m-b-none">{payerCurrentAddressLine4}</p>
-            <p className="wmnds-m-b-none">{payerCurrentPostcode}</p>
-          </>,
-          <ChangeAnswer from="PayerOrTicketHolderAddress" />,
+          <AddressCell
+            line1={payerCurrentAddressLine1!}
+            line2={payerCurrentAddressLine2!}
+            line3={payerCurrentAddressLine3}
+            line4={payerCurrentAddressLine4}
+            postcode={payerCurrentPostcode!}
+          />,
+          <ChangeAnswerButton from="PayerOrTicketHolderAddress" />,
         ],
       ]}
     />

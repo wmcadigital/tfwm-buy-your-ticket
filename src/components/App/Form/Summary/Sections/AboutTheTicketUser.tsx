@@ -1,8 +1,14 @@
-import Table from 'components/shared/Table/Table';
-import { useFormDataContext } from 'state/formDataState/context';
-import ChangeAnswer from './ChangeAnswer/ChangeAnswer';
+import { useFormDataContext } from 'state/formDataState';
+import { useGlobalContext } from 'state/globalState';
+import { Table, ChangeAnswerButton } from 'components/shared';
+import { AddressCell, DateCell, FileCell, ImageCell } from 'components/sharedTableCells';
+import { removeNthItem } from 'helpers/summary';
+import { isNotNull } from 'helpers/misc';
 
 const AboutTheTicketUser = () => {
+  const [globalState] = useGlobalContext();
+  const { isStudent } = globalState.ticket.raw;
+
   const [formDataState] = useFormDataContext();
   const {
     ticketHolderFirstName,
@@ -13,45 +19,58 @@ const AboutTheTicketUser = () => {
     ticketHolderCurrentAddressLine3,
     ticketHolderCurrentAddressLine4,
     ticketHolderCurrentPostcode,
-    file,
-    filename,
+    ticketHolderPhoto,
+    studentIdPhoto,
+    studentProofDocument,
+    identityDocument,
   } = formDataState;
+
+  const filesConfig = isNotNull(studentIdPhoto)
+    ? [{ title: 'Student ID Card', file: studentIdPhoto! }]
+    : [
+        { title: 'Student Proof Document', file: studentProofDocument! },
+        { title: 'Identity Document', file: identityDocument! },
+      ];
+
+  const tableValues = [
+    [
+      <span>Name</span>,
+      <span>{`${ticketHolderFirstName} ${ticketHolderLastName}`}</span>,
+      <ChangeAnswerButton from="TicketHolderName" />,
+    ],
+    [
+      <span>Date of birth</span>,
+      <DateCell date={ticketHolderDateOfBirth!} />,
+      <ChangeAnswerButton from="TicketHolderBirthDate" />,
+    ],
+    [
+      <span>Address</span>,
+      <AddressCell
+        line1={ticketHolderCurrentAddressLine1!}
+        line2={ticketHolderCurrentAddressLine2!}
+        line3={ticketHolderCurrentAddressLine3}
+        line4={ticketHolderCurrentAddressLine4}
+        postcode={ticketHolderCurrentPostcode!}
+      />,
+      <ChangeAnswerButton from="TicketHolderAddress" />, // Or any other the other address items
+    ],
+    [
+      <span>Photo</span>,
+      <ImageCell image={ticketHolderPhoto!} />,
+      <ChangeAnswerButton from="TicketHolderPhoto" />,
+    ],
+    [
+      <span>Proof you&apos;re a student</span>,
+      <FileCell filesConfig={filesConfig} />,
+      <ChangeAnswerButton from="TicketHolderStudentProof" />,
+    ],
+  ];
 
   return (
     <Table
       title="About the ticket user"
       cellClasses={['', '', 'wmnds-text-align-right']}
-      values={[
-        [
-          <span>Name</span>,
-          <span>{`${ticketHolderFirstName} ${ticketHolderLastName}`}</span>,
-          <ChangeAnswer from="TicketHolderName" />,
-        ],
-        [
-          <span>Date of birth</span>,
-          <span>{ticketHolderDateOfBirth?.toLocaleDateString()}</span>,
-          <ChangeAnswer from="TicketHolderBirthDate" />,
-        ],
-        [
-          <span>Address</span>,
-          <>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine1}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine2}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine3}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine4}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentPostcode}</p>
-          </>,
-          <ChangeAnswer from="TicketHolderAddress" />, // Or any other the other address items
-        ],
-        [
-          <span>Photo</span>,
-          <>
-            <p className="wmnds-m-b-sm">{filename}</p>
-            <img src={window.URL.createObjectURL(file)} alt="" />
-          </>,
-          <ChangeAnswer from="TicketHolderPhoto" />,
-        ],
-      ]}
+      values={isStudent ? tableValues : removeNthItem(tableValues, 5)}
     />
   );
 };

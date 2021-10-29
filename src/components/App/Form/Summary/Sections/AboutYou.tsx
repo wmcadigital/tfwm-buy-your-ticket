@@ -1,8 +1,20 @@
-import Table from 'components/shared/Table/Table';
-import { useFormDataContext } from 'state/formDataState/context';
-import ChangeAnswer from './ChangeAnswer/ChangeAnswer';
+import { useFormDataContext } from 'state/formDataState';
+import { useGlobalContext } from 'state/globalState';
+import { Table, ChangeAnswerButton } from 'components/shared';
+import {
+  AddressCell,
+  ContactDetailsCell,
+  DateCell,
+  FileCell,
+  ImageCell,
+} from 'components/sharedTableCells';
+import { isNotNull } from 'helpers/misc';
+import { removeNthItem } from 'helpers/summary';
 
 const AboutYou = () => {
+  const [globalState] = useGlobalContext();
+  const { isStudent } = globalState.ticket.raw;
+
   const [formDataState] = useFormDataContext();
   const {
     applicationForMe,
@@ -16,58 +28,71 @@ const AboutYou = () => {
     ticketHolderCurrentAddressLine3,
     ticketHolderCurrentAddressLine4,
     ticketHolderCurrentPostcode,
-    file,
-    filename,
+    ticketHolderPhoto,
+    studentIdPhoto,
+    studentProofDocument,
+    identityDocument,
   } = formDataState;
+
+  const filesConfig = isNotNull(studentIdPhoto)
+    ? [{ title: 'Student ID Card', file: studentIdPhoto! }]
+    : [
+        { title: 'Student Proof Document', file: studentProofDocument! },
+        { title: 'Identity Document', file: identityDocument! },
+      ];
+
+  const tableValues = [
+    [
+      <span>Are you buying the ticket for yourself?</span>,
+      <span>{applicationForMe ? 'Yes' : 'No'}</span>,
+      <ChangeAnswerButton from="CheckIfUserIsTheTicketHolder" />,
+    ],
+    [
+      <span>Name</span>,
+      <span>{`${ticketHolderFirstName} ${ticketHolderLastName}`}</span>,
+      <ChangeAnswerButton from="PayerOrTicketHolderName" />, // or ticketHolderLastName
+    ],
+    [
+      <span>Date of birth</span>,
+      <DateCell date={ticketHolderDateOfBirth!} />,
+      <ChangeAnswerButton from="PayerOrTicketHolderBirthDate" />,
+    ],
+    [
+      <span>Contact details</span>,
+      <ContactDetailsCell
+        phoneNumber={ticketHolderMobilePhoneNumber!}
+        emailAddress={ticketHolderEmailAddress!}
+      />,
+      <ChangeAnswerButton from="PayerOrTicketHolderContactDetails" />, // or ticketHolderEmailAddress
+    ],
+    [
+      <span>Address</span>,
+      <AddressCell
+        line1={ticketHolderCurrentAddressLine1!}
+        line2={ticketHolderCurrentAddressLine2!}
+        line3={ticketHolderCurrentAddressLine3}
+        line4={ticketHolderCurrentAddressLine4}
+        postcode={ticketHolderCurrentPostcode!}
+      />,
+      <ChangeAnswerButton from="PayerOrTicketHolderAddress" />, // Or any other the other address items
+    ],
+    [
+      <span>Photo</span>,
+      <ImageCell image={ticketHolderPhoto!} />,
+      <ChangeAnswerButton from="PayerOrTicketHolderPhoto" />,
+    ],
+    [
+      <span>Proof you&apos;re a student</span>,
+      <FileCell filesConfig={filesConfig} />,
+      <ChangeAnswerButton from="PayerOrTicketHolderStudentProof" />,
+    ],
+  ];
 
   return (
     <Table
       title="About you"
       cellClasses={['', '', 'wmnds-text-align-right']}
-      values={[
-        [
-          <span>Are you buying the ticket for yourself?</span>,
-          <span>{applicationForMe ? 'Yes' : 'No'}</span>,
-          <ChangeAnswer from="CheckIfUserIsTheTicketHolder" />,
-        ],
-        [
-          <span>Name</span>,
-          <span>{`${ticketHolderFirstName} ${ticketHolderLastName}`}</span>,
-          <ChangeAnswer from="PayerOrTicketHolderName" />, // or ticketHolderLastName
-        ],
-        [
-          <span>Date of birth</span>,
-          <span>{ticketHolderDateOfBirth?.toLocaleDateString()}</span>,
-          <ChangeAnswer from="PayerOrTicketHolderBirthDate" />,
-        ],
-        [
-          <span>Contact details</span>,
-          <>
-            <p className="wmnds-m-b-none">{ticketHolderMobilePhoneNumber}</p>
-            <p className="wmnds-m-b-none">{ticketHolderEmailAddress}</p>
-          </>,
-          <ChangeAnswer from="PayerOrTicketHolderContactDetails" />, // or ticketHolderEmailAddress
-        ],
-        [
-          <span>Address</span>,
-          <>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine1}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine2}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine3}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentAddressLine4}</p>
-            <p className="wmnds-m-b-none">{ticketHolderCurrentPostcode}</p>
-          </>,
-          <ChangeAnswer from="PayerOrTicketHolderAddress" />, // Or any other the other address items
-        ],
-        [
-          <span>Photo</span>,
-          <>
-            <p className="wmnds-m-b-sm">{filename}</p>
-            <img src={window.URL.createObjectURL(file)} alt="" />
-          </>,
-          <ChangeAnswer from="PayerOrTicketHolderPhoto" />,
-        ],
-      ]}
+      values={isStudent ? tableValues : removeNthItem(tableValues, 7)}
     />
   );
 };

@@ -27,7 +27,7 @@ const Input = ({
       <input
         autoComplete={autocomplete}
         className={`wmnds-fe-input ${error ? 'wmnds-fe-input--error' : ''}`}
-        defaultValue={defaultValue || ''}
+        value={defaultValue || ''}
         id={name}
         inputMode={inputmode}
         name={name}
@@ -83,6 +83,7 @@ Input.propTypes = {
   inputmode: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   name: PropTypes.string.isRequired,
+  defaultValue: PropTypes.string,
   spellcheck: PropTypes.bool,
   type: PropTypes.string,
   onChange: PropTypes.func,
@@ -98,6 +99,7 @@ Input.defaultProps = {
   groupClassName: '',
   fieldValidation: null,
   inputmode: 'text',
+  defaultValue: '',
   spellcheck: false,
   type: 'text',
   error: null,

@@ -4,7 +4,7 @@ import { TFormDataStateItem, TFormDataStateKey } from 'state/formDataState/types
 import { TSectionAndStep } from 'types/navigation';
 import { TTicket } from 'types/ticket';
 import initialFormDataState from 'state/formDataState/initialState';
-import getInitialValue from 'helpers/formData/getInitialValue';
+import { getInitialValue } from 'helpers/formData';
 import { TGlobalStateReducer, TSectionAndStepRange } from './types';
 
 const reducer: TGlobalStateReducer = (state, action) => {

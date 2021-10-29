@@ -1,11 +1,11 @@
-import Table from 'components/shared/Table/Table';
 import { useFormDataContext } from 'state/formDataState/context';
-import ChangeAnswer from './ChangeAnswer/ChangeAnswer';
+import { Table, ChangeAnswerButton } from 'components/shared';
 
 const DirectDebit = () => {
   const [formDataState] = useFormDataContext();
   // eslint-disable-next-line prettier/prettier
-  const { accountName, accountNumber, sortCode, howDidYouHearAboutCentroDirectDebit, } = formDataState;
+  const { accountName, accountNumber, sortCode, howDidYouHearAboutCentroDirectDebit } =
+    formDataState;
 
   const howDidYouHearAboutDDString = (() => {
     const separatedString = howDidYouHearAboutCentroDirectDebit?.split('-').join(' ');
@@ -21,22 +21,22 @@ const DirectDebit = () => {
         [
           <span>Account Holder</span>,
           <>{accountName}</>,
-          <ChangeAnswer from="InstructionsToBank" />,
+          <ChangeAnswerButton from="InstructionsToBank" />,
         ],
         [
           <span>Bank or building society account number</span>,
           <>{accountNumber}</>,
-          <ChangeAnswer from="InstructionsToBank" />,
+          <ChangeAnswerButton from="InstructionsToBank" />,
         ],
         [
           <span>Branch sort code</span>,
           <>{sortCode}</>,
-          <ChangeAnswer from="InstructionsToBank" />,
+          <ChangeAnswerButton from="InstructionsToBank" />,
         ],
         [
           <span>How did you find out about the Direct Debit scheme?</span>,
           <>{howDidYouHearAboutDDString}</>,
-          <ChangeAnswer from="InstructionsToBank" />,
+          <ChangeAnswerButton from="InstructionsToBank" />,
         ],
       ]}
     />

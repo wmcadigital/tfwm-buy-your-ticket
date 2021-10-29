@@ -1,4 +1,4 @@
-import Input from 'components/shared/Input';
+import { Input } from 'components/shared';
 import { TAddressManualProps } from './AddressManual.types';
 
 const AddressManual = ({ address }: TAddressManualProps) => {

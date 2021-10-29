@@ -2,22 +2,28 @@ import { useFormDataContext } from 'state/formDataState';
 import { useFormDataSubscription, useNavigationLogic } from 'customHooks';
 import { useValidateBankAccount } from 'customHooks/axiosRequests';
 import { Input, Question } from 'components/shared';
+import { formatSortCode, unformatSortCode } from 'helpers/misc';
 
 import ddlogo from 'assets/images/DirectDebitLogo.png';
+import { useGlobalContext } from 'state/globalState';
 
 const InstructionsToBank = () => {
+  const [globalState] = useGlobalContext();
+  const { isStudent } = globalState.ticket.raw;
   const [formDataState] = useFormDataContext();
   const { applicationForMe } = formDataState;
 
-  const prevStep = applicationForMe ? 'PayerOrTicketHolderPhoto' : 'PayerOrTicketHolderAddress';
+  const prevNonStudentStep = applicationForMe
+    ? 'PayerOrTicketHolderPhoto'
+    : 'PayerOrTicketHolderAddress';
+  const prevStep = isStudent ? 'PayerOrTicketHolderStudentProof' : prevNonStudentStep;
+
   const { goToNextStep } = useNavigationLogic(prevStep, 'HowDidYouFindOutAboutDD');
 
   const accountName = useFormDataSubscription('accountName');
-
   const sortCode = useFormDataSubscription('sortCode', [
-    { rule: 'NUMBER', message: 'The sort code must be 6 digit a number' },
+    { rule: 'NUMBER', message: 'The sort code must be in the form 12-34-56' },
   ]);
-
   const accountNumber = useFormDataSubscription('accountNumber', [
     { rule: 'NUMBER', message: 'The account number must be 6 to 8 digit number a number' },
   ]);
@@ -101,12 +107,14 @@ const InstructionsToBank = () => {
             Must be 6 digits long
           </>
         }
-        defaultValue={sortCode.currentValue}
+        defaultValue={formatSortCode(sortCode.currentValue || '')}
         type="text"
-        pattern="[0-9]*"
-        maxLength={6}
+        // pattern="[0-9]*"
+        maxLength={8}
         className="wmnds-col-1 wmnds-col-md-1-3"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => sortCode.set(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          sortCode.set(unformatSortCode(e.target.value) || '')
+        }
         error={sortCode.error}
       />
       <Input

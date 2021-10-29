@@ -8,6 +8,10 @@ import SuccessPage from './SuccessPage';
 
 import s from './Form.module.scss';
 
+// Debugger
+import Debugger from './Debugger';
+const isDevelopmentEnv = process.env.NODE_ENV === 'development';
+
 const ViewToShow = () => {
   const [globalState] = useGlobalContext();
   const { isStarted, isEditing, isFinished, isSubmitted } = globalState.form;
@@ -34,6 +38,11 @@ const ViewToShow = () => {
           {showSuccess && <SuccessPage />}
         </div>
       </div>
+      {showForm && isDevelopmentEnv && (
+        <div className="wmnds-col-md-1-4 wmnds-p-l-md">
+          <Debugger />
+        </div>
+      )}
     </div>
   );
 };

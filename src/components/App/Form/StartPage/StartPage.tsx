@@ -18,6 +18,17 @@ const StartPage = () => {
   const ticketInfoRequest = useGetTicketInfo(ticket.id);
   const startSessionRequest = useStartSession();
 
+  // Helper booleans
+  const canBuyOnDirectDebit =
+    ticketInfoRequest?.ticketInfo?.name && ticketInfoRequest?.ticketInfo?.raw?.buyOnDirectDebit;
+
+  // const userCanStartForm = /* Uncomment when SSL cert is fixed */
+  //   !ticketInfoRequest.isLoading &&
+  //   !ticketInfoRequest.hasError &&
+  //   ticketInfoRequest?.ticketInfo?.name &&
+  //   ticketInfoRequest?.ticketInfo?.raw?.buyOnDirectDebit;
+  const userCanStartForm = true;
+
   const startForm = async () => {
     let session: Nullable<TSession> = null;
 
@@ -45,7 +56,7 @@ const StartPage = () => {
       <h1>Buy on Direct Debit</h1>
       <h2>Your ticket</h2>
       <div className="wmnds-m-b-md">
-        {!ticketInfoRequest.ticketInfo || ticketInfoRequest.isLoading ? (
+        {!ticketInfoRequest.ticketInfo?.name || ticketInfoRequest.isLoading ? (
           <Loader />
         ) : (
           <TicketCard ticket={ticketInfoRequest.ticketInfo} />
@@ -79,15 +90,16 @@ const StartPage = () => {
         </li>
       </ul>
       <p>This part of the process takes around 5 to 10 minutes.</p>
+      {/* Start error message */}
+      {ticket.name && !canBuyOnDirectDebit && (
+        <p className="wmnds-m-b-sm">This ticket isn't available on Direct Debit</p>
+      )}
+      {/* End error message */}
       <Button
         text="Buy on Direct Debit"
         btnClass="wmnds-btn wmnds-btn--start wmnds-m-t-md"
         iconRight="general-chevron-right"
-        disabled={
-          !ticketInfoRequest.ticketInfo?.name ||
-          ticketInfoRequest.hasError ||
-          ticketInfoRequest.isLoading
-        }
+        disabled={!userCanStartForm}
         isFetching={startSessionRequest.isLoading}
         onClick={startForm}
       />

@@ -1,8 +1,8 @@
-import useNavigationLogic from 'customHooks/useNavigationLogic';
 import { useEffect } from 'react';
-import { useFormDataContext } from 'state/formDataState/context';
-import { useGlobalContext } from 'state/globalState/context';
-// import { useGlobalContext } from 'state/globalState/context';
+import { useFormDataContext } from 'state/formDataState';
+import { useGlobalContext } from 'state/globalState';
+import { useNavigationLogic } from 'customHooks';
+
 import {
   AboutThePayer,
   AboutYou,

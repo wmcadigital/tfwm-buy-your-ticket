@@ -1,15 +1,10 @@
-import { useCallback } from 'react';
-import Question from 'components/shared/Question/Question';
-import FileUpload from 'components/shared/FileUpload/FileUpload';
+import { useFormDataSubscription } from 'customHooks';
+import { Question, FileUpload } from 'components/shared';
+import { TSharedStepSimpleProps } from 'types/step';
 
-import useFormDataSubscription from 'customHooks/useFormDataSubscription';
-import useStoreSessionPhotos from 'customHooks/axiosRequests/useStoreSessionPhoto/useStoreSessionPhoto';
-import { TPhotoUploadProps } from './PhotoUpload.types';
-
-const PhotoUploadStep = ({ handleNavigation, question }: TPhotoUploadProps) => {
-  const file = useFormDataSubscription('file');
+const PhotoUploadStep = ({ handleNavigation, question }: TSharedStepSimpleProps) => {
+  const file = useFormDataSubscription('ticketHolderPhoto');
   const filename = useFormDataSubscription('filename');
-  const storeSessionPhotos = useStoreSessionPhotos(file.currentValue);
 
   const handleUpdateFile = (newFile: File | null) => {
     if (newFile === null) {
@@ -21,22 +16,15 @@ const PhotoUploadStep = ({ handleNavigation, question }: TPhotoUploadProps) => {
     }
   };
 
-  const handleContinue = useCallback(async () => {
+  const handleContinue = () => {
     const isFileValid = file.save();
     const isFilenameValid = filename.save();
     if (!isFileValid || !isFilenameValid) return;
-    const response = await storeSessionPhotos.sendRequest();
-    if (!response?.data[0].photo) return;
     handleNavigation();
-  }, [file, filename, handleNavigation, storeSessionPhotos]);
+  };
 
   return (
-    <Question
-      question={question}
-      handleContinue={handleContinue}
-      showError={filename.hasError || file.hasError || storeSessionPhotos.hasError}
-      isLoading={storeSessionPhotos.isLoading}
-    >
+    <Question question={question} handleContinue={handleContinue} showError={file.hasError}>
       <p>We&apos;ll use this on your new ticket.</p>
       <p>This must be a clear portrait photo of your face without any filters.</p>
       <FileUpload

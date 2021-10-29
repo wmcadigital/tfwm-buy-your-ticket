@@ -23,8 +23,7 @@ const initialState: TFormDataState = {
   schoolPostcode: null,
   employerName: null,
   employerPostcode: null,
-  file: null,
-  filename: null,
+  filename: '.',
   payerTitle: '.',
   payerFirstName: null,
   payerLastName: null,
@@ -82,6 +81,11 @@ const initialState: TFormDataState = {
   isChild: false,
   ticketPrice: null,
   receiveByftFree: null,
+  // Uploaded files
+  ticketHolderPhoto: null,
+  studentIdPhoto: null,
+  studentProofDocument: null,
+  identityDocument: null,
 };
 
 export default initialState;

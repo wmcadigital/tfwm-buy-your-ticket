@@ -31,32 +31,38 @@ const FileUpload = ({
   return (
     <fieldset className="wmnds-fe-fieldset">
       <legend className="wmnds-fe-fieldset__legend">
-        <p>
+        <p className="wmnds-m-b-md">
           <strong>{label}</strong>
         </p>
-        <p>{hint}</p>
+        <p className="wmnds-m-b-sm">{hint}</p>
       </legend>
-      <div className={`wmnds-fe-group ${error ? 'wmnds-fe-group--error' : ''}`}>
+      <div
+        className={`wmnds-fe-group ${s.fileUploadFeGroup} ${error ? 'wmnds-fe-group--error' : ''}`}
+      >
         {/* If there is an error, show here */}
         {error && <span className="wmnds-fe-error-message">{error?.message}</span>}
 
         {defaultFile ? (
           <>
-            <Icon className="wmnds-btn__icon wmnds-btn__icon--right" iconName="general-trash" />
-            <button
-              className="wmnds-btn wmnds-btn--destructive"
-              type="button"
-              name={name}
-              id={name}
-              title="Remove uploaded file"
-              onClick={() => updateFile(null)}
-            >
-              Remove file
-              <Icon className="wmnds-btn__icon wmnds-btn__icon--right" iconName="general-trash" />
-            </button>
-            <div className="wmnds-m-t-lg">
-              <img className={s.fileUploadPreview} src={previewUrl} alt="preview" />
+            <div className={`${s.fileUploadUploaded}`}>
+              <button
+                className="wmnds-btn wmnds-btn--destructive"
+                type="button"
+                name={name}
+                id={name}
+                title="Remove uploaded file"
+                onClick={() => updateFile(null)}
+              >
+                Remove file
+                <Icon className="wmnds-btn__icon wmnds-btn__icon--right" iconName="general-trash" />
+              </button>
+              <span className="wmnds-m-l-md">{defaultFile.name}</span>
             </div>
+            {defaultFile.type.indexOf('image') > -1 && (
+              <div className="wmnds-m-t-lg">
+                <img className={s.fileUploadPreview} src={previewUrl} alt="preview" />
+              </div>
+            )}
           </>
         ) : (
           <>

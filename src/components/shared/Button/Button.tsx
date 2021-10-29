@@ -2,6 +2,7 @@ import { Icon } from 'components/shared';
 
 import { TProps, propTypes, defaultProps } from './Button.types';
 import s from './Button.module.scss';
+import './Button.fix.scss';
 
 const Button = ({
   btnClass,
@@ -20,7 +21,7 @@ const Button = ({
       // eslint-disable-next-line react/button-has-type
       type={type}
       title={title}
-      className={`wmnds-btn ${btnClass} ${isActive ? 'wmnds-is--active' : ''} ${
+      className={`wmnds-btn ${btnClass} ${s.btnFix} ${isActive ? 'wmnds-is--active' : ''} ${
         iconRight ? s.iconRight : ''
       } ${disabled ? 'wmnds-btn--disabled' : ''}`}
       onClick={onClick}

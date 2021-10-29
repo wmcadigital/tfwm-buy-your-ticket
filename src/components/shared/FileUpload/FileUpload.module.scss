@@ -6,6 +6,10 @@
 @import '~assets/wmnds/vars';
 @import '~assets/wmnds/mixins';
 
+.fileUploadFeGroup {
+  margin-bottom: $size-lg;
+}
+
 .fileUpload {
   position: absolute;
   z-index: -1;
@@ -23,4 +27,13 @@
   outline: 0;
   background-color: get-color(primary);
   box-shadow: 0 0 0 2px $white, 0 0 0 4px get-color(secondary);
+}
+
+.fileUploadUploaded {
+  display: flex;
+  align-items: center;
+
+  button {
+    flex-shrink: 0;
+  }
 }

@@ -1,8 +1,5 @@
-import Question from 'components/shared/Question/Question';
-import Input from 'components/shared/Input';
-import WarningText from 'components/shared/WarningText/WarningText';
-
 import useFormDataSubscription from 'customHooks/useFormDataSubscription';
+import { Input, Question, WarningText } from 'components/shared';
 import { TFullNameStepProps } from './FullNameStep.types';
 
 const FullNameStep = ({

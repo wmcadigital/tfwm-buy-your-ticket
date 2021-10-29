@@ -24,3 +24,10 @@ export const sharedStepPropTypes = {
   question: PropTypes.string.isRequired,
   dataNamePrefix: PropTypes.oneOf(['payer', 'ticketHolder']),
 };
+
+export type TSharedStepSimpleProps = Pick<TSharedStepProps, 'handleNavigation' | 'question'>;
+
+export const sharedStepSimplePropTypes = {
+  handleNavigation: PropTypes.func.isRequired,
+  question: PropTypes.string.isRequired,
+};

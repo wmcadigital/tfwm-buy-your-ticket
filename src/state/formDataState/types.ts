@@ -27,7 +27,6 @@ export type TFormDataState = {
   schoolPostcode: Nullable<string>;
   employerName: Nullable<string>;
   employerPostcode: Nullable<string>;
-  file: Nullable<File>;
   filename: Nullable<string>;
   payerTitle: Nullable<string>;
   payerFirstName: Nullable<string>;
@@ -86,6 +85,11 @@ export type TFormDataState = {
   isChild: Nullable<boolean>;
   ticketPrice: Nullable<number>;
   receiveByftFree: Nullable<boolean>;
+  // Uploaded files
+  ticketHolderPhoto: Nullable<File>;
+  studentIdPhoto: Nullable<File>;
+  studentProofDocument: Nullable<File>;
+  identityDocument: Nullable<File>;
 };
 
 export type TFormDataStateKey = keyof TFormDataState;

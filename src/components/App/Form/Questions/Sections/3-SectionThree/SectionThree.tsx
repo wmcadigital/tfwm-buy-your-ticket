@@ -7,6 +7,8 @@ import PayerOrTicketHolderBirthDate from './Steps/2-PayerOrTicketHolderBirthDate
 import PayerOrTicketHolderContactDetails from './Steps/3-PayerOrTicketHolderContactDetails';
 import PayerOrTicketHolderAddress from './Steps/4-PayerOrTicketHolderAddress';
 import PayerOrTicketHolderPhoto from './Steps/5-PayerOrTicketHolderPhoto';
+import PayerOrTicketHolderStudentProof from './Steps/6-PayerOrTicketHolderStudentProof';
+import PayerOrTicketHolderIsApprentice from './Steps/7-PayerOrTicketHolderApprentice';
 
 const SectionThree = ({ totalSections }: TSectionProps) => {
   const [formDataState] = useFormDataContext();
@@ -24,6 +26,8 @@ const SectionThree = ({ totalSections }: TSectionProps) => {
         PayerOrTicketHolderContactDetails,
         PayerOrTicketHolderAddress,
         PayerOrTicketHolderPhoto,
+        PayerOrTicketHolderStudentProof,
+        PayerOrTicketHolderIsApprentice,
       ]}
     />
   );

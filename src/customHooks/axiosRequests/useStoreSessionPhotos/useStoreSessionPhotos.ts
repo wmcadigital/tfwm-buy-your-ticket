@@ -9,16 +9,18 @@ type TReturn = {
   photo: string;
 }[];
 
-const useStoreSessionPhoto = (file: Nullable<File>) => {
+const useStoreSessionPhotos = (photos: Nullable<File>[]) => {
   const [formDataState] = useFormDataContext();
   const { sessionNo } = formDataState;
 
   const { REACT_APP_DBAPI_HOST } = process.env;
 
-  let formData;
-  if (file) {
-    formData = new FormData();
-    formData.append(`postedPhotos`, file);
+  const formData: FormData = new FormData();
+  if (photos.length) {
+    photos.forEach((photo) => {
+      if (typeof photo !== 'object') return;
+      formData.append(`postedPhotos`, photo!);
+    });
   }
 
   const { hasError, isLoading, sendRequest, response } = useAxiosRequest<TReturn>({
@@ -27,7 +29,7 @@ const useStoreSessionPhoto = (file: Nullable<File>) => {
     data: formData,
   });
 
-  if (!file) {
+  if (!photos.length) {
     const emptyReturn: TReturn = [
       {
         sessionPhotoId: 0,
@@ -36,11 +38,13 @@ const useStoreSessionPhoto = (file: Nullable<File>) => {
       },
     ];
 
+    const emptyReturnArray = Array(photos.length).map(() => emptyReturn);
+
     return {
       hasError: false,
       isLoading: false,
       sendRequest: () => Promise.resolve({ data: emptyReturn } as AxiosResponse<TReturn> | null),
-      photoInfo: emptyReturn,
+      photoInfo: emptyReturnArray,
     };
   }
 
@@ -54,4 +58,4 @@ const useStoreSessionPhoto = (file: Nullable<File>) => {
   };
 };
 
-export default useStoreSessionPhoto;
+export default useStoreSessionPhotos;
