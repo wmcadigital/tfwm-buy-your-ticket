@@ -7,7 +7,7 @@ import { DateCell } from 'components/sharedTableCells';
 
 const AboutTheTicket = () => {
   const [formDataState] = useFormDataContext();
-  const { startDate, addProductToExistingCard } = formDataState;
+  const { startDate, addProductToExistingCard, outOfCounty } = formDataState;
 
   const [globalState] = useGlobalContext();
   const { ticket } = globalState;
@@ -73,6 +73,13 @@ const AboutTheTicket = () => {
       </button>,
     ],
     [<>{changeTicketMessage}</>],
+    outOfCounty
+      ? [
+          <span>Out of County station</span>,
+          <span>{outOfCounty}</span>,
+          <ChangeAnswerButton from="OutOfCounty" />,
+        ]
+      : [],
     [
       <span>Ticket starts from</span>,
       <DateCell date={startDate!} showDay />,

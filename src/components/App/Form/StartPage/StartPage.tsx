@@ -49,6 +49,10 @@ const StartPage = () => {
       payload: ticketInfoRequest.ticketInfo as TTicket,
     });
     globalStateDispatch({ type: 'START_FORM' });
+    globalStateDispatch({
+      type: 'GO_TO_SECTION_AND_STEP',
+      payload: { section: 1, step: ticketInfoRequest.ticketInfo?.raw!.outOfCounty ? 1 : 2 },
+    });
   };
 
   return (
@@ -92,7 +96,7 @@ const StartPage = () => {
       <p>This part of the process takes around 5 to 10 minutes.</p>
       {/* Start error message */}
       {ticket.name && !canBuyOnDirectDebit && (
-        <p className="wmnds-m-b-sm">This ticket isn't available on Direct Debit</p>
+        <p className="wmnds-m-b-sm">This ticket isn`&apos;`t available on Direct Debit</p>
       )}
       {/* End error message */}
       <Button

@@ -12,6 +12,7 @@ export type TFormDataState = {
   onlineSalesTransactionId: Nullable<number>;
   createdDateTime: string;
   applicationForMe: Nullable<boolean>;
+  outOfCounty: Nullable<string>;
   startDate: Nullable<Date>;
   ticketId: Nullable<number>;
   ticketCode: Nullable<string>;

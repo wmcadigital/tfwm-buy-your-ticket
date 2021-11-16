@@ -4,7 +4,6 @@ import { Question, Radios } from 'components/shared';
 
 const AddToExistingSwiftCard = () => {
   const [, formDataDispatch] = useFormDataContext();
-
   const addProductToExistingCard = useFormDataSubscription('addProductToExistingCard');
   const nextStep = addProductToExistingCard.currentValue
     ? 'AddSwiftCardNumber'

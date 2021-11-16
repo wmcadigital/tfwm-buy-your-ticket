@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const isNull = (value: any) => value === null;
 export const isNotNull = (value: any) => !isNull(value);
 

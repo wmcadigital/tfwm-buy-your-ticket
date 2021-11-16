@@ -23,8 +23,12 @@ const AboutTheTicketUser = () => {
     studentIdPhoto,
     studentProofDocument,
     identityDocument,
+    isApprentice,
+    schoolName,
+    schoolPostcode,
+    employerName,
+    employerPostcode,
   } = formDataState;
-
   const filesConfig = isNotNull(studentIdPhoto)
     ? [{ title: 'Student ID Card', file: studentIdPhoto! }]
     : [
@@ -63,6 +67,20 @@ const AboutTheTicketUser = () => {
       <span>Proof you&apos;re a student</span>,
       <FileCell filesConfig={filesConfig} />,
       <ChangeAnswerButton from="TicketHolderStudentProof" />,
+    ],
+    [
+      <span>Are you a student or apprentice?</span>,
+      <span> {isApprentice ? `Apprentice` : `Student`}</span>,
+      <ChangeAnswerButton from="TicketHolderApprentice" />,
+    ],
+    [
+      <span>
+        {isApprentice ? `Employer name and postcode` : `School or College name and postcode`}
+      </span>,
+      <span>
+        {isApprentice ? `${employerName}, ${employerPostcode}` : `${schoolName}, ${schoolPostcode}`}
+      </span>,
+      <ChangeAnswerButton from="TicketHolderApprentice" />,
     ],
   ];
 

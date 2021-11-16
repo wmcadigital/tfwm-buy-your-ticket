@@ -31,6 +31,7 @@ const SchoolOrCollegeStep = ({ question, handleNavigation }: TSharedStepSimplePr
         type="text"
         error={schoolName.error}
         label="School or college name"
+        defaultValue={schoolName.currentValue as string}
         onChange={handleDataChange(schoolName.set)}
       />
       <Input
@@ -38,6 +39,7 @@ const SchoolOrCollegeStep = ({ question, handleNavigation }: TSharedStepSimplePr
         type="text"
         error={schoolPostcode.error}
         label="School or college postcode"
+        defaultValue={schoolPostcode.currentValue as string}
         onChange={handleDataChange(schoolPostcode.set)}
       />
     </Question>

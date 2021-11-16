@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Input, Question } from 'components/shared';
 import { useFormDataSubscription } from 'customHooks';
 import { Nullable } from 'types/helpers';
@@ -12,7 +13,6 @@ const EmployerStep = ({ question, handleNavigation }: TSharedStepSimpleProps) =>
       changeFunc(e.target.value);
     };
   };
-
   const handleContinue = () => {
     const isEmployerNameIsValid = employerName.save();
     const isEmployerPostcodeIsValid = employerPostcode.save();
@@ -30,6 +30,7 @@ const EmployerStep = ({ question, handleNavigation }: TSharedStepSimpleProps) =>
         name="employerName"
         type="text"
         error={employerName.error}
+        defaultValue={employerName.currentValue as string}
         label="Employer name"
         onChange={handleDataChange(employerName.set)}
       />
@@ -38,6 +39,7 @@ const EmployerStep = ({ question, handleNavigation }: TSharedStepSimpleProps) =>
         type="text"
         error={employerPostcode.error}
         label="Employer postcode"
+        defaultValue={employerPostcode.currentValue as string}
         onChange={handleDataChange(employerPostcode.set)}
       />
     </Question>

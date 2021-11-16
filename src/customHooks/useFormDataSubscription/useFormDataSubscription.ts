@@ -8,8 +8,8 @@ import { TError } from 'types/validation';
 
 import { useGlobalContext } from 'state/globalState/context';
 import { TSingleFormDataStateValue } from 'state/formDataState/types';
-import { TUseFormDataSubscription } from './useFormDataSubscription.types';
 import { isNotNull } from 'helpers/misc';
+import { TUseFormDataSubscription } from './useFormDataSubscription.types';
 
 const useFormDataSubscription: TUseFormDataSubscription = (dataName, validationConfig = []) => {
   // Check whether this data exists in the formData

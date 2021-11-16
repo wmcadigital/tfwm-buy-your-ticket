@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
-
 import { useGlobalContext } from 'state/globalState';
 import { useNavigationLogic, useFormDataSubscription } from 'customHooks';
 import { DatePicker, Question } from 'components/shared';
 
 const TicketStartDate = () => {
-  const { goToNextStep } = useNavigationLogic('StartPage', 'AddToExistingSwiftCard');
-  const startDate = useFormDataSubscription('startDate');
-
   const [globalState] = useGlobalContext();
+  const { outOfCounty } = globalState.ticket.raw;
+  const prevStep = (() => {
+    if (outOfCounty) return 'OutOfCounty';
+    return 'StartPage';
+  })();
+  const { goToNextStep } = useNavigationLogic(prevStep, 'AddToExistingSwiftCard');
+  const startDate = useFormDataSubscription('startDate');
   const { availableDates } = globalState.ticket;
 
   useEffect(() => {

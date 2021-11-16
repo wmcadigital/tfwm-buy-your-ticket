@@ -1,7 +1,7 @@
-import { formPath } from './Questions/Sections';
 import { useGlobalContext } from 'state/globalState';
 import { TSectionAndStep } from 'types/navigation';
 import { sectionAndStepAreEqual } from 'helpers/sectionAndStep';
+import { formPath } from './Questions/Sections';
 
 const Debugger = () => {
   const [globalState, globalStateDispatch] = useGlobalContext();
